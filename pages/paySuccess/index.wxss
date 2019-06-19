@@ -1,0 +1,17 @@
+/* pages/paySuccess/index.wxss */
+
+.recommended-wrap{
+  width: 100%;
+  height: auto;
+  padding-top: 10rpx;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+border:1px solid transparent;
+}
+.recommended-wrap .part-title{
+font-size:32rpx;
+color:rgba(51,51,51,1);
+line-height: 110rpx;
+}

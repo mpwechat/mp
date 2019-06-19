@@ -1,0 +1,21 @@
+<view class='container'>
+  <view class='gobal-serach-content'>
+    <van-search value="{{inputValue}}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" placeholder-style='color:font-size:26rpx;color:rgba(218,218,218,1);'>
+      <view slot="action" bind:tap="onSearch" class='search-trrigger'>搜索</view>
+    </van-search>
+  </view>
+  <!-- 搜索历史 -->
+  <view class='seach-history'>
+    <view class='search-title'>搜索历史
+      <text class='clear'  bindtap='clearSearchHistory'>清空</text> </view>
+    <view class='search-words-item' wx:for="{{searckHistoryWords}}" wx:key="*" data-searchWord="{{item.text}}" bindtap='searchHistorySelect'>{{item.text}}</view>
+  </view>
+  <!-- 热门历史 -->
+  <view class='seach-history'>
+    <view class='search-title'>热门搜索
+      <view class='clear' bindtap='foldChange'>展开
+        <text class='iconfont   {{fold ? "icon-jiantou":"icon-xiajiantou"}} '></text> </view>
+    </view>
+    <view class='search-words-item' wx:for="{{hotWordsShow}}" wx:key="*" data-searchWord="{{item.text}}" bindtap='searchHotSelect'>{{item.text}}</view>
+  </view>
+</view>

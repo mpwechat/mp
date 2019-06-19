@@ -1,0 +1,131 @@
+/* pages/userInfo/index.wxss */
+
+.container {
+  background: #f3f3f3;
+}
+
+.avatar-img-wrap image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+
+.info-item {
+  height: 110rpx;
+  width: 100%;
+  background: #fff;
+  line-height: 110rpx;
+  padding: 0 30rpx;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-bottom: 1px solid #f3f3f3;
+}
+
+.info-item.avtar-info {
+  height: 132rpx;
+  line-height: 132rpx;
+}
+
+.info-item .cell-content {
+  display: inline-block;
+  height: 110rpx;
+  overflow: hidden;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  /* line-height: 110rpx; */
+}
+
+.info-item .cell-content:first-child {
+  float: left;
+}
+
+.info-item .cell-content:last-child {
+  float: right;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.info-item .avatar-img-wrap {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  margin-top: 22rpx;
+  float: left;
+}
+
+.iconfont.icon-arrow-right-copy-copy-copy {
+  color: #969696;
+  font-size: 40rpx;
+  margin-left: 40rpx;
+}
+
+.user-introduce {
+  width: 100%;
+  height: 221rpx;
+  background: rgba(255, 255, 255, 1);
+  margin: 20rpx 0;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 0 30rpx;
+  position: relative;
+}
+
+.user-introduce .cell-title {
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+}
+
+.iconfont.icon-bianji {
+  position: absolute;
+  top: 15rpx;
+  right: 30rpx;
+  color: #409eff;
+}
+
+.user-introduce-show {
+  margin-top: 10rpx;
+  width: 100%;
+  height: 130rpx;
+  font-size: 24rpx;
+  font-family: PingFang-SC-Regular;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  line-height: 32rpx;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  display: -webkit-box;
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 4;
+overflow: hidden;
+}
+.tips{
+  font-size:32rpx;
+font-weight:400;
+color:rgba(64,158,255,1);
+}
+.cell-content input{
+  height: 100%;
+  text-align:center;
+  width: 200rpx;
+}
+.cell-content .picker{
+  height: 100%;
+  text-align:center;
+  width: 200rpx;
+  font-size:32rpx;
+font-weight:400;
+color:rgba(51,51,51,1);
+}
+.user-introduce-show textarea{
+  width: 100%;
+  height: 100%;
+}

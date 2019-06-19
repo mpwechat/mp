@@ -1,0 +1,92 @@
+{
+  "pages": [
+    
+    "pages/index/index",
+    "pages/scenic/index",
+    "pages/bindPhone/index",
+    "pages/fillOrder/index",
+    "pages/userInfo/index",
+    "pages/bindEmail/index",
+    "pages/order/index",
+    "pages/search/index",
+    "pages/logs/logs",
+    "pages/Hot/index",
+    "pages/userCenter/index",
+    "pages/hotel/index",
+    "pages/food/index",
+    "pages/travelSelf/index",
+    "pages/travelPlus/index",
+    
+    "pages/globalSearch/index",
+    "pages/integral/index",
+    "pages/payment/index",
+    "pages/paySuccess/index",
+
+    "pages/myContacts/index",
+    "pages/myAddress/index",
+    "pages/addNewMan/index",
+    "pages/addNewAddress/index",
+    "pages/DetailsPage/index",
+    "pages/DateAndPricePicker/index",
+    "pages/MyCollection/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#409eff",
+    "navigationBarTitleText": "营销平台",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#409EFF",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "主页",
+        "iconPath": "asset/images/index_active.png",
+        "selectedIconPath": "asset/images/index_active.png"
+      },
+      {
+        "pagePath": "pages/search/index",
+        "text": "搜索",
+        "iconPath": "asset/images/search.png",
+        "selectedIconPath": "asset/images/search_active.png"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "text": "订单",
+        "iconPath": "asset/images/order.png",
+        "selectedIconPath": "asset/images/order_active.png"
+      },
+      {
+        "pagePath": "pages/userCenter/index",
+        "text": "我的",
+        "iconPath": "asset/images/my.png",
+        "selectedIconPath": "asset/images/my_active.png"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "data-price-picker": "pages/DateAndPricePicker/index",
+    
+    "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index",
+    "van-collapse": "/miniprogram_npm/vant-weapp/collapse/index",
+    "van-collapse-item": "/miniprogram_npm/vant-weapp/collapse-item/index",
+    "van-transition": "/miniprogram_npm/vant-weapp/transition/index",
+    "van-slider": "/miniprogram_npm/vant-weapp/slider/index",
+    "van-swipe-cell":"/miniprogram_npm/vant-weapp/swipe-cell/index",
+    "van-dialog":"/miniprogram_npm/vant-weapp/dialog/index",
+    "van-field":"/miniprogram_npm/vant-weapp/field/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-picker":"/miniprogram_npm/vant-weapp/picker/index",
+    "van-area":"/miniprogram_npm/vant-weapp/area/index",
+    "van-tag":"/miniprogram_npm/vant-weapp/tag/index",
+    "van-switch-cell":"/miniprogram_npm/vant-weapp/switch-cell/index",
+    "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index",
+    "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index"
+  }
+}

@@ -1,0 +1,47 @@
+<!--pages/paySuccess/index.wxml-->
+<view class='container pay-container'>
+  <view class='order-detail-wrap'>
+    <view class='order-detail-content'>
+      <view class='payment-security-tips'>
+        <image src='../../asset/images/orderIcon.png'></image>恭喜您支付成功！</view>
+      <view class='order-content'>
+        <view class='middle-wrap ' >
+          <text class='order-good-name'>乐园（2成人票）+烂苹果乐园（2成人票）+湘湖大酒店（大床房/一晚）</text>
+          <view class='order-finished-number'>订单编号：
+            <text class='order-finished-number-text'>12345678087</text>
+          </view>
+          
+          
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 价格 -->
+  <view class='order-need-price-wrap'>金额 <text class='order-price'>￥608</text>  <text class='review-price-detail' bindtap='reviewPriceDetail'>费用明细 </text> </view>
+<!-- 价格弹窗 -->
+<van-popup show="{{ reviewPriceDetail }}"  position="bottom"
+  overlay="{{ true }}" bind:close="onClose">
+  <view class='review-price-detail-wrap'>
+  <text class='review-price-detail-title'>费用明细</text>
+  </view>
+  </van-popup>
+  <!-- 为您推荐 -->
+  <view class='recommended-wrap'>
+  <text class='part-title'>为您推荐</text>
+   <!-- 单个商品 -->
+    <view class='hot-good-item' wx:for="{{goodShowArray}}" wx:key='{{index}}' >
+    <view class='img-wrap'>
+    <image src='{{item.img}}'></image>
+    </view>
+    <!-- 商品介绍 -->
+    <view class='hot-good-figure'>
+    <text class='hot-good-name'>{{item.goodName}}</text>
+    <view class='hot-good-discribe'> {{item.gooddiscribe}}</view>
+    <view class='price-option-wrap'>
+    <text class='hot-good-price'>¥{{item.goodprice}}</text>
+    <button type='warn' class='hot-good-option'>查看详情</button>
+    </view>
+    </view>
+    </view>
+  </view>
+</view>

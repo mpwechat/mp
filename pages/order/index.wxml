@@ -1,0 +1,133 @@
+<view class='container'>
+  <van-tabs animated>
+    <van-tab title="全部">
+      <view class='order-content-wrap' style='height:{{height}};'>
+        <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};' lower-threshold='100' >
+          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*' bindtap='getDetail'>
+            <view class='order-info-wrap'>
+              <view class='order-icon-wrap'>
+                <image src='../../asset/images/orderIcon.png'></image>
+              </view>
+              <view class='order-info-content'>
+                <text class='order-name'>{{item.orderNmae}}</text>
+                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <view class='order-price'>
+                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+              </view>
+
+            </view>
+            <view class='order-option-wrap'>
+            <button>重发短信</button>
+            <button>立即抢购</button>
+            </view>
+            <!-- 半圆修饰 -->
+            <view class='circle-decoration left'></view>
+            <view class='circle-decoration right'></view>
+          </view>
+        </scroll-view>
+      </view>
+    </van-tab>
+    <!-- 全部订单 -->
+    <van-tab title="未出行">
+     <view class='order-content-wrap' style='height:{{height}};'>
+        <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
+          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*'>
+            <view class='order-info-wrap'>
+              <view class='order-icon-wrap'>
+                <image src='../../asset/images/orderIcon.png'></image>
+              </view>
+              <view class='order-info-content'>
+                <text class='order-name'>{{item.orderNmae}}</text>
+                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <view class='order-price'>
+                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+              </view>
+
+            </view>
+            <view class='order-option-wrap'>
+            <button>重发短信</button>
+            <button>立即抢购</button>
+            </view>
+            <!-- 半圆修饰 -->
+            <view class='circle-decoration left'></view>
+            <view class='circle-decoration right'></view>
+          </view>
+        </scroll-view>
+      </view></van-tab>
+    <!-- 未出行订单 -->
+    <van-tab title="待支付">
+     <view class='order-content-wrap' style='height:{{height}};'>
+        <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
+          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*'>
+            <view class='order-info-wrap'>
+              <view class='order-icon-wrap'>
+                <image src='../../asset/images/orderIcon.png'></image>
+              </view>
+              <view class='order-info-content'>
+                <text class='order-name'>{{item.orderNmae}}</text>
+                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <view class='order-price'>
+                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+              </view>
+
+            </view>
+            <view class='order-option-wrap'>
+            <button>重发短信</button>
+            <button>立即抢购</button>
+            </view>
+            <!-- 半圆修饰 -->
+            <view class='circle-decoration left'></view>
+            <view class='circle-decoration right'></view>
+          </view>
+        </scroll-view>
+      </view></van-tab>
+    <!-- 待支付订单 -->
+
+  </van-tabs>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<wxs  module="filter">
+var judgeSate=function(state){
+  switch (state) {
+    case 0:
+      return '已完成';
+      break;
+      case 1:
+      return '未出行';
+      break;
+      default:
+      return '未支付';
+  }
+}
+    module.exports.judgeSate = judgeSate;
+
+</wxs>
+</view>
+
+

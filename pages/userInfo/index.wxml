@@ -1,0 +1,107 @@
+<!--pages/userInfo/index.wxml-->
+<view class='container'>
+  <view class='info-item avtar-info'>
+    <view class='cell-title cell-content'>我的头像</view>
+    <view class='cell-content'>
+      <view class='avatar-img-wrap'>
+        <image src='{{avtar}}'></image>
+      </view>
+      <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='changeAvtar'></text>
+    </view>
+  </view>
+  <view class='info-item '>
+    <view class='cell-title cell-content'>昵称</view>
+    <view class='cell-content' wx:if='{{replaceNickName}}'>
+      <input placeholder="" auto-focus value="{{nickName}}" />
+    </view>
+    <view class='cell-content' wx:else>
+      {{nickName}}
+      <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceNickerName'></text>
+    </view>
+
+
+  </view>
+  <view class='info-item '>
+    <view class='cell-title cell-content'>姓名</view>
+    <view class='cell-content' wx:if="{{replaceUserName}}">
+      <input placeholder="" auto-focus value="{{userName}}" />
+    </view>
+    <view class='cell-content' wx:else>
+      {{userName}}
+      <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceUserName'></text>
+    </view>
+
+  </view>
+  <view class='info-item '>
+    <view class='cell-title cell-content'>性别</view>
+
+    <view class='cell-content' wx:if="{{replaceSex}}">
+      <picker value="{{index}}" range="{{sexArray}}" bindchange="bindPickerChange">
+        <view class="picker">
+          {{sexArray[index]}}
+        </view>
+      </picker>
+    </view>
+     <view class='cell-content' wx:else>
+       {{sexArray[index]}}
+      <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceSex'></text>
+    </view>
+
+  </view>
+  <view class='info-item '>
+    <view class='cell-title cell-content'>我的生日</view>
+    <view class='cell-content' wx:if="{{replaceBirthDay}}">
+     <picker mode="date" value="{{date}}" start="1988-01-01" end="2070-01-01" bindchange="bindDateChange">
+    <view class="picker" >
+      {{date}}
+    </view>
+  </picker>
+    </view>
+    <view class='cell-content'  wx:else>
+      {{date}}
+      <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceBirthDay'></text>
+    </view>
+  </view>
+  <view class='user-introduce '>
+    <text class='cell-title'>自我介绍</text>
+    <text class='iconfont icon-bianji' bindtap='replaceUserIntroduce'  wx:if="{{!replaceUserIntroduce}}"></text>
+     <view class='user-introduce-show' wx:if="{{replaceUserIntroduce}}">
+    <textarea bindblur="bindTextAreaBlur" auto-focus maxlength='100'  value='{{userIntroduce}}' />
+    </view>
+    <view class='user-introduce-show' wx:else>
+      {{userIntroduce}}
+    </view>
+  
+  </view>
+  <view class='info-item '>
+      <view class='cell-title cell-content'>绑定手机</view>
+      <view class='cell-content'>
+        <!-- 1992年08月08日 -->
+        <text class='tips' bindtap='bindPhone'>去绑定</text>
+        <!-- <text class='iconfont icon-arrow-right-copy-copy-copy'></text> -->
+      </view>
+    </view>
+    <view class='info-item '>
+      <view class='cell-title cell-content'>绑定邮箱</view>
+      <view class='cell-content'>
+        1542142885@qq.com
+        <text class='tips' bindtap='bindEmail' >修改</text>
+        <!-- <text class='iconfont icon-arrow-right-copy-copy-copy'></text> -->
+      </view>
+    </view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>

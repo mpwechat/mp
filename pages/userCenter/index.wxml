@@ -1,0 +1,98 @@
+<!--pages/userCenter/index.wxml-->
+<view class="container">
+  <view class='user-info-wrap'>
+    <view class='user-info-content'>
+      <text class='username'>{{userInfo.nickName}}</text>
+      <view class='user-introduction'>
+        这是一段用户介绍这是一段用户介绍这是一段用户介绍这是一段用户介绍这是一段用户介绍这是一段用户介绍这是一段用户介绍这是一段用户介绍绍这是一段用户介绍这绍这是一段用户介绍这
+      </view>
+      <view class='avtar'>
+        <view class='avtar-content'>
+          <image src='{{userInfo.avatarUrl}}'></image>
+        </view>
+      </view>
+      <!-- 用户积分信息 -->
+      <view class='user-gender-wrap'>
+        <view class='user-gender-item'>
+          <text class='gender-content'>0</text> 优惠券
+        </view>
+        <view class='user-gender-item'>
+          <text class='gender-content'>3800</text> 积分
+        </view>
+        <view class='user-gender-item'>
+          <text class='gender-content'>V4</text> 会员等级
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 用户模块菜单 -->
+  <view class='user-menu-wrap'>
+    <view class='menu-item'>
+      <image src='../../asset/images/myorders.png'></image>
+      <view class='menu-item-content'>我的订单</view>
+    </view>
+    <view class='menu-item'>
+      <image src='../../asset/images/mycollection.png'></image>
+      <view class='menu-item-content' bindtap='myCollections'>我的收藏 </view>
+    </view>
+
+    <van-collapse value="{{ activeName }}" bind:change="onChange" border='false'>
+      <van-collapse-item name="1">
+        <view slot="title" class='slot-title'>
+          <image src='../../asset/images/myinfo.png'></image> 信息管理</view>
+        <view class='sub-menu' bindtap='myContacts'> 我的联系人</view>
+        <view class='sub-menu' bindtap='myAddress'> 我的地址</view>
+      </van-collapse-item>
+      <van-collapse-item name="2">
+        <view slot="title" class='slot-title'>
+          <image src='../../asset/images/mymember.png'></image> 我的会员</view>
+        <view class='sub-menu' bindtap='getUserInfo'> 会员信息</view>
+        <view class='sub-menu' bindtap='getMemberIntegral'> 会员积分</view>
+      </van-collapse-item>
+
+    </van-collapse>
+  </view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>

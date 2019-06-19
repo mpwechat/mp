@@ -1,0 +1,45 @@
+<!--pages/paySuccess/index.wxml-->
+<view class='container pay-container'>
+  <view class='order-detail-wrap'>
+    <view class='order-detail-content'>
+      <view class='payment-security-tips'>
+        <image src='../../asset/images/orderIcon.png'></image>恭喜您支付成功！</view>
+      <view class='order-content  '>
+        <view class='middle-wrap payment'>
+          <text class='order-good-name'>乐园（2成人票）+烂苹果乐园（2成人票）+湘湖大酒店（大床房/一晚）</text>
+          <view class='order-finished-number'>支付剩余时间：
+            <text class='order-finished-countdown'>15：00：00</text>
+          </view>
+          <view class='order-finished-number'>订单编号：
+            <text class='order-finished-number-text'>12345678087</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 价格 -->
+  <view class='order-need-price-wrap'>金额
+    <text class='order-price'>￥608</text>
+    <text class='review-price-detail' bindtap='reviewPriceDetail'>费用明细 </text> </view>
+  <!-- 支付方式选择 -->
+  <view class='payment-type-wrap'>
+    <text class='choose-payment-title'>请选择支付方式</text>
+    <view class='payment-item' wx:for="{{paymentType}}" wx:key='index'>
+      <view class='payment-img-wrap'  >
+        <image src='{{item.img}}'></image>
+      </view>
+      支付宝
+      <view class='payment-check-wrap' data-index="{{item.index}}" bindtap='checkPayment'>
+        <view class='check-circle {{item.check? "active":""}} '></view>
+      </view>
+    </view>
+  </view>
+  <button class='go-pay'>立即支付</button>
+  <!-- 价格弹窗 -->
+  <van-popup show="{{ reviewPriceDetail }}" position="bottom" overlay="{{ true }}" bind:close="onClose">
+    <view class='review-price-detail-wrap'>
+      <text class='review-price-detail-title'>费用明细</text>
+    </view>
+  </van-popup>
+
+</view>

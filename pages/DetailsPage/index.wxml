@@ -1,0 +1,107 @@
+<!--pages/DetailsPage/index.wxml-->
+<view class='container'>
+  <view class='MerPictures'>
+    <image src='../../asset/images/bginfo.png'></image>
+    <view class='PicturesNumber'>108张</view>
+  </view>
+  <view class='MerContent'>
+    <view class='ContentTitle'>千岛湖绿城度假村+酒店+森林氧吧+中心湖区门票（2张）【一线湖景】</view>
+    <view class='ContentInfo'>
+      <view class="ContentInfo_neirongTitle">套票内容：</view>
+      <view class='ContentInfo_neirong'>
+        <view>千岛湖中心湖区门票（2张）</view>
+        <view>千岛湖度假村酒店 大床房（1间）</view>
+        <view>森林氧吧(2人）</view>
+      </view>
+    </view>
+    <view class='ContentDay'>
+      <view>行程天数：</view>
+      <view>2天1晚</view>
+    </view>
+  </view>
+
+  <view class='left' id='affix'>
+    <scroll-view class='leftScroll' scroll-y>
+      <view class="{{state==index?'active-tag':''}}" wx:for="{{list}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
+    </scroll-view>
+  </view>
+  <view class='right'>
+    <scroll-view class='rightScroll' scroll-y scroll-into-view="{{toView}}" scroll-with-animation="true">
+      <view class='list_center'>
+        <view id="list_1">
+          <view class="list_1_title">套餐说明</view>
+          <view class='list_small_title'>费用包含：</view>
+          <view class='list_small_title'>【酒店】</view>
+          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+          <view class='list_small_title'>【门票】</view>
+          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+          <view class='list_small_title'>【其他】</view>
+          <view class='list_introduce'>森林氧吧（2人）</view>
+          <view class='list_small_title'>温馨提示：</view>
+          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+          <view class='list_small_title'>费用不包含：</view>
+          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+        </view>
+
+        <view id="list_2">
+          <view class="list_1_title">预定须知</view>
+          <view class='list_small_title'>费用包含：</view>
+          <view class='list_small_title'>【酒店】</view>
+          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+          <view class='list_small_title'>【门票】</view>
+          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+          <view class='list_small_title'>【其他】</view>
+          <view class='list_introduce'>森林氧吧（2人）</view>
+          <view class='list_small_title'>温馨提示：</view>
+          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+          <view class='list_small_title'>费用不包含：</view>
+          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+        </view>
+        <view id="list_3">
+          <view class="list_1_title"> 地图交通</view>
+          <view class='list_small_title'>费用包含：</view>
+          <view class='list_small_title'>【酒店】</view>
+          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+          <view class='list_small_title'>【门票】</view>
+          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+          <view class='list_small_title'>【其他】</view>
+          <view class='list_introduce'>森林氧吧（2人）</view>
+          <view class='list_small_title'>温馨提示：</view>
+          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+          <view class='list_small_title'>费用不包含：</view>
+          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+        </view>
+        <view id="list_4">
+          <view class="list_1_title">点评</view>
+          <view class='list_small_title'>费用包含：</view>
+          <view class='list_small_title'>【酒店】</view>
+          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+          <view class='list_small_title'>【门票】</view>
+          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+          <view class='list_small_title'>【其他】</view>
+          <view class='list_introduce'>森林氧吧（2人）</view>
+          <view class='list_small_title'>温馨提示：</view>
+          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+          <view class='list_small_title'>费用不包含：</view>
+          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+        </view>
+      </view>
+      
+
+    </scroll-view>
+  </view>
+
+
+  <view class='CollectionAndReserve'>
+    <view class='Collection' bindtap='Collection'>
+      <text class='iconfont  {{Collection ? "icon-collection":"icon-shoucang"}}'></text>
+      <view style='display:inline-block'>收藏</view>
+    </view>
+    <view class='Reserve' bindtap='Reserve'>
+      <button>{{show?'立即预订':'预定'}}</button>
+    </view>
+  </view>
+  <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
+    <data-price-picker inner-text="Some text"></data-price-picker>
+  </van-popup>
+</view>

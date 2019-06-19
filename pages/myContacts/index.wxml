@@ -1,0 +1,40 @@
+<view class='container'>
+  <view class='flex_center'>
+    <view wx:for="{{manList}}" wx:key='{{index}}'>
+      <view class='mainInfo'>
+      <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100'>
+        <van-swipe-cell right-width="{{ 65 }}" data-id="{{item.id}}" async-close bind:close="onClose">
+          <van-cell-group>
+            <view class='info'>
+              <view class='name'>{{item.name}}</view>
+              <text bindtap="editInfo" data-id="{{item.id}}" class="iconfont icon-bianji edit"></text>
+              <view class='idCardNum'>证件号:
+                <span>{{item.idenCard}}</span>
+              </view>
+              <view class='phoneNum'>手机号：
+                <span>{{item.phone}}</span>
+              </view>
+            </view>
+          </van-cell-group>
+          <view slot="right">
+            <view class='slotRight'>
+              <view class='reduce'>-</view>
+              <view class='delete'>删除</view>
+            </view>
+          </view>
+        </van-swipe-cell>
+</scroll-view>
+      </view>
+    </view>
+
+
+
+
+    <van-dialog id="van-dialog" />
+  </view>
+  <view class='button'>
+    <button bindtap="editInfo">+新增联系人</button>
+  </view>
+    <van-toast id="van-toast" />
+
+</view>

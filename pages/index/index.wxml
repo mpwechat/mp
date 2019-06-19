@@ -1,0 +1,135 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- banner -->
+  <view class='swiper-container'>
+    <view class='swiper-cont'>
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key='index'>
+          <swiper-item>
+            <image src="{{filter.completion(item.url)}}" class="slide-image" />
+          </swiper-item>
+        </block>
+      </swiper>
+      <!-- 过滤器 -->
+      <wxs module="filter">
+        var completion = function(val) {
+          return 'http://image.supconit.net' + '/' + val
+        }
+        module.exports.completion = completion;
+      </wxs>
+      <view class='search-wrap'>
+        <text class='area-wrap'>杭州  <text class="iconfont icon-xiajiantou"></text></text>
+        <view class='input-wrap'>
+          <text class="iconfont icon-Magnifier"></text>
+          <input placeholder='请输入您要查找的酒店名称' bindconfirm='goGlobalSearch' value='{{inputValue}}' bindinput='inputChange'></input>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- banner end -->
+  <view class='guide-wrap'>
+
+
+    <view class='guide-item' wx:for='{{guideItemArray}}' wx:key='index' data-url="{{item.path}}" bindtap='routerChange'>
+      <image src='{{item.img}}'></image>
+      {{item.text}}
+
+    </view>
+  </view>
+  <!-- 热门活动开始 -->
+  <view class='hot-activity-wrap'>
+    <view class='tabs-wrap'>
+      <text class='tilte'>热门活动</text>
+      <view class='tabs-item-wrap' >
+        <view   wx:for="{{activityOptimization}}" wx:key='index'  class="tabs-item {{activeTabIndex==index? 'active' : ''}}"   bindtap='setActiveKey' data-index="{{index}}">{{item.name}}</view>
+        <!-- <view class="tabs-item {{activeTabIndex==1? 'active' : ''}}" bindtap='setActiveKey2'>品质优选</view>
+        <view class="tabs-item {{activeTabIndex==2? 'active' : ''}}" bindtap='setActiveKey3'>餐饮</view> -->
+      </view>
+    </view>
+    <!-- tab完 -->
+    <view class='tabs-content-wrap'>
+      <!-- 今日必抢 -->
+      <view class='tabs-content' hidden='{{activeTabIndex==1||activeTabIndex==2}}'>
+        <scroll-view scroll-x='true'>
+          <view class='figure' wx:for="{{rob}}" wx:key='index'>
+            <view class='img-wrap'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='figcaption'>
+              <text class='good-name'>{{item.goodName}}</text>
+              <view class='good-discribe'>{{item.goodDiscribe}}</view>
+              <text class='price'>￥{{item.price}}起</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 品质优选 -->
+      <view class='tabs-content' hidden='{{activeTabIndex==0||activeTabIndex==2}}'>
+        <scroll-view scroll-x='true'>
+          <view class='figure' wx:for="{{optimization}}" wx:key='index'>
+            <view class='img-wrap'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='figcaption'>
+              <text class='good-name'>{{item.goodName}}</text>
+              <view class='good-discribe'>{{item.goodDiscribe}}</view>
+              <text class='price'>￥{{item.price}}起</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <!-- 餐饮 -->
+      <view class='tabs-content' hidden='{{activeTabIndex==1||activeTabIndex==0}}'>
+        <scroll-view scroll-x='true'>
+          <view class='figure' wx:for="{{foods}}" wx:key='index'>
+            <view class='img-wrap'>
+              <image src='{{item.img}}'></image>
+            </view>
+            <view class='figcaption'>
+              <text class='good-name'>{{item.goodName}}</text>
+              <view class='good-discribe'>{{item.goodDiscribe}}</view>
+              <text class='price'>￥{{item.price}}起</text>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+  </view>
+  <!-- 热门景区 -->
+  <view class='hot-activity '>
+    <text class='item-title'>热门景区</text>
+    <scroll-view scroll-x='true'>
+      <view class='figure' wx:for="{{hotSpot}}" wx:key='index'>
+        <view class='img-wrap'>
+          <image src='{{item.cover}}'></image>
+        </view>
+        <view class='figcaption'>
+          <text class='good-name'>{{item.name}}</text>
+          <view class='good-discribe'>{{item.description}}</view>
+         <!-- <text class='price' wx:if="{{item.minPrice==undefined}}"></text> -->
+          <text class='price' >￥{{item.minPrice}}起</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!-- 热门酒店 -->
+  <view class='hot-activity ' style='margin-top:70rpx;margin-bottom:30rpx;'>
+    <text class='item-title'>热门酒店</text>
+    <scroll-view scroll-x='true'>
+      <view class='figure' wx:for="{{hotHotel}}" wx:key='index'>
+        <view class='img-wrap'>
+          <image src='{{item.cover}}'></image>
+        </view>
+        <view class='figcaption'>
+          <text class='good-name'>{{item.name}}</text>
+          <view class='good-discribe' style='white-space:pre-line;'>{{item.description}}</view>
+          <!-- <text class='price' wx:if="{{item.minPrice==undefined}}"></text> -->
+          <text class='price' >￥{{item.minPrice}}起</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+
+
+</view>

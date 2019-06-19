@@ -1,0 +1,196 @@
+<!--pages/fillOrder/index.wxml-->
+<view class='container'>
+  <!-- 这里根据类型不同显示不同信息 -->
+  <view class='order-good-info-wrap'>
+    <view class='order-good-info-content' wx:if="{{goodType==0?true:false}}">
+      <view class='qualification-details'>
+        <text class='good-type-title'>酒店信息</text>
+        <view class='order-good-info-name'>湘湖大酒店 大床房</view>
+        <view class='start-date'>
+          <view class='start-date-item' bindtap='checkInStartDatePopupShow'> 入住：{{filter.format(checkInStartDate)}}</view>
+          <view class='start-date-item' bindtap='checkInEndDatePopupShow'> 离店：{{filter.format(checkInEndDate)}} </view>
+          <text>共1晚</text>
+          <wxs module="filter">
+            function format(ts) {
+              var d = getDate(ts)
+              return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+            }
+            module.exports.format = format
+          </wxs>
+        </view>
+        <!-- 入住时间选择 -->
+        <van-popup show="{{ checkInStartDatePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="closeCheckInStartDatePopup">
+          <van-datetime-picker type="date" value="{{checkInStartDate }}" min-date="{{ minDate }}" bind:confirm="sureCheckInStartDate" bind:cancel="cancelCheckInStartDate" />
+        </van-popup>
+        <!-- 离店时间选择 -->
+        <van-popup show="{{ checkInEndDatePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="closeCheckInEndDatePopup">
+          <van-datetime-picker type="date" value="{{checkInEndDate }}" min-date="{{ minDate }}" bind:confirm="sureCheckInEndDate" bind:cancel="cancelCheckInEndDate" />
+        </van-popup>
+        <!-- 房间数量 -->
+        <view class='room-number'>房间数量
+          <view class='room-number-text'>{{roomNumber}}</view>
+          <view class='number-option'>
+            <view class='number-option-item' bindtap='addRoomNumber'>
+              <text class='iconfont icon-jia'></text>
+            </view>
+            <view class='number-option-item' bindtap='minusRoomNUmber'>
+              <text class='iconfont icon-jian1'></text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 联系人信息开始 -->
+      <view class='contact-wrap'>
+        <text class='good-type-title'>联系人信息</text>
+        <view class='contact-wrapper' wx:for="{{contactArray}}" wx:key='index' wx:for-index="index" wx:for-item="item">
+          <view class='contact-content'>
+            联系人{{index+1}}
+            <text class='iconfont icon-jian' data-index='{{index}}' bindtap='deleteThisConatct'></text>
+            <view class='choose-from-contact-list' data-index="{{index}}">从联系人选择</view>
+          </view>
+          <view class='conatct-item'>
+            姓名：
+            <input placeholder="请输入联系人姓名" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value="{{item.name}}" />
+          </view>
+          <view class='conatct-item'>
+            联系电话：
+            <input placeholder="请输入联系人电话" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.phoneNumber}}' />
+          </view>
+          <!-- 保存联系人 -->
+          <view class='saveContact'>保存新的联系人</view>
+        </view>
+        <!-- 添加联系人 -->
+        <view class='add-contact-number' bindtap='addContactNumber'>
+          <text class='iconfont icon-jia1'></text> 继续添加联系人
+        </view>
+      </view>
+    </view>
+ <view class='order-good-info-content' wx:if="{{goodType==1?true:false}}">
+      <view class='qualification-details'>
+        <text class='good-type-title'>门票信息</text>
+        <view class='order-good-info-name'>门票11111</view>
+        <view class='start-date'>
+          <view class='start-date-item' >预定日期 </view>
+         
+      
+          
+        </view>
+      
+        <!-- 房间数量 -->
+        <view class='room-number'>门票数量
+          <view class='room-number-text'>{{ticketNumber}}</view>
+          <view class='number-option'>
+            <view class='number-option-item' bindtap='addTicketNumber'>
+              <text class='iconfont icon-jia'></text>
+            </view>
+            <view class='number-option-item' bindtap='minusTicketNUmber'>
+              <text class='iconfont icon-jian1'></text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <!-- 联系人信息开始 -->
+      <view class='contact-wrap'>
+        <text class='good-type-title'>游玩人信息</text>
+        <view class='contact-wrapper' wx:for="{{playerArray}}" wx:key='index' wx:for-index="index" wx:for-item="item">
+          <view class='contact-content'>
+           游玩人{{index+1}}
+            <text class='iconfont icon-jian' data-index='{{index}}' bindtap='deleteThisPlayer'></text>
+            <view class='choose-from-contact-list' data-index="{{index}}">从联系人选择</view>
+          </view>
+          <view class='conatct-item'>
+            姓名：
+            <input placeholder="请输入联系人姓名" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value="{{item.name}}" />
+          </view>
+          <view class='conatct-item'>
+            联系电话：
+            <input placeholder="请输入联系人电话" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.phoneNumber}}' />
+          </view>
+          <view class='conatct-item' bindtap='openThisChooseType'  data-index='{{index}}' >
+            证件类型： <view class='card-type'>{{item.IdCardType}}</view>     <text class='iconfont icon-arrow-right'></text>
+           
+
+<van-popup
+  show="{{idCardTypePopShow}}"
+  position="bottom"
+  overlay="{{overlay }}"
+  bind:close="chooseIdTypeonClose"
+>
+  <van-picker columns="{{ columns }}" bind:change="IdCardTypeonChange"   />
+</van-popup>
+
+
+
+
+
+          </view>
+          <view class='conatct-item'>
+            证件号码：
+            <input placeholder="请输入证件号码" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.IdCardNumber}}' />
+          </view>
+          <!-- 保存联系人 -->
+          <view class='saveContact'>保存新的联系人</view>
+        </view>
+        <!-- 添加联系人 -->
+        <view class='add-contact-number' bindtap='addPlayNumber'>
+          <text class='iconfont icon-jia1'></text> 继续添加游玩人
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <!-- 出行须知 -->
+  <view class='travel-information'>
+    <text class='good-type-title' style='margin-bottom:30rpx;display:block;'>出行须知</text>
+    <text class='good-type-title' style='margin-bottom:10rpx;'>注意事项</text>
+    <view class='matters-attention'>
+      根据上海市《公共场所吸烟控制条例》，自2017年3月1日起酒店不能安排吸烟房，并禁止在酒店室内区域吸烟。根据上海市《公共场所吸烟控制条例》，自2017年3月1日起酒店不能安排吸烟房，并禁止在酒店室内区域吸烟。根据上海市《公共场所吸烟控制条例》，自2017年3月1日起酒店不能安排吸烟房，并禁止在酒店室内区域吸烟。根据上海市《公共场所吸烟控制条例》，自2017年3月1日起酒店不能安排吸烟房，并禁止在酒店室内区域吸烟.
+    </view>
+
+  </view>
+
+  <!-- 支付金额 -->
+  <view class='pay-ment-wrap'>
+    <view class='price-detaile'>
+      支付金额：
+      <text class='order-price'>¥ 1800</text>
+      <text class='cost-detail' bindtap='costDetailShowOpen'>费用明细</text>
+    </view>
+    <view class='pay-now'>提交订单</view>
+  </view>
+  <!-- 费用明细 -->
+  <van-popup show="{{ costDetailShow }}" position="bottom" overlay="{{ overlay}}" bind:close="costDetailOnClose">
+    <view class='cost-detail-wrap'>
+      <text class='good-type-title' style='margin-bottom:10rpx;'>费用明细</text>
+    </view>
+  </van-popup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</view>

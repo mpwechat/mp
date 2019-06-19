@@ -1,0 +1,218 @@
+/* pages/userCenter/index.wxss */
+page{
+  background-color: #f3f3f3;
+}
+.container {
+  /* background: #000; */
+}
+
+.user-info-wrap {
+  width: 100%;
+  height: 430rpx;
+  background: rgba(64, 158, 255, 1);
+  overflow: hidden;
+}
+
+.user-info-content {
+  width: 690rpx;
+  height: 280rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 5rpx 15rpx 0px rgba(182, 182, 182, 0.5);
+  border-radius: 16rpx;
+  margin: 40rpx auto 0;
+  padding: 20rpx 28rpx;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.username {
+  display: block;
+  height: 50rpx;
+  font-size: 36rpx;
+  /* font-weight:bold; */
+  color: rgba(48, 49, 51, 1);
+  margin-bottom: 10rpx;
+}
+
+.user-introduction {
+  width: 400rpx;
+  height: 70rpx;
+  font-size: 24rpx;
+  color: rgba(102, 102, 102, 1);
+  line-height: 35rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.avtar {
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  background: rgba(92, 172, 255, 1);
+  border-radius: 50%;
+  right: 50rpx;
+  top: 20rpx;
+}
+
+.avtar .avtar-content {
+  width: 106rpx;
+  height: 106rpx;
+  margin: 6rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avtar .avtar-content image {
+  width: 100%;
+  height: 100%;
+}
+
+.user-gender-wrap {
+  height: 100rpx;
+  width: 635rpx;
+  margin: 30rpx auto 0;
+  border-top: 1px solid rgba(235, 238, 245, 1);
+  text-align: center;
+}
+
+.user-gender-wrap .user-gender-item {
+  width: 33%;
+  height: 100%;
+  display: inline-block;
+  position: relative;
+}
+
+.user-gender-wrap .user-gender-item::after {
+  content: '';
+  width: 1px;
+  height: 50rpx;
+  background: rgba(235, 238, 245, 1);
+  position: absolute;
+  top: 25rpx;
+  right: 0;
+}
+
+.user-gender-wrap .user-gender-item:last-child::after {
+  background: transparent;
+}
+
+.user-gender-wrap .user-gender-item {
+  font-size: 26rpx;
+  font-weight: bold;
+  color: rgba(102, 102, 102, 1);
+  line-height: 60rpx;
+}
+
+.user-gender-wrap  .gender-content {
+  display: block;
+  height: 40rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: rgba(64, 158, 255, 1);
+}
+
+.user-menu-wrap {
+  width: 100%;
+  height: auto;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  padding: 40rpx 0 0 20rpx;
+}
+
+.menu-item {
+  width: 100%;
+  height: 100rpx;
+  overflow: hidden;
+}
+
+.menu-item image ,.slot-title  image{
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 25rpx;
+  float: left;
+}
+.slot-title  image{
+ 
+  margin-right: 25rpx;
+}
+.slot-title{
+   font-size: 26rpx;
+  font-weight: bold;
+  color: rgba(48, 49, 51, 1);
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.menu-item-content {
+  width: calc(100% - 50rpx);
+  float: right;
+  height: 100%;
+  line-height: 100rpx;
+  border-bottom: 1px solid rgba(238, 238, 238, 1);
+  box-sizing: border-box;
+  font-size: 26rpx;
+  font-weight: bold;
+  color: rgba(48, 49, 51, 1);
+  text-indent: 25rpx;
+}
+.item-index--van-cell.van-cell{
+padding-left: 0 !important;
+line-height: 100rpx;
+/* padding-right:0 !important; */
+}
+.van-collapse-item.van-collapse-item{
+  line-height: 100rpx;
+}
+
+.item-index--van-cell.van-cell{
+  background: transparent !important;
+  position: relative;
+ 
+}
+
+/* .item-index--van-cell.van-cell */
+.van-cell{
+  height: 100rpx;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: 100rpx;
+  
+}
+van-collapse-item{
+ border: none !important;
+ position: relative;
+}
+
+.van-collapse-item__content{
+   background: transparent !important;
+}
+.van-cell__title.van-cell__title{
+  position: relative;
+  /* border: 1px solid red; */
+}
+.van-cell__title.van-cell__title::after{
+  content: "";
+  width:680rpx;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  right: -12%;
+  background: rgba(238, 238, 238, 1);
+}
+.user-menu-wrap .van-cell__right-icon{
+  line-height: 100rpx !important;
+  height: 100rpx;
+}
+.sub-menu{
+  line-height: 100rpx;
+  height: 100rpx;
+
+ text-indent: 40rpx;
+}
+.van-cell__right-icon-wrap.van-cell__right-icon-wrap.item-index--van-cell__right-icon{
+  height: auto;
+}

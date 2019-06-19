@@ -1,0 +1,20 @@
+<!--pages/bindEmail/index.wxml-->
+<view class='container'>
+  <view class='bind-wrap'>
+    <view class='bind-item'>邮箱
+      <view class='input-wrap'>
+        <input placeholder="请输入邮箱地址" auto-focus placeholder-style="color:#ADADAD;font-size:32rpx;"  bindinput='inputChange' value="{{email}}"/>
+        <text class='iconfont icon-guanbi' bindtap='clearInput'></text>
+      </view>
+    </view>
+    <view class='bind-item'>验证码
+      <view class='input-wrap'>
+        <input placeholder="请输入验证码" auto-focus placeholder-style="color:#ADADAD;font-size:32rpx;" wx:if='{{!countdownShow}}' />
+        <view class='getVerificationCode' wx:if='{{countdownShow}}' bindtap="getCode">获取验证码</view>
+        <view class='countdown' wx:else>重新获取({{countdown}}s)</view>
+      </view>
+    </view>
+    <!-- 提交按钮 -->
+    <button class='submit' bindtap='bindGo'>绑定</button>
+  </view>
+</view>

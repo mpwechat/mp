@@ -1,0 +1,97 @@
+<!--pages/integral/index.wxml-->
+<view class='container'>
+  <view class='integral-bg'>
+    <text>当前积分</text>
+    <view class='current-integral-rap'>
+      <image src='http://image.supconit.net/jifen.png'></image>
+      38000
+    </view>
+  </view>
+  <view class='view-title'>积分明细</view>
+  <van-tabs animated>
+    <van-tab title="全部">
+      <view class='integral-content-wrap'>
+        <view class='integral-content'>
+          <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
+            <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
+              <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
+              <wxs module="filter">
+                var formmater = function(ts) {
+                  var d = getDate( parseInt(ts))
+                  return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+                }
+                module.exports.formmater = formmater;
+              </wxs>
+              <view class='change-detail'>
+                <view class='change-detail-name'>{{filter.formmater(item.createTime)}}</view>
+                <view class='change-detail-dis'>{{item.description}}</view>
+                <view class='change-detail-score {{item.positive? "green":"red" }}'>
+                  <text class='plus' wx:if='{{item.positive}}'>+</text>
+                  <text class='minus' wx:else>-</text> 200
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="收入">
+      <view class='integral-content-wrap'>
+        <view class='integral-content'>
+          <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
+            <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
+              <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
+              <wxs module="filter">
+                var formmater = function(ts) {
+                  var d = getDate( parseInt(ts))
+                  return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+                }
+                module.exports.formmater = formmater;
+              </wxs>
+              <view class='change-detail'>
+                <view class='change-detail-name'>{{filter.formmater(item.createTime)}}</view>
+                <view class='change-detail-dis'>{{item.description}}</view>
+                <view class='change-detail-score {{item.positive? "green":"red" }}'>
+                  <text class='plus' wx:if='{{item.positive}}'>+</text>
+                  <text class='minus' wx:else>-</text> 200
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </van-tab>
+    <van-tab title="支出">
+     <view class='integral-content-wrap'>
+        <view class='integral-content'>
+          <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
+            <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
+              <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
+              <wxs module="filter">
+                var formmater = function(ts) {
+                  var d = getDate( parseInt(ts))
+                  return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+                }
+                module.exports.formmater = formmater;
+              </wxs>
+              <view class='change-detail'>
+                <view class='change-detail-name'>{{filter.formmater(item.createTime)}}</view>
+                <view class='change-detail-dis'>{{item.description}}</view>
+                <view class='change-detail-score {{item.positive? "green":"red" }}'>
+                  <text class='plus' wx:if='{{item.positive}}'>+</text>
+                  <text class='minus' wx:else>-</text> 200
+                </view>
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </van-tab>
+
+  </van-tabs>
+
+
+
+
+
+</view>

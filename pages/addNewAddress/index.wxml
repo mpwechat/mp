@@ -1,0 +1,62 @@
+<!--pages/addNewAddress/index.wxml-->
+<view class='container'>
+  <view class='input_top'>
+    <view class='nameAndPhone'>
+      <view style='width:100%;height:110rpx;position:relative;border-bottom:1px solid #F3F3F3;'>
+        <view class='name'>姓名
+          <span style="color:#D80000">*</span>
+        </view>
+        <view class='inputName'>
+          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" />
+        </view>
+      </view>
+      <view style='width:100%;height:110rpx;position:relative;border-bottom:1px solid #F3F3F3;'>
+        <view class='name'>手机号
+          <span style="color:#D80000">*</span> +86</view>
+        <view class='inputName'>
+          <input type='text' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" />
+        </view>
+      </view>
+      <view class='MailList'>
+        <text class='iconfont icon-tongxunlu Mail' bindinput="MailList" ></text>
+      </view>
+    </view>
+  </view>
+  <view class='CertificateNum'>
+    <van-cell style="border-bottom:1px solid #F3F3F3 !important" bind:click="choseAddress" title="所在城市" is-link value="{{InAddress}}" />
+    <view style='width:100%;height:110rpx; position: relative;border-bottom:1px solid #F3F3F3;'>
+      <view class='name'>详细地址
+        <span style="color:#D80000">*</span>
+      </view>
+      <view class='inputName'>
+        <input type='text' style="direction: rtl;padding-right:40rpx;width:516rpx" bindinput="InputCertificateNum" placeholder="小区/楼号/单元/门牌号" />
+      </view>
+    </view>
+    <view style='width:100%;height:110rpx; position: relative;border-bottom:1px solid #F3F3F3;'>
+      <view class='name'>地址类型</view>
+      <view class='tags'>
+       <van-tag plain color="#409EFF" style="line-height:110rpx;">公司</van-tag>
+       <van-tag plain style="line-height:110rpx;">家庭</van-tag>
+       <van-tag plain style="line-height:110rpx;">学校</van-tag>
+       <van-tag plain style="line-height:110rpx;">其他</van-tag> 
+      </view>
+    </view>
+    <van-switch-cell
+      title="设为默认"
+      checked="{{ checked }}"
+      bind:change="onChange"
+    />
+  </view>
+  <view class='notes'>注：带有“<span style="color:#D80000">*</span>”为必填内容</view>
+  <view class="button">
+    <button>保存地址</button>
+  </view>
+  <van-popup
+    show="{{ show }}"
+    position="bottom"
+    overlay="{{ true }}"
+    bind:close="onClose"
+  >
+    <van-area area-list="{{ areaList }}"  bind:confirm = "confirm" bind:cancel = "cancel" />
+  </van-popup>
+</view>
