@@ -36,14 +36,28 @@
     <view class='cell-title cell-content'>性别</view>
 
     <view class='cell-content' wx:if="{{replaceSex}}">
-      <picker value="{{index}}" range="{{sexArray}}" bindchange="bindPickerChange">
+    <view class='cell-content'     bindtap='replaceSex' style='padding-right:85rpx;font-size:32rpx;font-weight:400;color:rgba(51, 51, 51, 1);'>
+      {{sexArray[index].text}}
+    </view>
+      <!-- <picker value="{{index}}" range="{{sexArray}}" bindchange="bindPickerChange">
         <view class="picker">
           {{sexArray[index]}}
         </view>
-      </picker>
+      </picker> -->
+      <van-popup
+  show="{{sexPopupShow}}"
+  position="bottom"
+  bind:close="onClose"
+   overlay="{{overlay}}"   class='sex-mune-poup'
+>
+  <view class='sex-mune-wrap'>
+  <view class='sex-mune-item' wx:for="{{sexArray}}" wx:key='*' bindtap='sexChoose' data-index='{{item.index}}'>{{item.text}}</view>
+  </view>
+  <view class='close-sex-popup' bindtap="onClose">取消</view>
+</van-popup>
     </view>
      <view class='cell-content' wx:else>
-       {{sexArray[index]}}
+       {{sexArray[index].text}}
       <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceSex'></text>
     </view>
 
@@ -51,16 +65,34 @@
   <view class='info-item '>
     <view class='cell-title cell-content'>我的生日</view>
     <view class='cell-content' wx:if="{{replaceBirthDay}}">
-     <picker mode="date" value="{{date}}" start="1988-01-01" end="2070-01-01" bindchange="bindDateChange">
-    <view class="picker" >
-      {{date}}
-    </view>
-  </picker>
+  <view bindtap='openChooseBirthDay'>{{filter.format(date)}}</view>
+          
+  <van-popup
+  show="{{ chooseBirthDayshow }}"
+  position="bottom"
+  overlay="{{overlay }}"
+  bind:close="chooseBirthDayshowonClose"
+>
+  <van-datetime-picker
+  type="date"
+  value="{{ date}}"
+  formatter="{{ formatter }}"
+  bind:cancel="chooseBirthDayCancel"
+  bind:confirm='chooseBirthDayConfirm'
+/>
+</van-popup>
     </view>
     <view class='cell-content'  wx:else>
-      {{date}}
+     {{filter.format(date)}}
       <text class='iconfont icon-arrow-right-copy-copy-copy' bindtap='replaceBirthDay'></text>
     </view>
+    <wxs module="filter">
+            function format(ts) {
+              var d = getDate(ts)
+              return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+            }
+            module.exports.format = format
+          </wxs>
   </view>
   <view class='user-introduce '>
     <text class='cell-title'>自我介绍</text>
@@ -88,6 +120,8 @@
         <text class='tips' bindtap='bindEmail' >修改</text>
         <!-- <text class='iconfont icon-arrow-right-copy-copy-copy'></text> -->
       </view>
+      <!-- 保存按钮 -->
+      <view class='save-userInfo' wx:if='{{replaceAvtar||replaceNickName||replaceUserName||replaceSex ||replaceBirthDay ||replaceUserIntroduce}}'>保存</view>
     </view>
 
 
