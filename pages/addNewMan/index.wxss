@@ -63,8 +63,8 @@
 }
 .Mail{
   position: absolute;
-  right: 50rpx;
-  top: 73rpx;
+  right: 38rpx;
+  top: 62rpx;
 }
 .notes{
   width: 100%;

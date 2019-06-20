@@ -21,6 +21,7 @@
 
       <view class='MailList'>
         <text class='iconfont icon-tongxunlu Mail' bindinput="MailList" ></text>
+        <view style='position:absolute;top:128rpx;font-size:26rpx;color:#409EFF;right:34rpx;'>通讯录</view>
       </view>
     </view>
   </view>

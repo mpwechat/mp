@@ -7,18 +7,19 @@
           <span style="color:#D80000">*</span>
         </view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" data-name='{{username}}' value='{{username}}'/>
+          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" data-name='{{username}}' value='{{username}}' />
         </view>
       </view>
       <view style='width:100%;height:110rpx;position:relative;border-bottom:1px solid #F3F3F3;'>
         <view class='name'>手机号
           <span style="color:#D80000">*</span> +86</view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" data-name='{{telphone}}' value='{{telphone}}'/>
+          <input type='text' maxlength='11' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" data-name='{{telphone}}' value='{{telphone}}' />
         </view>
       </view>
       <view class='MailList'>
-        <text class='iconfont icon-tongxunlu Mail' bindinput="MailList" ></text>
+        <text class='iconfont icon-tongxunlu Mail' bindinput="MailList"></text>
+        <view style='position:absolute;top:128rpx;font-size:26rpx;color:#409EFF;right:34rpx;'>通讯录</view>
       </view>
     </view>
   </view>
@@ -29,34 +30,26 @@
         <span style="color:#D80000">*</span>
       </view>
       <view class='inputName'>
-        <input type='text' style="direction: rtl;padding-right:40rpx;width:516rpx" bindinput="InputCertificateNum" placeholder="小区/楼号/单元/门牌号" data-name='{{address}}' value='{{address}}'/>
+        <input type='text' style="direction: rtl;padding-right:40rpx;width:516rpx" bindinput="InputCertificateNum" placeholder="小区/楼号/单元/门牌号" data-name='{{address}}' value='{{address}}' />
       </view>
     </view>
     <view style='width:100%;height:110rpx; position: relative;border-bottom:1px solid #F3F3F3;'>
       <view class='name'>地址类型</view>
       <view class='tags'>
-       <van-tag plain wx:if="{{type==1?'color=#409EFF':'color=#409EFF'}}"  style="line-height:110rpx;">公司</van-tag>
-       <van-tag plain style="line-height:110rpx;">家庭</van-tag>
-       <van-tag plain style="line-height:110rpx;">学校</van-tag>
-       <van-tag plain style="line-height:110rpx;">其他</van-tag> 
+        <van-tag plain color="{{type==1?'#409EFF':''}}" style="line-height:110rpx;">公司</van-tag>
+        <van-tag plain color="{{type==2?'#409EFF':''}}" style="line-height:110rpx;">家庭</van-tag>
+        <van-tag plain color="{{type==3?'#409EFF':''}}" style="line-height:110rpx;">其他</van-tag>
       </view>
     </view>
-    <van-switch-cell
-      title="设为默认"
-      checked="{{ defaultOrNot }}"
-      bind:change="onChange"
-    />
+    <van-switch-cell title="设为默认" checked="{{ defaultOrNot }}" bind:change="onChange" />
   </view>
-  <view class='notes'>注：带有“<span style="color:#D80000">*</span>”为必填内容</view>
+  <view class='notes'>注：带有“
+    <span style="color:#D80000">*</span>”为必填内容</view>
   <view class="button">
-    <button>保存地址</button>
+    <button bindtap="EditOrAddInfo">保存地址</button>
   </view>
-  <van-popup
-    show="{{ show }}"
-    position="bottom"
-    overlay="{{ true }}"
-    bind:close="onClose"
-  >
-    <van-area area-list="{{ areaList }}"  bind:confirm = "confirm" bind:cancel = "cancel" />
+  <van-popup show="{{ show }}" position="bottom" overlay="{{ true }}" bind:close="onClose">
+    <van-area area-list="{{ areaList }}" bind:confirm="confirm" bind:cancel="cancel" />
   </van-popup>
+  <van-toast id="van-toast" />
 </view>

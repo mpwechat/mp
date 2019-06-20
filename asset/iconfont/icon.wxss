@@ -25,7 +25,7 @@
 
 .icon-tongxunlu:before {
   content: "\e63a";
-  font-size: 40px;
+  font-size: 30px;
   color: #409EFF;
 }
 

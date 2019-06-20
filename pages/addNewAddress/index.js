@@ -1,5 +1,6 @@
 // pages/addNewAddress/index.js
 import addressJson from '../../utils/address.js'
+import Toast from '/../../miniprogram_npm/vant-weapp/toast/toast.js';
 Page({
 
   /**
@@ -7,6 +8,7 @@ Page({
    */
   data: {
     InAddress: '',
+    id:'',
     show: false,
     areaList: addressJson,
     username:'',
@@ -31,11 +33,17 @@ Page({
     if (e.detail.values[2] == undefined){
       this.setData({
         InAddress: e.detail.values[0].name + '' + e.detail.values[1].name,
+        province: e.detail.values[0].name,
+        city: e.detail.values[1].name,
+        area: '',
         show: false
       })
     } else {
       this.setData({
         InAddress: e.detail.values[0].name + '' + e.detail.values[1].name + ' ' + e.detail.values[2].name,
+        province: e.detail.values[0].name,
+        city: e.detail.values[1].name,
+        area: e.detail.values[2].name,
         show: false
       })
     }
@@ -95,12 +103,124 @@ Page({
       })
     }
   },
+  InputName(e) {
+    let name = e.detail.value;
+    if (!(/^[\u4E00-\u9FA5A-Za-z]+$/.test(name))) {
+      Toast.fail('姓名输入有误')
+    } else {
+      this.setData({
+        username: name
+      })
+    }
 
+  },
+  InputPhoneNum(e) {
+    let telphone = e.detail.value;
+    if (telphone.length === 11) {
+      if (!(/^((13[0-9])|(14[0-9])|(15[0-9])|(17[0-9])|(18[0-9]))\d{8}$/.test(telphone))) {
+        Toast.fail('手机号码有误')
+      } else {
+        this.setData({
+          telphone: telphone
+        })
+      }
+    }
+  },
+  InputCertificateNum(e) {
+    let address = e.detail.value;
+    this.setData({
+      address: address
+    })
+  },
+  EditOrAddInfo() { //判断是编辑还是新增
+    const that = this
+    if (that.data.username == '') {
+      Toast.fail('姓名不能为空')
+    } else if (that.data.telphone == '') {
+      Toast.fail('手机号不能为空')
+    } else if (that.data.address == '') {
+      Toast.fail('详细地址不能为空')
+    } else {
+      if (that.data.id != undefined && that.data.id != '') {
+        that.editInfo(that.data.id)
+      } else {
+        that.AddInfo()
+      }
+    }
+  },
+
+  editInfo(id) {
+    let that = this
+    wx.request({
+      url: 'https://www.supconit.net/customer/address/' + id,
+      data: {
+        "address": that.data.address,
+        "area": that.data.area,
+        "city": that.data.city,
+        "default": that.data.defaultOrNot,
+        "id": that.data.id,
+        "name": that.data.name,
+        "phone": that.data.telphone,
+        "province": that.data.province,
+        "type": that.data.type
+      },
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'PUT',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res, 'ressssss')
+        wx.redirectTo({
+          url: '/pages/myAddress/index'    //或者url: '/page/person/goldcoin/index'
+        })
+      }
+    })
+  },
+  AddInfo() {
+    let that = this
+    console.log('adddddddddInfoooo')
+    wx.request({
+      url: 'https://www.supconit.net/customer/address',
+      data: {
+        "address": that.data.address,
+        "area": that.data.area,
+        "city": that.data.city,
+        "default": that.data.defaultOrNot,
+        "customerId": 0,
+        "id": 0,
+        "name": that.data.username,
+        "phone": that.data.telphone,
+        "province": that.data.province,
+        "type": '2'
+      },
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res, 'addNewinfo')
+        wx.redirectTo({
+          url: '/pages/myAddress/index'    //或者url: '/page/person/goldcoin/index'
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getAddressInfo(options)
+    console.log(options,'options')
+    if (options.id != 'undefined') {
+      this.setData({
+        id: options.id
+      })
+      this.getAddressInfo(options)
+    } else {
+    }
   },
 
   /**
