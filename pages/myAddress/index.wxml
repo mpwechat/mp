@@ -1,53 +1,40 @@
 <!--pages/MyAddress/index.wxml-->
 <view class='container'>
   <view class='flex_center'>
-    <view class='mainInfo'>
-      <van-swipe-cell right-width="{{ 65 }}" async-close bind:close="onClose">
-        <van-cell-group>
-          <view class='info'>
-            <view class='name' decode="{{true}}">刘雪梅
-              <text decode="{{true}}">&emsp;17698375237</text>
-              <text decode="true">&emsp;(家庭地址)</text>
+    <view wx:for="{{addressList}}" wx:key='{{index}}'>
+      <view class='mainInfo'>
+        <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100'>
+          <van-swipe-cell right-width="{{ 65 }}" data-id="{{item.id}}" async-close bind:close="onClose">
+            <van-cell-group>
+              <view class='info'>
+                <view class='name' decode="{{true}}">{{item.name}}
+                  <text decode="{{true}}">&emsp;{{item.phone}}</text>
+                  <text decode="true" wx:if="{{item.type == 1}}">&emsp;(家庭地址) </text>
+                  <text decode="true" wx:elif="{{item.type == 2}}">&emsp;(公司住址)</text>
+                  <text decode="true" wx:else>&emsp;(其他住址)</text>
+                </view>
+                <van-tag class="moren" type="primary" wx:if="{{item.default}}">默认</van-tag>
+                <text bindtap="editInfo" data-id="{{item.id}}" class="iconfont icon-bianji edit"></text>
+                <view class='idCardNum'>
+                  <text>{{item.province}} {{item.city}} {{item.area}} {{item.address}}</text>
+                </view>
+              </view>
+            </van-cell-group>
+            <view slot="right">
+              <view class='slotRight'>
+                <view class='reduce'>-</view>
+                <view class='delete'>删除</view>
+              </view>
             </view>
-            <text bindtap="editInfo" class="iconfont icon-bianji edit"></text>
-            <view class='idCardNum'>
-              <text>浙江省 杭州市 萧山区 北干街道 绿都湖滨花园 17栋 1901</text>
-            </view>
-          </view>
-        </van-cell-group>
-        <view slot="right">
-          <view class='slotRight'>
-            <view class='reduce'>-</view>
-            <view class='delete'>删除</view>
-          </view>
-        </view>
-      </van-swipe-cell>
-    </view>
-    <view class='mainInfo'>
-      <van-swipe-cell right-width="{{ 65 }}" async-close bind:close="onClose">
-        <van-cell-group>
-          <view class='info'>
-            <view class='name' decode="{{true}}">刘雪梅
-              <text decode="{{true}}">&emsp;17698375237</text>
-              <text decode="true">&emsp;(家庭地址)</text>
-            </view>
-            <text bindtap="editInfo" class="iconfont icon-bianji edit"></text>
-            <view class='idCardNum'>
-              <text>浙江省 杭州市 滨江区 长河街道 滨康路352号 中控信息大厦 A座 22楼北</text>
-            </view>
-          </view>
-        </van-cell-group>
-        <view slot="right">
-          <view class='slotRight'>
-            <view class='reduce'>-</view>
-            <view class='delete'>删除</view>
-          </view>
-        </view>
-      </van-swipe-cell>
+          </van-swipe-cell>
+        </scroll-view>
+
+      </view>
     </view>
     <van-dialog id="van-dialog" />
   </view>
   <view class='button'>
     <button bindtap="editInfo">+新增地址</button>
   </view>
+  <van-toast id="van-toast" />
 </view>

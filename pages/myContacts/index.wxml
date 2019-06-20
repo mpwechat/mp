@@ -33,7 +33,7 @@
     <van-dialog id="van-dialog" />
   </view>
   <view class='button'>
-    <button bindtap="editInfo">+新增联系人</button>
+    <button bindtap="addNewContanct">+新增联系人</button>
   </view>
     <van-toast id="van-toast" />
 

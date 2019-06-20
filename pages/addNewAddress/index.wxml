@@ -7,14 +7,14 @@
           <span style="color:#D80000">*</span>
         </view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" />
+          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" data-name='{{username}}' value='{{username}}'/>
         </view>
       </view>
       <view style='width:100%;height:110rpx;position:relative;border-bottom:1px solid #F3F3F3;'>
         <view class='name'>手机号
           <span style="color:#D80000">*</span> +86</view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" />
+          <input type='text' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" data-name='{{telphone}}' value='{{telphone}}'/>
         </view>
       </view>
       <view class='MailList'>
@@ -29,13 +29,13 @@
         <span style="color:#D80000">*</span>
       </view>
       <view class='inputName'>
-        <input type='text' style="direction: rtl;padding-right:40rpx;width:516rpx" bindinput="InputCertificateNum" placeholder="小区/楼号/单元/门牌号" />
+        <input type='text' style="direction: rtl;padding-right:40rpx;width:516rpx" bindinput="InputCertificateNum" placeholder="小区/楼号/单元/门牌号" data-name='{{address}}' value='{{address}}'/>
       </view>
     </view>
     <view style='width:100%;height:110rpx; position: relative;border-bottom:1px solid #F3F3F3;'>
       <view class='name'>地址类型</view>
       <view class='tags'>
-       <van-tag plain color="#409EFF" style="line-height:110rpx;">公司</van-tag>
+       <van-tag plain wx:if="{{type==1?'color=#409EFF':'color=#409EFF'}}"  style="line-height:110rpx;">公司</van-tag>
        <van-tag plain style="line-height:110rpx;">家庭</van-tag>
        <van-tag plain style="line-height:110rpx;">学校</van-tag>
        <van-tag plain style="line-height:110rpx;">其他</van-tag> 
@@ -43,7 +43,7 @@
     </view>
     <van-switch-cell
       title="设为默认"
-      checked="{{ checked }}"
+      checked="{{ defaultOrNot }}"
       bind:change="onChange"
     />
   </view>

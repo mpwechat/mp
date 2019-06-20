@@ -1,4 +1,5 @@
 // pages/addNewAddress/index.js
+import addressJson from '../../utils/address.js'
 Page({
 
   /**
@@ -7,31 +8,15 @@ Page({
   data: {
     InAddress: '',
     show: false,
-    checked:true,
-    areaList: {
-      province_list: {
-        110000: '北京市',
-        120000: '天津市'
-      },
-      city_list: {
-        110100: '北京市',
-        110200: '县',
-        120100: '天津市',
-        120200: '县'
-      },
-      county_list: {
-        110101: '东城区',
-        110102: '西城区',
-        110105: '朝阳区',
-        110106: '丰台区',
-        120101: '和平区',
-        120102: '河东区',
-        120103: '河西区',
-        120104: '南开区',
-        120105: '河北区',
-        // ....
-      }
-    }
+    areaList: addressJson,
+    username:'',
+    telphone:'',
+    province:'',
+    city:'',
+    area:'',
+    address:'',
+    type:'',
+    defaultOrNot:false
   },
   choseAddress(){
     this.setData({
@@ -45,12 +30,12 @@ Page({
     console.log(e)
     if (e.detail.values[2] == undefined){
       this.setData({
-        InAddress: e.detail.values[0].name + ' ' + e.detail.values[1].name,
+        InAddress: e.detail.values[0].name + '' + e.detail.values[1].name,
         show: false
       })
     } else {
       this.setData({
-        InAddress: e.detail.values[0].name + ' ' + e.detail.values[1].name + ' ' + e.detail.values[2].name,
+        InAddress: e.detail.values[0].name + '' + e.detail.values[1].name + ' ' + e.detail.values[2].name,
         show: false
       })
     }
@@ -62,13 +47,60 @@ Page({
   },
   onChange(event) {
     // 需要手动对 checked 状态进行更新
-    this.setData({ checked: event.detail });
+    this.setData({ defaultOrNot: event.detail });
   },
+  // 获取地址详细信息
+  getAddressInfo(options) {
+    const id = options.id
+    this.setData({
+      id: id
+    })
+    const that = this
+    console.log(id, 'id')
+    if (id != undefined) {
+      wx.request({
+        url: 'https://www.supconit.net/customer/address/' + id,
+        data: '',
+        header: {
+          'cookie': wx.getStorageSync("sessionid") //读取cookie
+        },
+        method: 'GET',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          console.log(res)
+          that.setData({
+            username: res.data.obj.name,
+            telphone: res.data.obj.phone,
+            province: res.data.obj.province,
+            city: res.data.obj.city,
+            area: res.data.obj.area,
+            address: res.data.obj.address,
+            type: res.data.obj.type,
+            defaultOrNot: res.data.obj.default,
+            InAddress: res.data.obj.province + '' + res.data.obj.city + '' + res.data.obj.area
+          })
+        }
+      })
+    } else {
+      that.setData({
+        username: '',
+        telphone: '',
+        province: '',
+        city: '',
+        area: '',
+        address: '',
+        type: '',
+        defaultOrNot: ''
+      })
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getAddressInfo(options)
   },
 
   /**

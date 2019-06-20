@@ -7,7 +7,7 @@
           <span style="color:#D80000">*</span>
         </view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" />
+          <input type='text' style="direction: rtl;" bindinput="InputName" placeholder="请输入姓名" data-name='{{username}}' value='{{username}}'/>
         </view>
       </view>
 
@@ -15,7 +15,7 @@
         <view class='name'>手机号
           <span style="color:#D80000">*</span> +86</view>
         <view class='inputName'>
-          <input type='text' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号" />
+          <input type='number' maxlength='11' style="direction: rtl;" bindinput="InputPhoneNum" placeholder="请输入手机号"  data-name='{{telphone}}' value='{{telphone}}'/>
         </view>
       </view>
 
@@ -30,12 +30,13 @@
         <span style="color:#D80000">*</span>
       </view>
       <view class='inputName'>
-        <input type='text' style="direction: rtl;" bindinput="InputCertificateNum" placeholder="请输入证件号" />
+        <input type="idcard" style="direction: rtl;" bindinput="InputCertificateNum" placeholder="请输入证件号"  data-name='{{idcard}}' value='{{idcard}}'/>
       </view>
     </view>
   <view class='notes'>注：带有“<span style="color:#D80000">*</span>”为必填内容</view>
   <view class='button'>
-    <button bindtap="editInfo">保存联系人</button>
+    <button bindtap="EditOrAddInfo">保存联系人</button>
   </view>
   </view>
+    <van-toast id="van-toast" />
 </view>

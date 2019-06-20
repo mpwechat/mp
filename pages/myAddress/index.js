@@ -1,33 +1,88 @@
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog.js'
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast.js';
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    
+    addressList:'' // 常用地址列表
   },
   onClose(event) {
     console.log(event)
+    const that = this
     const { position, instance } = event.detail;
     switch (position) {
-      case 'left':
-      case 'cell':
-        instance.close();
-        break;
       case 'right':
         Dialog.confirm({
           message: '确定删除吗？'
         }).then(() => {
+          console.log('shanchu')
+          that.deleteAddress(event.target.dataset.id)
           instance.close();
-        }).catch(()=>{
-          instance.close();
-        });
+        })
         break;
     }
   },
-  editInfo(){
+  editInfo(e){
     wx.navigateTo({
-      url: '/pages/addNewAddress/index',
+      url: '/pages/addNewAddress/index?id=' + e.target.dataset.id,
+    })
+  },
+  // 删除地址
+  deleteAddress(id) {
+    const that = this
+    wx.request({
+      url: 'https://www.supconit.net/customer/address/' + id,
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'DELETE',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        switch (res.data.code) {
+          case 1:
+            Toast.success('删除成功');
+            that.getList()
+            break;
+          default:
+            Toast.success('删除失败');
+        }
+      }
+    })
+  },
+  // 获取常用地址列表
+  getList() { //获取联系人列表
+    let that = this;
+    let page = that.data.recordPage
+    wx.request({
+      url: 'https://www.supconit.net/customer/address/list',
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+        switch (res.statusCode) {
+          case 200:
+            that.setData({
+              addressList: res.data.obj //联系人列表赋值
+            })
+            break;
+          case 401:
+            wx.showToast({
+              title: '暂未登录，即将跳转至登录页',
+            })
+            wx.navigateTo({
+              url: '/pages/bindPhone/index',
+            })
+            break;
+        }
+      },
     })
   },
   /**
@@ -40,6 +95,7 @@ Page({
     // }).then(() => {
     //   // on close
     // });
+    this.getList()
   },
 
   /**

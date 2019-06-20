@@ -24,6 +24,7 @@ Page({
     }
   },
   deleteMan(id){
+    const that = this
     wx.request({
       url: 'https://www.supconit.net/customer/contacts/' + id,
       data: '',
@@ -34,10 +35,10 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function (res) {
-        switch (res.code) {
+        switch (res.data.code) {
           case 1:
             Toast.success('删除成功');
-            this.getList()
+            that.getList()
             break;
           default:
             Toast.success('删除失败');
@@ -47,6 +48,11 @@ Page({
   },
   editInfo(e) {
     console.log(e,'wwww')
+    wx.navigateTo({
+      url: '/pages/addNewMan/index?id=' + e.target.dataset.id,
+    })
+  },
+  addNewContanct(){
     wx.navigateTo({
       url: '/pages/addNewMan/index',
     })
