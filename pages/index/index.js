@@ -9,190 +9,193 @@ Page({
     duration: 1000,
     inputValue: '',
     imgUrls: [],
+    areaChooseShow: false,
+    overlay: true,
+
     activityOptimization: [],
-    hotSpot:[],
-    hotHotel:[],
-    qiNiu:'https://image.supconit.net' ,
+    hotSpot: [],
+    hotHotel: [],
+    qiNiu: 'https://image.supconit.net',
     guideItemArray: [{
-        text: 'HOT',
-        img: '../../asset/images/recommend1.png',
-        path: '../../pages/Hot/index'
-      },
-      {
-        text: '景区',
-        img: '../../asset/images/recommend2.png',
-        path: '../../pages/scenic/index'
-      },
-      {
-        text: '酒店',
-        img: '../../asset/images/recommend3.png',
-        path: '../../pages/hotel/index'
-      },
-      {
-        text: '餐饮',
-        img: '../../asset/images/recommend4.png',
-        path: '../../pages/food/index'
-      },
-      {
-        text: '自助游',
-        img: '../../asset/images/recommend5.png',
-        path: '../../pages/travelSelf/index'
-      },
-      {
-        text: '旅游+',
-        img: '../../asset/images/recommend6.png',
-        path: '../../pages/travelPlus/index'
-      },
+      text: 'HOT',
+      img: '../../asset/images/recommend1.png',
+      path: '../../pages/Hot/index'
+    },
+    {
+      text: '景区',
+      img: '../../asset/images/recommend2.png',
+      path: '../../pages/scenic/index'
+    },
+    {
+      text: '酒店',
+      img: '../../asset/images/recommend3.png',
+      path: '../../pages/hotel/index'
+    },
+    {
+      text: '餐饮',
+      img: '../../asset/images/recommend4.png',
+      path: '../../pages/food/index'
+    },
+    {
+      text: '自助游',
+      img: '../../asset/images/recommend5.png',
+      path: '../../pages/travelSelf/index'
+    },
+    {
+      text: '旅游+',
+      img: '../../asset/images/recommend6.png',
+      path: '../../pages/travelPlus/index'
+    },
     ],
     activeTabIndex: 0,
 
     rob: [{
       img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/scenic4.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      }
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/scenic4.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/scenic4.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/scenic4.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/scenic4.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/scenic4.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    }
     ],
     optimization: [{
       img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '优选方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/MPHot2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      }
+      goodName: '优选方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/MPHot2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/MPHot2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/MPHot2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/MPHot2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/MPHot2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    }
     ],
     foods: [{
       img: 'http://image.supconit.net/food2.png',
-        goodName: '餐饮',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/food2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/food2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/food2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/food2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/food2.png',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      }
+      goodName: '餐饮',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/food2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/food2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/food2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/food2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/food2.png',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    }
     ],
     hotActivity: [{
       img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '餐饮',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      },
-      {
-        img: 'http://image.supconit.net/hot1.jpg',
-        goodName: '方特旅游度假区',
-        goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
-        price: '983'
-      }
+      goodName: '餐饮',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/hot1.jpg',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/hot1.jpg',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/hot1.jpg',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/hot1.jpg',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    },
+    {
+      img: 'http://image.supconit.net/hot1.jpg',
+      goodName: '方特旅游度假区',
+      goodDiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐',
+      price: '983'
+    }
     ]
   },
   //事件处理函数
@@ -201,7 +204,7 @@ Page({
   //     url: '../logs/logs'
   //   })
   // },
-  onLoad: function() {
+  onLoad: function () {
     this.getBanner();
     this.getActivityOptimization();
     this.getHotSpot();
@@ -241,6 +244,22 @@ Page({
   //     hasUserInfo: true
   //   })
   // }
+  /**
+   * 地区选择弹窗关闭
+   */
+  openAreaChoosePopup() {
+    this.setData({
+      areaChooseShow: true
+    })
+  },
+  areaChooseShowonClose() {
+    this.setData({
+      areaChooseShow: false
+    })
+  },
+
+
+
   routerChange(e) {
     console.log(e)
     wx.navigateTo({
@@ -248,7 +267,7 @@ Page({
     })
   },
   setActiveKey(e) {
-    let index=e.currentTarget.dataset.index;
+    let index = e.currentTarget.dataset.index;
     this.setData({
       activeTabIndex: index
     })
@@ -260,7 +279,7 @@ Page({
   inputChange(e) {
     console.log(e);
     this.setData({
-      inputValue:e.detail.value
+      inputValue: e.detail.value
     })
   },
   /**
@@ -275,8 +294,8 @@ Page({
   /**
    * 获取banner图
    */
-  getBanner(){
-    var that=this;
+  getBanner() {
+    var that = this;
     wx.request({
       url: 'https://www.supconit.net/maintenance/banner/list',
       data: '',
@@ -284,7 +303,7 @@ Page({
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) { 
+      success: function (res) {
         console.log(res.data.obj);
         that.setData({
           imgUrls: res.data.obj
@@ -294,22 +313,22 @@ Page({
       complete: function (res) { },
     })
   },
-/**
- * 获取活动
- */
+  /**
+   * 获取活动
+   */
   getActivityOptimization() {
-    var that=this;
+    var that = this;
     wx.request({
       url: 'https://www.supconit.net/shop/activity/page4C?size=4&&page=0',
       data: '',
       header: {},
       method: 'GET',
       success: function (res) {
-      console.log(res)
+        console.log(res)
         let activeties = res.data.obj.records;
         let activititesArray = activeties;
-      let activityContactArray = [];
-        activititesArray.forEach(function(item,index){
+        let activityContactArray = [];
+        activititesArray.forEach(function (item, index) {
           wx.request({
             url: 'https://www.supconit.net/search/aptitude/byActivityId/' + item.id,
             data: '',
@@ -321,9 +340,9 @@ Page({
           })
         })
         console.log(activeties)
-    that.setData({
-      activityOptimization: activeties
-    })
+        that.setData({
+          activityOptimization: activeties
+        })
       },
     })
   },
@@ -332,7 +351,7 @@ Page({
   /**
    * 获取热门景区
    */
-  getHotSpot(){
+  getHotSpot() {
     var that = this;
     wx.request({
       url: 'https://www.supconit.net/search/aptitudeScenic?size=8&&page=0',
@@ -356,13 +375,13 @@ Page({
               dailPriceArray.push(priceDaliyItem.price)
             })
             item['minPrice'] = Math.min.apply(null, dailPriceArray);
-         
+
           })
           console.log(item['minPrice'])
           item['cover'] = that.data.qiNiu + '/' + item.cover.split(',')[0];
         })
         console.log(HotViewArray)
-      
+
         that.setData({
           hotSpot: HotViewArray
         })

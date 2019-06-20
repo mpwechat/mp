@@ -103,29 +103,95 @@
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   display: -webkit-box;
--webkit-box-orient: vertical;
--webkit-line-clamp: 4;
-overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
 }
-.tips{
-  font-size:32rpx;
-font-weight:400;
-color:rgba(64,158,255,1);
+
+.tips {
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(64, 158, 255, 1);
 }
-.cell-content input{
+
+.cell-content input {
   height: 100%;
-  text-align:center;
+  text-align: center;
   width: 200rpx;
 }
-.cell-content .picker{
+
+.cell-content .picker {
   height: 100%;
-  text-align:center;
+  text-align: center;
   width: 200rpx;
-  font-size:32rpx;
-font-weight:400;
-color:rgba(51,51,51,1);
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
 }
-.user-introduce-show textarea{
+
+.user-introduce-show textarea {
   width: 100%;
   height: 100%;
+}
+
+.sex-mune-poup .van-bottom-enter.van-bottom-enter.van-bottom-enter-active.van-bottom-enter-active.van-popup .van-popup.van-popup--bottom.van-popup--bottom {
+  background: transparent !important;
+}
+
+.sex-mune-poup .van-popup--bottom {
+  background: transparent !important;
+}
+
+.sex-mune-wrap {
+  width: 710rpx;
+  height: 221rpx;
+  background: rgba(249, 249, 249, 1);
+  border-radius: 16rpx;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sex-mune-wrap .sex-mune-item {
+  width: 100%;
+  height: 110rpx;
+  line-height: 110rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(64, 158, 255, 1);
+}
+
+.sex-mune-wrap .sex-mune-item:first-child {
+  border-bottom: 1px solid rgba(173, 173, 173, 0.5);
+}
+
+.close-sex-popup {
+  width: 710rpx;
+  height: 110rpx;
+  background: rgba(249, 249, 249, 1);
+  border-radius: 16rpx;
+  margin: 10rpx auto 20rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(51, 51, 51, 1);
+  text-align: center;
+  line-height: 110rpx;
+}
+
+.save-userInfo {
+  width: 302rpx;
+  height: 68rpx;
+  background: rgba(64, 158, 255, 1);
+  border-radius: 34rpx;
+  margin: 0 auto 0;
+  line-height: 68rpx;
+  text-align: center;
+  font-size: 28rpx;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 1);
+}
+
+ .sex-mune-poup .van-ellipsis {
+  padding: 0 35rpx;
+  display: inline-block;
+  font-size: 24rpx;
 }
