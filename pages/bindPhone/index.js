@@ -45,8 +45,8 @@ let that=this;
      responseType: 'text',
      success: function(res) {
        wx.setStorageSync("sessionid", res.header["Set-Cookie"])
-       wx.navigateTo({
-         url: '/pages/integral/index',
+       wx.navigateBack({
+         delta:1
        })
      },
      fail: function(res) {},

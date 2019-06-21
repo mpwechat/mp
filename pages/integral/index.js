@@ -67,15 +67,11 @@ Page({
             wx.showToast({
               title: '暂未登录，即将跳转至登录页',
             })
-            wx.navigateTo({
+            wx.navigate({
               url: '/pages/bindPhone/index',
             })
           break;
         }
-
-      
-        
-
       },
       fail: function() {
     

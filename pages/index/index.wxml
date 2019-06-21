@@ -18,7 +18,7 @@
         module.exports.completion = completion;
       </wxs>
       <view class='search-wrap'>
-        <text class='area-wrap' bindtap="openAreaChoosePopup">杭州  <text class="iconfont icon-xiajiantou"></text></text>
+        <text class='area-wrap' bindtap="openAreaChoosePopup">{{areaValue}}  <text class="iconfont icon-xiajiantou"></text></text>
 <van-popup
   show="{{areaChooseShow}}"
   position="bottom"
@@ -26,7 +26,7 @@
   bind:close="areaChooseShowonClose"
 >
 
- <van-area area-list="{{ areaList }}" columns-num="{{ 2 }}" title="标题" />
+ <van-area area-list="{{ areaList }}" columns-num="{{2}}"   bind:confirm='sureArea' bind:cancel='cancelAreaChoose'/>
 </van-popup>
 
         <view class='input-wrap'>
