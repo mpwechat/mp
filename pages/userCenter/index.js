@@ -46,8 +46,8 @@ Page({
               title: '暂未登录，即将跳转至登录页',
             })
             setTimeout(function () {
-
-              wx.navigateTo({
+              wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
+              wx.redirectTo({
                 url: '/pages/bindPhone/index',
               })
             }, 1500)
