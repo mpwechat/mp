@@ -7,9 +7,66 @@ Page({
    * 页面的初始数据
    */
   data: {
+    avatar:'',
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     activeNames: '1'
+  },
+  getCurrentUserInfo() {
+    var that = this;
+    wx.request({
+      url: 'https://www.supconit.net/customer/info/getCurrentInfo',
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res);
+        let avatarImgUrl = ''
+
+        switch (res.statusCode) {
+          case 200:
+            console.log(res.data.obj);
+            let UserInfoJson = res.data.obj
+            if (UserInfoJson.avatar !== '') {
+              avatarImgUrl = 'http://image.supconit.net' + '/' + UserInfoJson.avatar
+            } else {
+              avatarImgUrl = 'http://image.supconit.net/avtar.png'
+            }
+            that.setData({
+              avatar: avatarImgUrl,
+             
+            })
+            break;
+          case 401:
+            wx.showToast({
+              title: '暂未登录，即将跳转至登录页',
+            })
+            setTimeout(function () {
+
+              wx.navigateTo({
+                url: '/pages/bindPhone/index',
+              })
+            }, 1500)
+
+            break;
+        }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '暂未登录，即将跳转至登录页',
+        })
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '/pages/bindPhone/index',
+          })
+        }, 1500)
+      }
+
+    })
   },
   myCollections(){
     wx.navigateTo({
@@ -48,7 +105,7 @@ Page({
    */
   onLoad: function () {
     var that = this;
-
+this.getCurrentUserInfo()
     //获取用户信息
     wx.getUserInfo({
       success: function (res) {

@@ -1,4 +1,5 @@
 //index.js
+import addressJson from '../../utils/address.js'
 //获取应用实例
 const app = getApp()
 Page({
@@ -11,7 +12,8 @@ Page({
     imgUrls: [],
     areaChooseShow: false,
     overlay: true,
-
+    areaValue:'杭州',
+    areaList: addressJson,
     activityOptimization: [],
     hotSpot: [],
     hotHotel: [],
@@ -257,7 +259,22 @@ Page({
       areaChooseShow: false
     })
   },
-
+  /**
+   * 确定地区训责
+   */
+  sureArea(e){
+console.log(e);
+    let area = e.detail.values[1].name; 
+this.setData({
+  areaValue: area.slice(0, area.length - 1),
+  areaChooseShow: false
+})
+  },
+  cancelAreaChoose(){
+    this.setData({
+      areaChooseShow: false
+    })
+  },
 
 
   routerChange(e) {

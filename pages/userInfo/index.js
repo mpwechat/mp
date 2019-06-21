@@ -5,61 +5,163 @@ Page({
    * 页面的初始数据
    */
   data: {
-    avtar:'http://image.supconit.net/food3.png',
-    replaceNickName:false,
-    nickName:'Na ya Na',
-    replaceUserName:false,
-    userName:'刘雪梅',
-    replaceSex:false,
-    sexArray: ['女', '男'],
+    userId:'',
+    avatar: '',
+    qiNiuAvatar:'',
+    replaceAvtar:false,
+    replaceNickName: false,
+    nickName: 'Na ya Na',
+    replaceUserName: false,
+    userName: '刘雪梅',
+    replaceSex: false,
+    sexPopupShow: false,
+    overlay: true,
     index: 0,
-    replaceBirthDay:false,
-    date:'2016-09-01',
-    userIntroduce:'这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，自我介自我介自我介自我介自我介自我介自我介字数大约在100字左 这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，自我介自我介自我介自我介自我介自我介自我介字数大约在100字左',
-    replaceUserIntroduce:false
+    sexArray: [{
+      text: '女'
+    }, {
+      text: '男'
+    }],
+    replaceBirthDay: false,
+    chooseBirthDayshow: false,
+    formatter(type, value) {
+      if (type === 'year') {
+        return `${value}年`;
+      } else if (type === 'month') {
+        return `${value}月`;
+      }
+      return `${value}日`;
+    },
+    date: new Date().getTime(),
+    userIntroduce: '这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，自我介自我介自我介自我介自我介自我介自我介字数大约在100字左 这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，字数大约在50字左右，这是一段用户的自我介绍，自我介自我介自我介自我介自我介自我介自我介字数大约在100字左',
+    replaceUserIntroduce: false
   },
-/**
- * 更换头像
- */
-  changeAvtar(){
-    var that=this;
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    this.getCurrentUserInfo()
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
+  },
+
+  /**
+   * 获取用户信息
+   */
+  getCurrentUserInfo(){
+    var that = this;
+    wx.request({
+      url: 'https://www.supconit.net/customer/info/getCurrentInfo',
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res);
+        let avatarImgUrl=''
+     
+        switch (res.statusCode) {
+          case 200:
+            console.log(res.data.obj);
+            let UserInfoJson = res.data.obj
+            if (UserInfoJson.avatar !==''){
+              avatarImgUrl = 'http://image.supconit.net' + '/'+UserInfoJson.avatar
+            }else{
+              avatarImgUrl = 'http://image.supconit.net/avtar.png'
+            }
+            that.setData({
+              avatar: avatarImgUrl,
+              date: parseInt(UserInfoJson.birthDate),
+              index: UserInfoJson.sex,
+              nickName: UserInfoJson.nickName,
+              userName: UserInfoJson.realName,
+              email: UserInfoJson.email,
+              phone: UserInfoJson.phone,
+              qiNiuAvatar: UserInfoJson.avatar,
+              userId:UserInfoJson.id
+            })
+            break;
+          case 401:
+            wx.showToast({
+              title: '暂未登录，即将跳转至登录页',
+            })
+            setTimeout(function(){
+            
+              wx.navigateTo({
+                url: '/pages/bindPhone/index',
+              })
+            },1500)
+         
+            break;
+        }
+      },
+      fail: function () {
+        wx.showToast({
+          title: '暂未登录，即将跳转至登录页',
+        })
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '/pages/bindPhone/index',
+          })
+        }, 1500)
+      }
+
+  })
+  },
+  /**
+   * 更换头像
+   */
+  changeAvtar() {
+    var that = this;
+  that.setData({
+   replaceAvtar:true
+  })
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success: function(res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
-        that.setData({
-          avtar: tempFilePaths
-        })
-        // wx.uploadFile({
-        //   url: 'https://www.smartguali.com/guali/file/uploadFile',
-        //   filePath: that.data.tempFilePaths[imgIndex - 1],
-        //   name: 'file',
-        //   formData: {
-        //     "msg": "msg"
-        //   },
-        //   // header: {
-        //   //   "Content-Type": "multipart/form-data"
-        //   // },  
-        //   success: function (res) {
-        //     console.log(res)
-        //     console.log(res.data);
-        //     var uploadReult = res.data
-        //     var imgresult = that.data.responceImgs;
-        //     var responcearray = imgresult + uploadReult;
-        //     that.setData({
-        //       responceImgs: responcearray
-        //     });
-        //     console.log(that.data.responceImgs)
-        //     //do something  
-        //   }, fail: function (err) {
-        //     console.log(err)
-        //   }
-        // });
+        console.log(tempFilePaths)
+        wx.uploadFile({
+          url: 'https://www.supconit.net/maintenance/qiniu',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          formData: {
+            "msg": "msg"
+          },
+          // header: {
+          //   "Content-Type": "multipart/form-data"
+          // },  
+          success: function (res) {
+            let responseJSON = JSON.parse(res.data)
+            that.setData({
+              qiNiuAvatar: responseJSON.obj[0].key,
+              avatar: 'http://image.supconit.net' + '/' + responseJSON.obj[0].key
+            })
+          
+            //do something  
+          }, fail: function (err) {
+            console.log(err);
+
+          }
+        });
       },
-      fail: function (res) {
+      fail: function(res) {
         console.log(res.errMsg)
       }
 
@@ -68,16 +170,16 @@ Page({
   /**
    * 修改昵称
    */
-  replaceNickerName(){
+  replaceNickerName() {
     let currentreplaceNickNameState = this.data.replaceNickName;
     this.setData({
-      replaceNickName:true 
+      replaceNickName: true
     })
   },
-/**
- * 修改姓名
- */
-  replaceUserName(){
+  /**
+   * 修改姓名
+   */
+  replaceUserName() {
     let currentreplaceUserNameState = this.data.replaceUserName;
     this.setData({
       replaceUserName: true
@@ -86,104 +188,141 @@ Page({
   /**
    * 修改性别
    */
-  replaceSex(){
+  replaceSex() {
     this.setData({
       replaceSex: true
     })
   },
-  bindPickerChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  opensexPopupShow() {
     this.setData({
-      index: e.detail.value
+      sexPopupShow: true
+    })
+  },
+  onClose() {
+    this.setData({
+      sexPopupShow: false
+    })
+  },
+
+  sexChoose(e) {
+    console.log(e)
+    let ind = e.currentTarget.dataset.index;
+    this.setData({
+      index: ind
     })
   },
   // 修改生日
-  replaceBirthDay(){
+  replaceBirthDay() {
     this.setData({
       replaceBirthDay: true
     })
   },
-  bindDateChange: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+  openChooseBirthDay: function() {
     this.setData({
-      date: e.detail.value
+      chooseBirthDayshow: true
     })
   },
-  // 修改介绍
-  replaceUserIntroduce(){
+  chooseBirthDayCancel() {
     this.setData({
-      replaceUserIntroduce:true
+      chooseBirthDayshow: false
+    })
+  },
+  chooseBirthDayConfirm(e){
+console.log(e)
+this.setData({
+  date:e.detail,
+  chooseBirthDayshow: false
+})
+  },
+  // 修改介绍
+  replaceUserIntroduce() {
+    this.setData({
+      replaceUserIntroduce: true
     })
   },
   /**
    * 绑定邮箱
    */
-  bindEmail(){
-wx.navigateTo({
-  url:"/pages/bindEmail/index",
-})
+  bindEmail() {
+    wx.navigateTo({
+      url: "/pages/bindEmail/index",
+    })
   },
   /**
    * 绑定手机
    */
-  bindPhone(){
+  bindPhone() {
     wx.navigateTo({
       url: "/pages/bindPhone/index",
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+// 保存info
+  saveUserInfo(){
+    let parmas={};
+      parmas["ali"]='';
+        parmas["avatar"]=this.data.qiNiuAvatar;
+    parmas["birthDate"] = this.data.date;
+      parmas["email"] = this.data.email;
+    parmas["nickName"] = this.data.nickName;
+    parmas["phone"] = this.data.phone
+    parmas["qq"] ='';
+    parmas["realName"] = this.data.userName;         
+    parmas["sex"] = this.data.index;          
+    parmas["wx"] = '';           
+    wx.request({
+      url: 'https://www.supconit.net/customer/info/'+this.data.userId,
+      data: parmas,
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'PUT',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+       console.log(res);
+        wx.showToast({
+          title: res.data.msg,
+        })
 
+      },fail(e){
+console.log(e)
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
+  
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })
