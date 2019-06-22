@@ -6,14 +6,11 @@ Page({
    */
   data: {
     height: 0,
-    allOrderArray:[
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日',orderEffectiveDateEnd: '08月07日',orderPrice:'495',orderState:0},
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日', orderEffectiveDateEnd: '08月07日', orderPrice: '495', orderState: 1 },
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日', orderEffectiveDateEnd: '08月07日', orderPrice: '495', orderState: 2},
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日', orderEffectiveDateEnd: '08月07日', orderPrice: '495', orderState: 0 },
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日', orderEffectiveDateEnd: '08月07日', orderPrice: '495', orderState: 1 },
-      { orderNmae: '假日酒店(滨康路地铁站店）', orderNumber: '1234587542', orderEffectiveDateStart: '08月03日', orderEffectiveDateEnd: '08月07日', orderPrice: '495', orderState: 2 },
-    ]
+    allOrderPages:0,
+    currntPageRecods:[],
+    allOrderRecods:[],
+   untravelRecods:[],
+   finishRecods:[]
   },
  
   /**
@@ -26,23 +23,146 @@ Page({
         var sreenHeight = res.windowHeight;
         that.setData({
           height: res.windowHeight - 45 + 'px',
-
         })
       }
-
     })
-
+   
   },
   getDetail(e){
 console.log(e)
   },
-  /**
-   * 滚动加载
-   */
-  loadMoreAllOrders() {
-    console.log('滚动加载所有订单中')
-  },
 
+   /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function() {
+    this.getAllorders()
+  },
+  /**
+ * 滚动加载
+ */
+  loadMoreAllOrder() {
+    console.log('滚动加载所有订单中');
+    let currentPages = this.data.allOrderPages;
+    this.setData({
+      allOrderPages: currentPages+1
+    })
+    this.getAllorders()
+  },
+/**
+ * 获取用户订单
+ */
+getAllorders(){
+  let parmas={};
+  parmas['size']=5;
+  parmas['current']=this.data.allOrderPages
+  var that = this;
+  wx.request({
+    url: 'https://www.supconit.net/order/info/page',
+    data: parmas,
+    header: {
+      'cookie': wx.getStorageSync("sessionid") //读取cookie
+    },
+    method: 'POST',
+    dataType: 'json',
+    responseType: 'text',
+    success: function (res) {
+      console.log(res);
+    
+      let recodesArray = res.data.obj.records;
+      recodesArray.forEach(function(item,index){
+        switch (item.type){
+          case 1 :
+            item['icon'] ='/asset/images/hotelOrder.png'
+          break;
+          case 2:
+            item['icon'] = '/asset/images/viewOrder.png'
+          break;
+        }
+        item['productSnapshot'] = JSON.parse(item.productSnapshot);
+        console.log(item.productSnapshot)
+        if (item['productSnapshot'].productInfoList.length > 1) {
+          item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate + ' 至' + item.productSnapshot[item.productSnapshot.productInfoList.length - 1].useDate
+        } else {
+          item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
+        }
+      })
+
+      that.setData({
+        currntPageRecods: recodesArray
+      })
+     
+      that.judageSate()
+      switch (res.status){
+        case 401:
+        wx.showToast({
+          title: res.data.message,
+
+        })
+        setTimeout(function(){
+          wx.setStorageSync('router', '/pages/order/index'); //将userIdEnc存入本地缓存
+          wx.navigateTo({
+            url: '/pages/bindPhone/index',
+          })
+        },1500)
+        break;
+      }
+  
+    },
+    fail: function () {
+      debugger
+      wx.showToast({
+        title: '暂未登录，即将跳转至登录页',
+      })
+      setTimeout(function () {
+        wx.setStorageSync('router', '/pages/order/index'); //将userIdEnc存入本地缓存
+        wx.navigateTo({
+          url: '/pages/bindPhone/index',
+        })
+      }, 1500)
+    },
+    complete: function (res) { },
+  })
+
+},
+// 判断订单状态
+judageSate(){
+
+  var that=this;
+  let fliterRecodesArray = this.data.currntPageRecods;
+  var currentallOrderRecods = that.data.allOrderRecods;
+  var currentuntravelRecods = that.data.untravelRecods;
+  var currentfinishRecods = that.data.finishRecods;
+  fliterRecodesArray.forEach(function (item, index) {
+    wx.request({
+      url: 'https://www.supconit.net/runtime/process-instances/' + item.processInstanceId,
+      data: "",
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        currentallOrderRecods.push(item)
+        if (res.data.completed){
+          item['completed']=true;
+          currentfinishRecods.push(item)
+        }else{
+          item['completed'] = false;
+          currentuntravelRecods.push(item)
+        };
+        that.setData({
+          allOrderRecods: currentallOrderRecods,
+          untravelRecods: currentuntravelRecods,
+          finishRecods: currentfinishRecods
+        })
+        
+      }
+     
+    })
+  })
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -50,12 +170,7 @@ console.log(e)
 
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
+ 
 
   /**
    * 生命周期函数--监听页面隐藏

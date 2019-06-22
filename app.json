@@ -1,13 +1,13 @@
 {
   "pages": [
-    
-    "pages/index/index",
+      "pages/index/index",
     "pages/scenic/index",
+    "pages/order/index",
+    "pages/searchResult/index",
     "pages/bindPhone/index",
     "pages/fillOrder/index",
     "pages/userInfo/index",
     "pages/bindEmail/index",
-    "pages/order/index",
     "pages/search/index",
     "pages/logs/logs",
     "pages/Hot/index",
@@ -16,19 +16,21 @@
     "pages/food/index",
     "pages/travelSelf/index",
     "pages/travelPlus/index",
-    
     "pages/globalSearch/index",
     "pages/integral/index",
     "pages/payment/index",
     "pages/paySuccess/index",
-
     "pages/myContacts/index",
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
     "pages/DetailsPage/index",
     "pages/DateAndPricePicker/index",
-    "pages/MyCollection/index"
+    "pages/MyCollection/index",
+    "pages/noRecodes_userCenter/index",
+    "pages/noRecods/index",
+    "pages/noNetWork/index"
+    
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -76,15 +78,15 @@
     "van-collapse-item": "/miniprogram_npm/vant-weapp/collapse-item/index",
     "van-transition": "/miniprogram_npm/vant-weapp/transition/index",
     "van-slider": "/miniprogram_npm/vant-weapp/slider/index",
-    "van-swipe-cell":"/miniprogram_npm/vant-weapp/swipe-cell/index",
-    "van-dialog":"/miniprogram_npm/vant-weapp/dialog/index",
-    "van-field":"/miniprogram_npm/vant-weapp/field/index",
+    "van-swipe-cell": "/miniprogram_npm/vant-weapp/swipe-cell/index",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index",
+    "van-field": "/miniprogram_npm/vant-weapp/field/index",
     "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
     "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
-    "van-picker":"/miniprogram_npm/vant-weapp/picker/index",
-    "van-area":"/miniprogram_npm/vant-weapp/area/index",
-    "van-tag":"/miniprogram_npm/vant-weapp/tag/index",
-    "van-switch-cell":"/miniprogram_npm/vant-weapp/switch-cell/index",
+    "van-picker": "/miniprogram_npm/vant-weapp/picker/index",
+    "van-area": "/miniprogram_npm/vant-weapp/area/index",
+    "van-tag": "/miniprogram_npm/vant-weapp/tag/index",
+    "van-switch-cell": "/miniprogram_npm/vant-weapp/switch-cell/index",
     "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index",
     "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
     "van-toast": "/miniprogram_npm/vant-weapp/toast/index"

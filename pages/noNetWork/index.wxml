@@ -1,0 +1,6 @@
+<!--pages/noNetWork/index.wxml-->
+<view class="container">
+<view class="tips-wrap">
+暂无网络
+</view>
+</view>

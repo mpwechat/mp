@@ -2,19 +2,19 @@
   <van-tabs animated>
     <van-tab title="全部">
       <view class='order-content-wrap' style='height:{{height}};'>
-        <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};' lower-threshold='100' >
-          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*' bindtap='getDetail'>
+        <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};' lower-threshold='100'  bindscrolltolower='loadMoreAllOrder'>
+          <view class='order-item-wrap' wx:for="{{allOrderRecods}}" wx:key='*' bindtap='getDetail'>
             <view class='order-info-wrap'>
               <view class='order-icon-wrap'>
-                <image src='../../asset/images/orderIcon.png'></image>
+                <image src='{{item.icon}}'></image>
               </view>
               <view class='order-info-content'>
-                <text class='order-name'>{{item.orderNmae}}</text>
-                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
-                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <text class='order-name'>{{item.productSnapshot.name}}</text>
+                <text class='order-number'>订单编号：{{item.chargeId}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.effectiveDate}}</text>
                 <view class='order-price'>
-                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
-                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+                  <text class='unit'>¥</text>{{item.price}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.completed)}} </view>
               </view>
 
             </view>
@@ -33,18 +33,18 @@
     <van-tab title="未出行">
      <view class='order-content-wrap' style='height:{{height}};'>
         <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
-          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*'>
+        <view class='order-item-wrap' wx:for="{{untravelRecods}}" wx:key='*' bindtap='getDetail'>
             <view class='order-info-wrap'>
               <view class='order-icon-wrap'>
-                <image src='../../asset/images/orderIcon.png'></image>
+                <image src='{{item.icon}}'></image>
               </view>
               <view class='order-info-content'>
-                <text class='order-name'>{{item.orderNmae}}</text>
-                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
-                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <text class='order-name'>{{item.productSnapshot.name}}</text>
+                <text class='order-number'>订单编号：{{item.chargeId}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.effectiveDate}}</text>
                 <view class='order-price'>
-                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
-                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+                  <text class='unit'>¥</text>{{item.price}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.completed)}} </view>
               </view>
 
             </view>
@@ -62,18 +62,18 @@
     <van-tab title="待支付">
      <view class='order-content-wrap' style='height:{{height}};'>
         <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
-          <view class='order-item-wrap' wx:for="{{allOrderArray}}" wx:key='*'>
+         <view class='order-item-wrap' wx:for="{{finishRecods}}" wx:key='*' bindtap='getDetail'>
             <view class='order-info-wrap'>
               <view class='order-icon-wrap'>
-                <image src='../../asset/images/orderIcon.png'></image>
+                <image src='{{item.icon}}'></image>
               </view>
               <view class='order-info-content'>
-                <text class='order-name'>{{item.orderNmae}}</text>
-                <text class='order-number'>订单编号：{{item.orderNumber}}</text>
-                <text class='order-effective-date'>行程有效期：{{item.orderEffectiveDateStart}}至{{item.orderEffectiveDateEnd}}</text>
+                <text class='order-name'>{{item.productSnapshot.name}}</text>
+                <text class='order-number'>订单编号：{{item.chargeId}}</text>
+                <text class='order-effective-date'>行程有效期：{{item.effectiveDate}}</text>
                 <view class='order-price'>
-                  <text class='unit'>¥</text>{{item.orderPrice}}</view>
-                <view class='order-state'> {{filter.judgeSate(item.orderState)}} </view>
+                  <text class='unit'>¥</text>{{item.price}}</view>
+                <view class='order-state'> {{filter.judgeSate(item.completed)}} </view>
               </view>
 
             </view>
@@ -114,16 +114,11 @@
 
 <wxs  module="filter">
 var judgeSate=function(state){
-  switch (state) {
-    case 0:
-      return '已完成';
-      break;
-      case 1:
-      return '未出行';
-      break;
-      default:
-      return '未支付';
-  }
+  if (state) {
+   return '已完成'
+  }else{
+  return '未出行'
+}
 }
     module.exports.judgeSate = judgeSate;
 

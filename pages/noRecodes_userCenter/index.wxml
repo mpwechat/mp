@@ -1,0 +1,6 @@
+<!--pages/noNetWork/index.wxml-->
+<view class="container">
+<view class="tips-wrap">
+空空如也
+</view>
+</view>
