@@ -121,13 +121,9 @@ Page({
       }
     ],
     // 商品列表
-<<<<<<< HEAD
     goodShowArray:[
       
     ]
-=======
-    goodShowArray:[]
->>>>>>> 13f6df16fabf256ddedeea5a755c991dadcba253
   },
 
   /**

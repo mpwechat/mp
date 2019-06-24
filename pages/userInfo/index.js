@@ -52,11 +52,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-<<<<<<< HEAD
-    // this.getCurrentUserInfo()
-=======
     this.getCurrentUserInfo()
->>>>>>> 13f6df16fabf256ddedeea5a755c991dadcba253
   },
 
   /**
