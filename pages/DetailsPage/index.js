@@ -8,8 +8,6 @@ Page({
     Collection: false,
     show: false,
     Reserve: true,
-
-
     list:[
       {
         id:'list_1',
@@ -48,11 +46,28 @@ Page({
   onClose() {
     this.setData({ show: false });
   },
+  // 获取商品详情信息
+  getInfo(id){
+    wx.request({
+      url: 'https://www.supconit.net/search/aptitude/byIds/' + id,
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success:function(res){
+        console.log(res,'info')
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const id = options.id
+    this.getInfo(id)
   },
 
   /**

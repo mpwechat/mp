@@ -116,14 +116,7 @@ Page({
     ],
     // 商品列表
     goodShowArray:[
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img:'http://image.supconit.net/food3.png'},
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food3.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' }
+      
     ]
   },
 

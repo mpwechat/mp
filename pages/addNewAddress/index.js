@@ -7,6 +7,20 @@ Page({
    * 页面的初始数据
    */
   data: {
+    addressKindList:[
+      {
+        address:'家庭',
+        value:1
+      },
+      {
+        address:'公司',
+        value:2
+      },
+      {
+        address:'其他',
+        value:3
+      }
+    ],
     InAddress: '',
     id:'',
     show: false,
@@ -207,6 +221,13 @@ Page({
           url: '/pages/myAddress/index'    //或者url: '/page/person/goldcoin/index'
         })
       }
+    })
+  },
+  // 选择地址类型
+  choseAddressKind(e){
+    console.log(e,'e')
+    this.setData({
+      type: e.target.dataset.value
     })
   },
   /**
