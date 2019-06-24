@@ -44,9 +44,11 @@ let that=this;
      dataType: 'json',
      responseType: 'text',
      success: function(res) {
+       debugger
+       let pages = wx.getStorageSync('router')
        wx.setStorageSync("sessionid", res.header["Set-Cookie"])
-       wx.navigateBack({
-         delta:1
+       wx.redirectTo({
+         url: pages  //或者url: '/page/person/goldcoin/index'
        })
      },
      fail: function(res) {},

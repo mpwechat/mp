@@ -1,10 +1,16 @@
 // pages/Hot/index.js
+//index.js
+import addressJson from '../../utils/address.js'
+//获取应用实例
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    areaChooseShow: false,
+    overlay: true,
+    areaValue: '杭州',
+    areaList: addressJson,
     height: 0,
     recodePage:0,
     comprehensiveConditionsShow: false,
@@ -115,9 +121,13 @@ Page({
       }
     ],
     // 商品列表
+<<<<<<< HEAD
     goodShowArray:[
       
     ]
+=======
+    goodShowArray:[]
+>>>>>>> 13f6df16fabf256ddedeea5a755c991dadcba253
   },
 
   /**
@@ -138,6 +148,36 @@ Page({
     this.getRecodes()
 
   },
+  /**
+   * 地区选择弹窗关闭
+   */
+  openAreaChoosePopup() {
+    this.setData({
+      areaChooseShow: true
+    })
+  },
+  areaChooseShowonClose() {
+    this.setData({
+      areaChooseShow: false
+    })
+  },
+  /**
+   * 确定地区训责
+   */
+  sureArea(e) {
+    console.log(e);
+    let area = e.detail.values[1].name;
+    this.setData({
+      areaValue: area.slice(0, area.length - 1),
+      areaChooseShow: false
+    })
+  },
+  cancelAreaChoose() {
+    this.setData({
+      areaChooseShow: false
+    })
+  },
+
   /**
    * 综合筛选显示隐藏
    */

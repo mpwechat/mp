@@ -40,19 +40,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getCurrentUserInfo()
+   
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+<<<<<<< HEAD
     // this.getCurrentUserInfo()
+=======
+    this.getCurrentUserInfo()
+>>>>>>> 13f6df16fabf256ddedeea5a755c991dadcba253
   },
 
   /**
@@ -99,8 +103,8 @@ Page({
               title: '暂未登录，即将跳转至登录页',
             })
             setTimeout(function(){
-            
-              wx.navigateTo({
+              wx.setStorageSync('router', '/pages/userInfo/index'); //将userIdEnc存入本地缓存
+            wx.redirectTo({
                 url: '/pages/bindPhone/index',
               })
             },1500)
@@ -113,6 +117,7 @@ Page({
           title: '暂未登录，即将跳转至登录页',
         })
         setTimeout(function () {
+          wx.setStorageSync('router', '/pages/userInfo/index'); //将userIdEnc存入本地缓存
           wx.navigateTo({
             url: '/pages/bindPhone/index',
           })

@@ -2,8 +2,17 @@
 <view class="container">
   <!-- 搜索 -->
   <view class='top-serach'>
-    <view class='search-content'>
-      <text class='area-wrap'>杭州  <text class="iconfont icon-xiajiantou"></text></text>
+    <view class='search-content' > 
+      <text class='area-wrap' bindtap="openAreaChoosePopup">{{areaValue}}  <text class="iconfont icon-xiajiantou" ></text></text>
+      <van-popup
+  show="{{areaChooseShow}}"
+  position="bottom"
+  overlay="{{overlay }}"
+  bind:close="areaChooseShowonClose"
+>
+
+ <van-area area-list="{{ areaList }}" columns-num="{{2}}"   bind:confirm='sureArea' bind:cancel='cancelAreaChoose'/>
+</van-popup>
       <view class='input-wrap'>
         <text class="iconfont icon-Magnifier"></text>
         <input placeholder='请输入您要查找的景区名称'></input>
