@@ -1,8 +1,11 @@
 {
   "pages": [
-      "pages/index/index",
+   
+      "pages/order/index",
+    "pages/evaluation/index",
+    "pages/index/index",
     "pages/scenic/index",
-    "pages/order/index",
+  
     "pages/searchResult/index",
     "pages/bindPhone/index",
     "pages/fillOrder/index",
@@ -30,7 +33,7 @@
     "pages/noRecodes_userCenter/index",
     "pages/noRecods/index",
     "pages/noNetWork/index"
-    
+  
   ],
   "window": {
     "backgroundTextStyle": "light",

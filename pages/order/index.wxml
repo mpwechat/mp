@@ -10,7 +10,7 @@
               </view>
               <view class='order-info-content'>
                 <text class='order-name'>{{item.productSnapshot.name}}</text>
-                <text class='order-number'>订单编号：{{item.chargeId}}</text>
+                <text class='order-number'>订单编号：{{item.id}}</text>
                 <text class='order-effective-date'>行程有效期：{{item.effectiveDate}}</text>
                 <view class='order-price'>
                   <text class='unit'>¥</text>{{item.price}}</view>
@@ -21,6 +21,7 @@
             <view class='order-option-wrap'>
             <button>重发短信</button>
             <button>立即抢购</button>
+            <button bindtap="evaluation" data-id="{{item.id}}">评价</button>
             </view>
             <!-- 半圆修饰 -->
             <view class='circle-decoration left'></view>

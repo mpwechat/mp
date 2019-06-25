@@ -1,0 +1,44 @@
+<!--pages/evaluation/index.wxml-->
+<view class="container">
+  <view class="order-detail-content">
+    <view class='order-info-wrap'>
+      <view class='order-icon-wrap'>
+        <image src='{{orderDteial.icon}}'></image>
+      </view>
+      <view class='order-info-content'>
+        <text class='order-name'>{{orderDteial.productSnapshot.name}}</text>
+        <text class='order-number'>订单编号：{{orderDteial.id}}</text>
+        <text class='order-effective-date'>行程有效期：{{orderDteial.effectiveDate}}</text>
+        <view class='order-price'>
+          <text class='unit'>¥</text>{{orderDteial.price}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 订单信息end -->
+  <view class="evaluation-wrap">
+    <text class="conmment-title">评价</text>
+    <view class="evaluation-content">
+      <view class="comment-star">
+        <view class="satr-item iconfont icon-collection  {{item.seletct?'active':''}}" wx:for="{{starItem}}" wx:key="{{idnex}}" data-index='{{index}}' bindtap="lightStar"></view>
+        <text class="gend">{{gend}} 分</text>
+      </view>
+      <!-- 评论 -->
+      <view class="comment-area">
+       <textarea placeholder="写下你想法吧"  auto-focus   placeholder-style="font-size:12px;color:rgba(153,153,153,1);line-height:30rpx;" value="{{comment}}"   bindinput='commentChange'/>
+      </view>
+ <view class='images-gallery'>
+              <view wx:for="{{tempFilePaths}}" class='gallery-item' wx:key="*this">
+                <image src="{{item}}" mode="aspectFill" style="width: 120rpx; height: 120rpx" bindtap="previewImg" bindlongpress="deleteImg" data-index="{{index}}"></image>
+              </view>
+              <view wx:if="{{tempFilePaths.length<4}}" bindtap='chooseimg' class='add-images-wrap'>
+            <text class="iconfont  icon-xiangji"></text>
+添加图片
+              </view>
+            </view>
+
+
+
+    </view>
+  </view>
+  <button class="submit-btn" bindtap="submitComment">提交</button>
+</view>
