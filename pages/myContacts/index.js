@@ -48,12 +48,12 @@ Page({
   },
   editInfo(e) {
     console.log(e,'wwww')
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/addNewMan/index?id=' + e.target.dataset.id,
     })
   },
   addNewContanct(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/addNewMan/index',
     })
   },

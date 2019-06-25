@@ -134,13 +134,10 @@ Page({
         var sreenHeight = res.windowHeight;
         that.setData({
           height: res.windowHeight - 94 + 'px',
-
-
         })
       }
     })
     this.getRecodes()
-
   },
   /**
    * 地区选择弹窗关闭
@@ -476,9 +473,9 @@ console.log('拼命加载中')
             priceList.forEach((priceDaliyItem) => {
               dailPriceArray.push(priceDaliyItem.price)
             })
-            // console.log(dailPriceArray)
+            console.log(dailPriceArray)
             item['minPrice'] = Math.min.apply(null, dailPriceArray);
-           
+            console.log(item['minPrice'], 'minPrice')
           })
           item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
         });
@@ -486,6 +483,7 @@ console.log('拼命加载中')
           that.setData({
             goodShowArray: recodesArray
           })
+        console.log(that.data.goodShowArray,'goodShowArray')
       }
       })
   },

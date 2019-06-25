@@ -35,10 +35,15 @@
     </view>
     <view style='width:100%;height:110rpx; position: relative;border-bottom:1px solid #F3F3F3;'>
       <view class='name'>地址类型</view>
-      <view class='tags'>
+      <!-- <view class='tags'>
         <van-tag plain color="{{type==1?'#409EFF':''}}" style="line-height:110rpx;">公司</van-tag>
         <van-tag plain color="{{type==2?'#409EFF':''}}" style="line-height:110rpx;">家庭</van-tag>
         <van-tag plain color="{{type==3?'#409EFF':''}}" style="line-height:110rpx;">其他</van-tag>
+      </view> -->
+      <view class='tags'>
+        <view wx:for="{{addressKindList}}" wx:key='{{index}}'>
+          <van-tag bindtap="choseAddressKind" data-value="{{item.value}}" plain style="line-height:110rpx;" color="{{type==item.value?'#409EFF':''}}">{{item.address}}</van-tag>
+        </view>
       </view>
     </view>
     <van-switch-cell title="设为默认" checked="{{ defaultOrNot }}" bind:change="onChange" />

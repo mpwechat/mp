@@ -121,7 +121,9 @@ Page({
       }
     ],
     // 商品列表
-    goodShowArray:[]
+    goodShowArray:[
+      
+    ]
   },
 
   /**

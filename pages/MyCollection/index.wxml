@@ -4,18 +4,18 @@
     <view class='mainInfo'>
       <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100'>
         <view wx:for="{{goodShowArray}}" wx:key='{{index}}'>
-          <van-swipe-cell right-width="{{ 65 }}" async-close bind:close="onClose">
+          <van-swipe-cell right-width="{{ 65 }}" data-id="{{item._source.id}}" async-close bind:close="onClose">
             <view class='hot-good-item'>
               <view class='img-wrap'>
-                <image src='{{item.img}}'></image>
+                <image src='{{item.cover}}'></image>
               </view>
               <!-- 商品介绍 -->
               <view class='hot-good-figure'>
-                <text class='hot-good-name'>{{item.goodName}}</text>
-                <view class='hot-good-discribe'> {{item.gooddiscribe}}</view>
-                <view class='price-option-wrap'>
-                  <text class='hot-good-price'>¥{{item.goodprice}}</text>
-                  <button type='warn' class='hot-good-option' bindtap='ViewDetails'>查看详情</button>
+                <text class='hot-good-name'>{{item._source.name}}</text>
+          <view class='hot-good-discribe'> {{item._source.description}}</view>
+          <view class='price-option-wrap'>
+            <text class='hot-good-price' wx-if="{{item.minPrice !==undefined}}">¥{{item.minPrice}}  <text style='font-size:24rpx;color:#959595;'>起</text></text>
+                  <button type='warn' class='hot-good-option' data-id='{{item._source.id}}' bindtap='ViewDetails'>查看详情</button>
                 </view>
               </view>
             </view>
@@ -31,4 +31,5 @@
     </view>
     <van-dialog id="van-dialog" />
   </view>
+   <van-toast id="van-toast" />
 </view>
