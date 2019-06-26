@@ -31,6 +31,14 @@ Page({
   getDetail(e){
 console.log(e)
   },
+  //评价
+  evaluation(e){
+    console.log(e)
+    let orderId = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/evaluation/index?orderId=' + orderId,
+    })
+  },
 
    /**
    * 生命周期函数--监听页面显示
@@ -68,32 +76,7 @@ getAllorders(){
     responseType: 'text',
     success: function (res) {
       console.log(res);
-    
-      let recodesArray = res.data.obj.records;
-      recodesArray.forEach(function(item,index){
-        switch (item.type){
-          case 1 :
-            item['icon'] ='/asset/images/hotelOrder.png'
-          break;
-          case 2:
-            item['icon'] = '/asset/images/viewOrder.png'
-          break;
-        }
-        item['productSnapshot'] = JSON.parse(item.productSnapshot);
-        console.log(item.productSnapshot)
-        if (item['productSnapshot'].productInfoList.length > 1) {
-          item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate + ' 至' + item.productSnapshot[item.productSnapshot.productInfoList.length - 1].useDate
-        } else {
-          item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
-        }
-      })
-
-      that.setData({
-        currntPageRecods: recodesArray
-      })
-     
-      that.judageSate()
-      switch (res.status){
+      switch (res.statusCode){
         case 401:
         wx.showToast({
           title: res.data.message,
@@ -106,11 +89,37 @@ getAllorders(){
           })
         },1500)
         break;
+        case 200:
+
+          let recodesArray = res.data.obj.records;
+          recodesArray.forEach(function (item, index) {
+            switch (item.type) {
+              case 1:
+                item['icon'] = '/asset/images/hotelOrder.png'
+                break;
+              case 2:
+                item['icon'] = '/asset/images/viewOrder.png'
+                break;
+            }
+            item['productSnapshot'] = JSON.parse(item.productSnapshot);
+            console.log(item.productSnapshot)
+            if (item['productSnapshot'].productInfoList.length > 1) {
+              item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate + ' 至' + item.productSnapshot[item.productSnapshot.productInfoList.length - 1].useDate
+            } else {
+              item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
+            }
+          })
+
+          that.setData({
+            currntPageRecods: recodesArray
+          })
+
+          that.judageSate()
+        break
       }
   
     },
     fail: function () {
-      debugger
       wx.showToast({
         title: '暂未登录，即将跳转至登录页',
       })
@@ -127,7 +136,6 @@ getAllorders(){
 },
 // 判断订单状态
 judageSate(){
-
   var that=this;
   let fliterRecodesArray = this.data.currntPageRecods;
   var currentallOrderRecods = that.data.allOrderRecods;
