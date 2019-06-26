@@ -44,7 +44,7 @@ let that=this;
      dataType: 'json',
      responseType: 'text',
      success: function(res) {
-       debugger
+      //  debugger
        let pages = wx.getStorageSync('router')
        wx.setStorageSync("sessionid", res.header["Set-Cookie"])
        wx.redirectTo({

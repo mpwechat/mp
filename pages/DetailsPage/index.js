@@ -8,6 +8,7 @@ Page({
     Collection: false,
     show: false,
     Reserve: true,
+    menuTop:'',
     list:[
       {
         id:'list_1',
@@ -160,22 +161,29 @@ Page({
 
 
   onShow: function () {
-    let self = this;
-    wx.createSelectorQuery().select('#affix').boundingClientRect(function (rect) {
-      console.log(rect,'rexcc')
-      self.setData({
-        fixTop: rect.top,
-      })
-    }).exec()
+    var that = this;
+    var query = wx.createSelectorQuery()//创建节点查询器 query
+    query.select('#left').boundingClientRect()//这段代码的意思是选择Id= the - id的节点，获取节点位置信息的查询请求
+    query.exec(function (res) {
+      console.log(res); // #affix节点的上边界坐
+      // that.setData({
+      //   menuTop: res[0].top
+      // })
+    });
   },
+  // 2.监听页面滚动距离scrollTop
   onPageScroll: function (e) {
-    var that = this
-    console.log(e,'e')
-    that.setData({
-      scrollTop: e.scrollTop
-    })
-    if(e.scrollTop == 338){
-
+    // console.log(e.scrollTop);
+    var that = this;
+    // 3.当页面滚动距离scrollTop > menuTop菜单栏距离文档顶部的距离时，菜单栏固定定位
+    if (e.scrollTop > that.data.menuTop) {
+      // that.setData({
+      //   menuFixed: true
+      // })
+    } else {
+      // that.setData({
+        // menuFixed: false
+      // })
     }
-  },
+  }
 })

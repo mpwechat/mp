@@ -1,6 +1,6 @@
 {
   "pages": [
-      "pages/index/index",
+    "pages/index/index",
     "pages/scenic/index",
     "pages/order/index",
     "pages/searchResult/index",
@@ -25,6 +25,7 @@
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
     "pages/DetailsPage/index",
+    
     "pages/DateAndPricePicker/index",
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
