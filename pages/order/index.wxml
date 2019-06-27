@@ -31,7 +31,7 @@
       </view>
     </van-tab>
     <!-- 全部订单 -->
-    <van-tab title="未出行">
+    <van-tab title="未完成">
      <view class='order-content-wrap' style='height:{{height}};'>
         <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
         <view class='order-item-wrap' wx:for="{{untravelRecods}}" wx:key='*' bindtap='getDetail'>
@@ -60,7 +60,7 @@
         </scroll-view>
       </view></van-tab>
     <!-- 未出行订单 -->
-    <van-tab title="待支付">
+    <van-tab title="已完成">
      <view class='order-content-wrap' style='height:{{height}};'>
         <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};'>
          <view class='order-item-wrap' wx:for="{{finishRecods}}" wx:key='*' bindtap='getDetail'>
