@@ -44,6 +44,7 @@ let that=this;
      dataType: 'json',
      responseType: 'text',
      success: function(res) {
+<<<<<<< HEAD
        var pagesSrc = wx.getStorageSync('router')
        wx.setStorageSync("sessionid", res.header["Set-Cookie"]);
        switch (pagesSrc){
@@ -67,6 +68,14 @@ let that=this;
      },
      fail: function(res) {
       
+=======
+      //  debugger
+       let pages = wx.getStorageSync('router')
+       wx.setStorageSync("sessionid", res.header["Set-Cookie"])
+       wx.redirectTo({
+         url: pages  //或者url: '/page/person/goldcoin/index'
+       })
+>>>>>>> 34edd06b99f01da468f63f6faf3aa24c8129b83b
      },
      complete: function(res) {},
    })

@@ -19,8 +19,71 @@
       <view>2天1晚</view>
     </view>
   </view>
+  <view class='choseWhichBuy'>
+    <view class='choseBuy choseThis'>成人票</view>
+    <view class='choseBuy'>儿童票</view>
+    <view class='choseBuy'>学生票</view>
+    <view class='choseBuy'>家庭套票</view>
+    <view class='chose'>筛选</view>
+  </view>
 
-  <view class='left' id='affix'>
+  <view class='GoodLists'>
+    <scroll-view class='GoodListsCenterScroll' scroll-y>
+      <view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view>
+
+      <view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view><view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view><view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view><view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view><view class='GoodListsCenter'>
+        <view class='GoodName'>横店影视城</view>
+        <view class='GoodKind'>成人票</view>
+        <view class='GoodPrice'>¥498</view>
+        <view class='TakeGood'>
+          <view class='TakeGood_ding'>订</view>
+          <view class='TakeGood_daodianfu'>到店付</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <view id='left' class=" {{menuFixed ? 'fixed': 'left'}}" id='affix'>
     <scroll-view class='leftScroll' scroll-y>
       <view class="{{state==index?'active-tag':''}}" wx:for="{{list}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
     </scroll-view>
@@ -59,17 +122,9 @@
         </view>
         <view id="list_3">
           <view class="list_1_title"> 地图交通</view>
-          <view class='list_small_title'>费用包含：</view>
-          <view class='list_small_title'>【酒店】</view>
-          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
-          <view class='list_small_title'>【门票】</view>
-          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
-          <view class='list_small_title'>【其他】</view>
-          <view class='list_introduce'>森林氧吧（2人）</view>
-          <view class='list_small_title'>温馨提示：</view>
-          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
-          <view class='list_small_title'>费用不包含：</view>
-          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+            <view class='ditu'>
+            
+            </view>
         </view>
         <view id="list_4">
           <view class="list_1_title">点评</view>
@@ -86,7 +141,7 @@
           <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
         </view>
       </view>
-      
+
 
     </scroll-view>
   </view>
