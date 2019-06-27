@@ -1,7 +1,9 @@
 {
   "pages": [
-   
+     
+      
       "pages/order/index",
+      "pages/payment/index",
     "pages/evaluation/index",
     "pages/index/index",
     "pages/scenic/index",
@@ -21,7 +23,7 @@
     "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/integral/index",
-    "pages/payment/index",
+
     "pages/paySuccess/index",
     "pages/myContacts/index",
     "pages/myAddress/index",

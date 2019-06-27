@@ -19,7 +19,7 @@
   </view>
   <!-- 价格 -->
   <view class='order-need-price-wrap'>金额
-    <text class='order-price'>￥608</text>
+    <text class='order-price'>￥{{prciePay}}</text>
     <text class='review-price-detail' bindtap='reviewPriceDetail'>费用明细 </text> </view>
   <!-- 支付方式选择 -->
   <view class='payment-type-wrap'>
@@ -34,7 +34,7 @@
       </view>
     </view>
   </view>
-  <button class='go-pay'>立即支付</button>
+  <button class='go-pay' bindtap="pay">立即支付</button>
   <!-- 价格弹窗 -->
   <van-popup show="{{ reviewPriceDetail }}" position="bottom" overlay="{{ true }}" bind:close="onClose">
     <view class='review-price-detail-wrap'>
