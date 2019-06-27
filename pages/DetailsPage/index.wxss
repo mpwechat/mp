@@ -81,6 +81,21 @@
   justify-content: space-around;
   margin-top: 20rpx;
 }
+.choseScreen{
+  width: 100%;
+  height: 90rpx;
+  background-color: #fff;
+}
+.choseWhichBuy_left{
+  width: 624rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.choseScreenWhich{
+  width: 548rpx;
+  display: flex;
+  justify-content: space-around;
+}
 .choseBuy{
   font-size: 24rpx;
   color: #333333;
@@ -92,17 +107,25 @@
   margin-top: 20rpx;
 }
 .choseThis{
+  font-size: 24rpx;
+  color: #333333;
+  height: 24rpx;
+  line-height:24rpx;
   border:2rpx solid rgba(64,158,255,1);
   border-radius:4rpx;
   background-color: #fff;
+  padding: 15rpx 20rpx;
+  margin-top: 20rpx;
 }
 .chose{
   color: #409EFF;
   font-size: 24rpx;
-  line-height: 24rpx;
-  height: 24rpx;
-  padding: 20rpx 10rpx;
-  margin-top: 15rpx;
+  text-align: center;
+  width:96rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  display:flex;
+  vertical-align:middle;
 }
 page{
   width: 100%;
