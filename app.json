@@ -75,7 +75,6 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
-    "data-price-picker": "pages/DateAndPricePicker/index",
     "van-tab": "/miniprogram_npm/vant-weapp/tab/index",
     "van-tabs": "/miniprogram_npm/vant-weapp/tabs/index",
     "van-collapse": "/miniprogram_npm/vant-weapp/collapse/index",

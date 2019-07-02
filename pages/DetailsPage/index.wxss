@@ -33,6 +33,22 @@
   border-radius:16rpx;
   margin-top:-20rpx;
   position:relative;
+  border-bottom: 1rpx solid #F3F3F3;
+}
+.targetAddress{
+  width: 100%;
+  height: 88rpx;
+  background-color: #fff;
+}
+.targetAddress>view{
+  background-color: #fff;
+  margin-left: 57rpx;
+}
+.targetAddressWord{
+  display: inline-block;
+  font-size: 24rpx;
+  color: #606266;
+  line-height: 88rpx;
 }
 .ContentTitle{
   font-size: 32rpx;
@@ -240,14 +256,48 @@ page{
   width: 100%;
   height: 146rpx;
   position: relative;
+  display: flex;
 }
 .GoodName{
+  width:198rpx;
   font-size:28rpx;
   font-family:PingFang-SC-Regular;
   font-weight:bold;
   color:rgba(51,51,51,1);
   line-height: 146rpx;
   display:inline-block;
+  overflow: hidden;/*超出部分隐藏*/
+  text-overflow:ellipsis;/* 超出部分显示省略号 */
+  white-space: nowrap;/*规定段落中的文本不进行换行 */
+  position:relative;
+}
+.sale_logo{
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: url(http://image.supconit.net/discount.png) center no-repeat;
+  background-size: 100% 100%;
+  width: 39rpx;
+  height: 54rpx;
+  font-size: 14rpx;
+  color: #fff;
+}
+.manjian{
+  position: absolute;
+  left: 28rpx;
+  bottom: 20rpx;
+  width: 80rpx;
+  height: 22rpx;
+  border: 1px solid #D83D45;
+}
+.manjianInside{
+  width: 78rpx;
+  height: 20rpx;
+  margin: 0 auto;
+  background-color: #D83D45;
+  text-align: center;
+  font-size: 12rpx;
+  color: #fff;
 }
 .GoodKind{
   font-size:24rpx;

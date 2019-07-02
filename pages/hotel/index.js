@@ -487,10 +487,11 @@ console.log('拼命加载中')
       }
       })
   },
-  // 查看详情
-  ViewDetails(){
+  //跳转到商品详情页
+  ViewDetails(e) {
+    console.log(e, 'navgite')
     wx.navigateTo({
-      url: '/pages/DetailsPage/index',
+      url: '/pages/DetailsPage/index?id=' + e.target.dataset.id + '&type=' + e.target.dataset.type,
     })
   },
   /**
