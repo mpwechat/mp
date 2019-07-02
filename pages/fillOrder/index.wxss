@@ -247,3 +247,46 @@ font-size: 40rpx;
   display: inline-block;
   padding-left: 55rpx;
 }
+.choose-contact-wrap{
+  width: 100%;
+  height:510rpx;
+
+}
+.choose-contact-content{
+  width: 100%;
+  height: 100%;
+background:rgba(255,255,255,1);
+border-top-left-radius:16rpx;
+border-top-right-radius: 16rpx;
+box-sizing: border-box;
+padding: 30rpx;
+}
+.contact-title{
+  font-size:36rpx;
+font-family: '微软雅黑';
+color:#333333;
+display: block;
+margin-bottom: 30rpx;
+}
+.contact-choose-item{
+  width:208rpx;
+height:68rpx;
+border-radius:34rpx;
+display: inline-block;
+line-height: 68rpx;
+text-align: center;
+color:rgba(51,51,51,1);
+font-size:26rpx;
+background:rgba(243,243,243,1);
+margin-right: 33rpx;
+margin-bottom: 20rpx;
+box-sizing: border-box;
+}
+.contact-choose-item:nth-child(3),.contact-choose-item:nth-child(6),.contact-choose-item:nth-child(9){
+  margin-right: 0;
+}
+.contact-choose-item.active{
+  border:1px solid rgba(65,159,255,1);
+background:rgba(255,255,255,1);
+color:#409EFF;
+}

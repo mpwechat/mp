@@ -59,7 +59,7 @@
     <!-- tab完 -->
     <view class='tabs-content-wrap'>
       <!-- 今日必抢 -->
-      <view class='tabs-content' hidden='{{activeTabIndex==1||activeTabIndex==2}}'>
+      <view class='tabs-content' hidden='{{activeTabIndex !==0}}'>
         <scroll-view scroll-x='true'>
           <view class='figure' wx:for="{{rob}}" wx:key='index'>
             <view class='img-wrap'>
@@ -74,7 +74,7 @@
         </scroll-view>
       </view>
       <!-- 品质优选 -->
-      <view class='tabs-content' hidden='{{activeTabIndex==0||activeTabIndex==2}}'>
+      <view class='tabs-content' hidden='{{activeTabIndex !==1}}'>
         <scroll-view scroll-x='true'>
           <view class='figure' wx:for="{{optimization}}" wx:key='index'>
             <view class='img-wrap'>
@@ -89,7 +89,7 @@
         </scroll-view>
       </view>
       <!-- 餐饮 -->
-      <view class='tabs-content' hidden='{{activeTabIndex==1||activeTabIndex==0}}'>
+      <view class='tabs-content' hidden='{{activeTabIndex !==2}}'>
         <scroll-view scroll-x='true'>
           <view class='figure' wx:for="{{foods}}" wx:key='index'>
             <view class='img-wrap'>

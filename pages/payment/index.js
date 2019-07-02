@@ -15,6 +15,8 @@ Page({
       { text: '银联支付', img: '../../asset/images/payment_card.png', check: false, index:2 },
     ],
     prciePay:0.1,
+    
+   
    
   },
 
@@ -22,6 +24,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that=this;
+    const APP_ID = 'wx7ed0955cce3e8d15'; //输入小程序appid 
+    const APP_SECRET = '6e95440dd98aa92cb63c043ca5ee6da5';
+    var OPEN_ID = '' //储存获取到openid 
+    var SESSION_KEY = '' //储存获取到session_key
+    wx.login({
+      success: function (data) {
+        console.log(data);
+        wx.request({
+          //获取openid接口
+          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + APP_ID + '&secret=' + APP_SECRET + '&js_code=' + data.code + '&grant_type=authorization_code',
+          data: {},
+          method: 'GET',
+          success: function (res) {
+            console.log(res.data)
+            OPEN_ID = res.data.openid; //获取到的openid 
+            SESSION_KEY = res.data.session_key; //获取到session_key 
+            that.setData({
+              openid: OPEN_ID,
+              session_key: SESSION_KEY
+            });
+          }
+        })
+      }
+    })
 
   },
   reviewPriceDetail(){
@@ -55,6 +82,7 @@ var that=this;
    * 支付
    */
   pay(){
+    var res_paydata='weixin://wxpay/bizpayurl?pr=edV4Oaj';
     console.log(Date.parse(new Date()))
     debugger
     var timeStamp = this.timeStamp();
@@ -95,6 +123,9 @@ randomString() {
       pwd += chars.charAt(Math.floor(Math.random() * maxPos));
     }
     return pwd;
+  },
+  getOpenIdTap(){
+
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

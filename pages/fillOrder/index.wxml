@@ -96,7 +96,7 @@
           <view class='contact-content'>
            游玩人{{index+1}}
             <text class='iconfont icon-jian' data-index='{{index}}' bindtap='deleteThisPlayer'></text>
-            <view class='choose-from-contact-list' data-index="{{index}}">从联系人选择</view>
+            <view class='choose-from-contact-list' data-index="{{index}}" bindtap="chooseContacts">从联系人选择</view>
           </view>
           <view class='conatct-item'>
             姓名：
@@ -164,7 +164,17 @@
       <text class='good-type-title' style='margin-bottom:10rpx;'>费用明细</text>
     </view>
   </van-popup>
-
+ <!-- 选择联系人弹窗 -->
+  <van-popup show="{{ chooseContact }}" position="bottom" overlay="{{ true }}" bind:close="chooseContactonClose">
+  <view class="choose-contact-wrap">
+<view class="choose-contact-content">
+<text class="contact-title">联系人</text>
+<view class="contact-choose-item {{item.select? 'active':''}}"  wx:for="{{chooseContactList}}" wx:key="{{index}}" data-name="{{item.name}}" data-phone='{{item.phone}}' data-idcard='{{item.idCard}}' data-index='{{index}}' bindtap="chooseThisContact">
+{{item.name}}
+</view>
+</view>
+  </view>
+  </van-popup>
 
 
 

@@ -1,5 +1,6 @@
 <!--pages/paySuccess/index.wxml-->
 <view class='container pay-container'>
+
   <view class='order-detail-wrap'>
     <view class='order-detail-content'>
       <view class='payment-security-tips'>
@@ -41,5 +42,6 @@
       <text class='review-price-detail-title'>费用明细</text>
     </view>
   </van-popup>
+ 
 
 </view>
