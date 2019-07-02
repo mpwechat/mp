@@ -5,26 +5,57 @@ Page({
    * 页面的初始数据
    */
   data: {
+    bgImage:'',
+    name:'', //名字
+    qualificationObj:{},//价格列表
     Collection: false,
     show: false,
     Reserve: true,
     screenShow:false,
     menuTop:'',
-    BuyKindList: [
+    optionsId:'',
+    type:'',
+    BuyScienceKindList: [
       {
         value: '1',
+        check: false,
         name: '成人票'
       },
       {
         value: '2',
+        check: false,
         name: '儿童票'
       },
       {
         value: '3',
+        check: false,
         name: '学生票'
       },
       {
         value: '4',
+        check: false,
+        name: '家庭套票'
+      }
+    ],
+    BuyHotelKindList: [
+      {
+        value: '1',
+        check: false,
+        name: '成人票'
+      },
+      {
+        value: '2',
+        check: false,
+        name: '儿童票'
+      },
+      {
+        value: '3',
+        check: false,
+        name: '学生票'
+      },
+      {
+        value: '4',
+        check: false,
         name: '家庭套票'
       }
     ],
@@ -83,6 +114,7 @@ Page({
   },
   // 获取商品详情信息
   getInfo(id){
+    let that = this
     wx.request({
       url: 'https://www.supconit.net/search/aptitude/byIds/' + id,
       data: '',
@@ -94,24 +126,80 @@ Page({
       responseType: 'text',
       success:function(res){
         console.log(res,'info')
+        that.setData({
+          bgImage:'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
+        })
+        let qualificationObj = res.data.obj.hits[0]._source;
+        //资质商品列表 计算商品最小价格
+        //资质最小价格
+        let qualificationGoodsPrice = [];
+        let productArray = qualificationObj.productList;
+        productArray.forEach((item) => {
+          let priceList = item.productDailyList;
+          let dailPriceArray = [];
+          priceList.forEach((priceDaliyItem) => {
+            dailPriceArray.push(priceDaliyItem.price)
+          })
+          item['minPrice'] = Math.min.apply(null, dailPriceArray);
+          qualificationGoodsPrice.push(Math.min.apply(null, dailPriceArray));
+        });
+        qualificationObj['minPrice'] = Math.min.apply(null, qualificationGoodsPrice)
+        qualificationObj['productList'] = productArray;
+        let currentTimeStamp = Date.parse(new Date());
+        qualificationObj.productList.forEach((item) => {
+          if (item.saleList !== "") {
+            // debugger
+            let matchSalesArray = [];
+            item.saleList.forEach((salesItem) => {
+              salesItem['ruleJson'] = JSON.parse(salesItem.ruleJson);
+              if (parseInt(salesItem.beginDate) <= currentTimeStamp && currentTimeStamp <= parseInt(salesItem.endDate)) {
+                matchSalesArray.push(salesItem);
+              }
+              item.saleList = matchSalesArray
+            })
+          }
+        })
+        that.setData({
+          qualificationObj: qualificationObj
+        })
+        console.log(qualificationObj, 'qualificationObj')
+        console.log(that.data.qualificationObj,'data.qualificationObj')
       }
     })
   },
-
-  // 筛选
+  getTicketType(value){
+    switch (value) {
+      case 1:
+        return '成人票';
+      case 2:
+        return '儿童票';
+      case 3:
+        return '学生票';
+      case 4:
+        return '家庭套票'
+    }
+  },
+  /**
+   * 点击筛选是否显示价格
+   */
   screen(){
     let screenShowOrNot = !this.data.screenShow
     this.setData({
       screenShow: screenShowOrNot
     })
     // this.data.screenShow = !screenShowOrNot
-    console.log(this.data.screenShow,'screenShow')
+    // console.log(this.data.screenShow,'screenShow')
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     const id = options.id
+    const type = options.type
+    this.setData({
+      optionsId : id,
+      type:type
+    })
     this.getInfo(id)
   },
 

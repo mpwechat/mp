@@ -53,7 +53,7 @@
     <view class='hot-good-discribe'> {{item._source.description}}</view>
     <view class='price-option-wrap'>
     <text class='hot-good-price' wx-if="{{item.minPrice !==undefined}}">¥{{item.minPrice}}  <text style='font-size:24rpx;color:#959595;'>起</text></text>
-    <button type='warn' class='hot-good-option'>查看详情</button>
+    <button type='warn' class='hot-good-option' data-id='{{item._source.id}}' data-type='{{item._type}}' bindtap='ViewDetails'>查看详情</button>
     </view>
     </view>
     </view>

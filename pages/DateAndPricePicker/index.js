@@ -8,12 +8,12 @@ var DATE_DAY = new Date().getDate();
 
 Component({
   lifetimes: {
-    attached: function () {
+    attached: function() {
       console.log('组件aaa加载！', this.properties)
 
       let that = this
       //获取价钱列表先行转环时间戳
-      this.changeDate()
+      // this.changeDate()
       // 在组件实例进入页面节点树时执行
       var _this = this;
       let now = new Date();
@@ -27,7 +27,7 @@ Component({
         month: month
       })
       wx.getSystemInfo({
-        success: function (res) {
+        success: function(res) {
           _this.setData({
             systemInfo: res,
           });
@@ -35,20 +35,28 @@ Component({
       })
     },
 
-    detached: function () {
+    detached: function() {
       // 在组件实例被从页面节点树移除时执行
     },
   },
   // 以下是旧式的定义方式，可以保持对 <2.2.3 版本基础库的兼容
-  attached: function () {
+  attached: function() {
     // 在组件实例进入页面节点树时执行
   },
-  detached: function () {
+  detached: function() {
     // 在组件实例被从页面节点树移除时执行
   },
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
-
+    optionsId: String
+  },
+  ready: function () {
+    console.log(this.properties,'readyready');
+    this.setData({
+      optionsId : this.properties.optionsId
+    })
+    //获取价钱列表先行转环时间戳
+    this.changeDate()
   },
   data: {
     // 这里是一些组件内部数据
@@ -56,6 +64,7 @@ Component({
     month: '',
     day: '',
     days: {},
+    optionsId:'',
     systemInfo: {},
     weekStr: ['日', '一', '二', '三', '四', '五', '六'],
     checkDate: [],
@@ -65,28 +74,19 @@ Component({
     //获取到的价格列表循环处理时间
     changeDate(year, month) {
       let that = this
-      let dataUrl = 'http://www.supconit.net/search/aptitude/byIds/1110725997037260811'
-      // wx.request({
-      //   url: 'http://www.supconit.net/search/aptitude/byIds/1110725997037260811',
-      //   success: function (res) {
-      //     console.log(res.data.obj.hits[0]._source.productList[0].productDailyList,'res');
-      //     that.data.PriceCalendarList = res.data.obj.hits[0]._source.productList[0].productDailyList
-      //     console.log(that.data.PriceCalendarList,'1')
-
-      //     for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
-      //       that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
-      //     }
-      //   },
-      // })
-      // console.log(that.data.PriceCalendarList,'2')
-      http(dataUrl).then(res=>{
-        // console.log(res,'resssss')
+      console.log(that.properties)
+      that.setData({
+        optionsId: that.properties.optionsId
+      })
+      let dataUrl = 'http://www.supconit.net/search/aptitude/byIds/'+that.data.optionsId
+      console.log(dataUrl,'dataUrldataUrl')
+      http(dataUrl).then(res => {
+        console.log(res,'httpreeeeeesssss')
         that.data.PriceCalendarList = res.obj.hits[0]._source.productList[0].productDailyList
-        // console.log(that.data.PriceCalendarList, '1')
         for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
           that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
         }
-      }).then(res=>{
+      }).then(res => {
         this.createDateListData(year, month)
       })
     },
@@ -103,7 +103,7 @@ Component({
     },
     // 这里是一个自定义方法
     /**创建日历数据 */
-    createDateListData: function (setYear, setMonth) {
+    createDateListData: function(setYear, setMonth) {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let dateArr = []; //需要遍历的日历数组数据
       let arrLen = 0; //dateArr的数组长度
@@ -175,7 +175,7 @@ Component({
     /**
      * 上个月
      */
-    lastMonthEvent: function () {
+    lastMonthEvent: function() {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month - 2 < 0 ? this.data.year - 1 : this.data.year;
       let month = this.data.month - 2 < 0 ? 11 : this.data.month - 2;
@@ -189,7 +189,7 @@ Component({
     /**
      * 下个月
      */
-    nextMonthEvent: function () {
+    nextMonthEvent: function() {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month > 11 ? this.data.year + 1 : this.data.year;
       let month = this.data.month > 11 ? 0 : this.data.month;
@@ -203,7 +203,7 @@ Component({
     /*
      * 获取月的总天数
      */
-    getTotalDayByMonth: function (year, month) {
+    getTotalDayByMonth: function(year, month) {
       month = parseInt(month, 10);
       var d = new Date(year, month, 0);
       return d.getDate();
@@ -211,14 +211,14 @@ Component({
     /*
      * 获取月的第一天是星期几
      */
-    getWeek: function (year, month, day) {
+    getWeek: function(year, month, day) {
       var d = new Date(year, month - 1, day);
       return d.getDay();
     },
     /**
      * 点击日期事件
      */
-    onPressDateEvent: function (e) {
+    onPressDateEvent: function(e) {
       var {
         year,
         month,
@@ -232,7 +232,7 @@ Component({
 
       this.renderPressStyle(year, month, day, amount);
     },
-    renderPressStyle: function (year, month, day, amount) {
+    renderPressStyle: function(year, month, day, amount) {
       var days = this.data.days;
       //渲染点击样式
       for (var j = 0; j < days.length; j++) {
@@ -265,7 +265,7 @@ Component({
 
     },
     /**检查数组中是否存在该元素 */
-    checkItemExist: function (arr, value) {
+    checkItemExist: function(arr, value) {
       for (var i = 0; i < arr.length; i++) {
         if (value === arr[i].day) {
           return i;

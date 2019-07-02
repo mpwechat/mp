@@ -491,7 +491,13 @@ console.log('拼命加载中')
       }
       })
   },
-
+  //跳转到商品详情页
+  ViewDetails(e) {
+    console.log(e, 'navgite')
+    wx.navigateTo({
+      url: '/pages/DetailsPage/index?id=' + e.target.dataset.id + '&type=' + e.target.dataset.type,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
