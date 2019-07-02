@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/fillOrder/index",
-      "pages/payment/index",
-        "pages/index/index",
+    "pages/payment/index",
     "pages/evaluation/index",
     "pages/scenic/index",
     "pages/order/index",
@@ -30,8 +30,8 @@
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
     "pages/noRecods/index",
-    "pages/noNetWork/index"
-    
+    "pages/noNetWork/index",
+    "pages/qualificationPictures/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

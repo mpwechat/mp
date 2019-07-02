@@ -2,7 +2,7 @@
 <view class='container'>
   <view class='MerPictures'>
     <image src='../../asset/images/bginfo.png'></image>
-    <view class='PicturesNumber'>108张</view>
+    <view class='PicturesNumber' bindtap="">108张</view>
   </view>
   <view class='MerContent'>
     <view class='ContentTitle'>千岛湖绿城度假村+酒店+森林氧吧+中心湖区门票（2张）【一线湖景】</view>

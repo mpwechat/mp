@@ -1,0 +1,2 @@
+<!--pages/qualificationPictures/index.wxml-->
+<web-view src="https://www.gxlabor.com.cn/map/map.html?id={{id}}"></web-view>
