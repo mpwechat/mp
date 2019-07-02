@@ -51,6 +51,15 @@ Page({
     columns: ['身份证', '港澳台通行证', '护照'],
     idCardTypePopShow:false,
     currentPlayer:0,
+    chooseContact:true,
+    chooseContactList:[
+      {name:'杨贤斐',phone:'15709613628',idCard:'431229199610312825',select:true},
+      { name: 'nayana', phone: '15709613628', idCard: '431229199610312587', select: false },
+      { name: 'nayana', phone: '15709613628', idCard: '431229199610312587', select: false },
+      { name: '杨贤斐', phone: '15709613628', idCard: '431229199610312825', select: false },
+      { name: 'nayana', phone: '15709613628', idCard: '431229199610312587', select: false },
+      { name: 'nayana', phone: '15709613628', idCard: '431229199610312587', select: false },
+    ]
   },
   checkInStartDatePopupShow: function() {
     this.setData({
@@ -147,6 +156,34 @@ Page({
         contactArray: currentContactArray
       })
     }
+  },
+  // 选择联系人
+  chooseContacts(){
+    this.setData({
+      chooseContact: true
+    })
+  },
+
+  chooseContactonClose(){
+this.setData({
+  chooseContact:false
+})
+  },
+  chooseThisContact(e){
+console.log(e.currentTarget.dataset);
+    let ind = e.currentTarget.dataset.index;
+    let currentContactList = this.data.chooseContactList;
+    currentContactList.forEach(function(item,index){
+      if (ind == index){
+       item.select=true 
+      }else{
+        item.select = false
+      }
+    })
+    this.setData({
+      chooseContactList:currentContactList,
+      chooseContact: false
+    })
   },
   // 费用明细弹出层open
   costDetailShowOpen() {

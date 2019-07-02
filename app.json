@@ -1,19 +1,13 @@
 {
   "pages": [
-<<<<<<< HEAD
-     
-      
-      "pages/order/index",
+    "pages/fillOrder/index",
       "pages/payment/index",
+        "pages/index/index",
     "pages/evaluation/index",
-=======
->>>>>>> 34edd06b99f01da468f63f6faf3aa24c8129b83b
-    "pages/index/index",
     "pages/scenic/index",
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",
-    "pages/fillOrder/index",
     "pages/userInfo/index",
     "pages/bindEmail/index",
     "pages/search/index",
@@ -26,14 +20,12 @@
     "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/integral/index",
-
     "pages/paySuccess/index",
     "pages/myContacts/index",
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
     "pages/DetailsPage/index",
-    
     "pages/DateAndPricePicker/index",
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
