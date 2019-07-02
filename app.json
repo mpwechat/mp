@@ -1,14 +1,9 @@
 {
   "pages": [
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 54a2cf8418f80c390df6329a65552978df7ffd87
+      "pages/qualificationPictures/index",
     "pages/index/index",
     "pages/fillOrder/index",
-    "pages/payment/index",
-    "pages/evaluation/index",
+  
     "pages/scenic/index",
     "pages/order/index",
     "pages/searchResult/index",
@@ -25,11 +20,8 @@
     "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/integral/index",
-<<<<<<< HEAD
-=======
     "pages/payment/index",
     "pages/evaluation/index", 
->>>>>>> 54a2cf8418f80c390df6329a65552978df7ffd87
     "pages/paySuccess/index",
     "pages/myContacts/index",
     "pages/myAddress/index",
@@ -40,8 +32,8 @@
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
     "pages/noRecods/index",
-    "pages/noNetWork/index",
-    "pages/qualificationPictures/index"
+    "pages/noNetWork/index"
+  
   ],
   "window": {
     "backgroundTextStyle": "light",
