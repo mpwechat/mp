@@ -1,5 +1,10 @@
 {
   "pages": [
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 54a2cf8418f80c390df6329a65552978df7ffd87
     "pages/index/index",
     "pages/fillOrder/index",
     "pages/payment/index",
@@ -20,6 +25,11 @@
     "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/integral/index",
+<<<<<<< HEAD
+=======
+    "pages/payment/index",
+    "pages/evaluation/index", 
+>>>>>>> 54a2cf8418f80c390df6329a65552978df7ffd87
     "pages/paySuccess/index",
     "pages/myContacts/index",
     "pages/myAddress/index",

@@ -20,11 +20,28 @@
     </view>
   </view>
   <view class='choseWhichBuy'>
-    <view class='choseBuy choseThis'>成人票</view>
-    <view class='choseBuy'>儿童票</view>
-    <view class='choseBuy'>学生票</view>
-    <view class='choseBuy'>家庭套票</view>
-    <view class='chose'>筛选</view>
+    <view style='display:inline-block;'>
+      <view class='choseWhichBuy_left'>
+        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:for="{{BuyKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichBuyClick' data-value="{{item.value}}">{{item.name}}</view>
+        <!-- <view class='choseBuy'>儿童票</view>
+        <view class='choseBuy'>学生票</view>
+        <view class='choseBuy'>家庭套票</view> -->
+      </view>
+    </view>
+    <view class='chose' bindtap='screen'>
+      <view style='display:inline-block;line-height:90rpx'>筛选</view>
+      <text style='line-height:90rpx;text-align:center;' class='iconfont icon-xiajiantou'></text>
+    </view>
+  </view>
+
+  <view class='choseScreen' wx:if='{{screenShow}}'>
+    <view style='display:inline-block;'>
+      <view class='choseScreenWhich'>
+        <view class="{{ScreenListState==index?'choseThis':'choseBuy'}}" wx:for="{{ScreenList}}" wx:key="list" data-key='{{index}}' bindtap='choseScreenClick' data-value="{{item.value}}">{{item.name}}</view>
+        <!-- <view class='choseBuy'>100-200</view>
+        <view class='choseBuy'>200以上</view> -->
+      </view>
+    </view>
   </view>
 
   <view class='GoodLists'>
@@ -47,7 +64,8 @@
           <view class='TakeGood_ding'>订</view>
           <view class='TakeGood_daodianfu'>到店付</view>
         </view>
-      </view><view class='GoodListsCenter'>
+      </view>
+      <view class='GoodListsCenter'>
         <view class='GoodName'>横店影视城</view>
         <view class='GoodKind'>成人票</view>
         <view class='GoodPrice'>¥498</view>
@@ -55,7 +73,8 @@
           <view class='TakeGood_ding'>订</view>
           <view class='TakeGood_daodianfu'>到店付</view>
         </view>
-      </view><view class='GoodListsCenter'>
+      </view>
+      <view class='GoodListsCenter'>
         <view class='GoodName'>横店影视城</view>
         <view class='GoodKind'>成人票</view>
         <view class='GoodPrice'>¥498</view>
@@ -63,7 +82,8 @@
           <view class='TakeGood_ding'>订</view>
           <view class='TakeGood_daodianfu'>到店付</view>
         </view>
-      </view><view class='GoodListsCenter'>
+      </view>
+      <view class='GoodListsCenter'>
         <view class='GoodName'>横店影视城</view>
         <view class='GoodKind'>成人票</view>
         <view class='GoodPrice'>¥498</view>
@@ -71,7 +91,8 @@
           <view class='TakeGood_ding'>订</view>
           <view class='TakeGood_daodianfu'>到店付</view>
         </view>
-      </view><view class='GoodListsCenter'>
+      </view>
+      <view class='GoodListsCenter'>
         <view class='GoodName'>横店影视城</view>
         <view class='GoodKind'>成人票</view>
         <view class='GoodPrice'>¥498</view>
@@ -122,9 +143,9 @@
         </view>
         <view id="list_3">
           <view class="list_1_title"> 地图交通</view>
-            <view class='ditu'>
-            
-            </view>
+          <view class='ditu'>
+
+          </view>
         </view>
         <view id="list_4">
           <view class="list_1_title">点评</view>

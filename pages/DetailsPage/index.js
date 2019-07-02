@@ -8,7 +8,40 @@ Page({
     Collection: false,
     show: false,
     Reserve: true,
+    screenShow:false,
     menuTop:'',
+    BuyKindList: [
+      {
+        value: '1',
+        name: '成人票'
+      },
+      {
+        value: '2',
+        name: '儿童票'
+      },
+      {
+        value: '3',
+        name: '学生票'
+      },
+      {
+        value: '4',
+        name: '家庭套票'
+      }
+    ],
+    ScreenList: [
+      {
+        value: '1',
+        name: '100以下'
+      },
+      {
+        value: '2',
+        name: '100-200'
+      },
+      {
+        value: '3',
+        name: '200以上'
+      }
+    ],
     list:[
       {
         id:'list_1',
@@ -30,8 +63,9 @@ Page({
     toView: '',
     fixTop: '',
 
-    state:''
-
+    state:'',
+    KindListState:'',
+    ScreenListState:''
   },
   Collection() {
     this.setData({
@@ -62,6 +96,16 @@ Page({
         console.log(res,'info')
       }
     })
+  },
+
+  // 筛选
+  screen(){
+    let screenShowOrNot = !this.data.screenShow
+    this.setData({
+      screenShow: screenShowOrNot
+    })
+    // this.data.screenShow = !screenShowOrNot
+    console.log(this.data.screenShow,'screenShow')
   },
   /**
    * 生命周期函数--监听页面加载
@@ -155,6 +199,16 @@ Page({
       state: e.currentTarget.dataset.key,
     })
     console.log(e.currentTarget);
+  },
+  choseWhichBuyClick(e){
+    this.setData({
+      KindListState: e.currentTarget.dataset.key,
+    })
+  },
+  choseScreenClick(e){
+    this.setData({
+      ScreenListState: e.currentTarget.dataset.key,
+    })
   },
 
 

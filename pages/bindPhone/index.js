@@ -66,6 +66,7 @@ let that=this;
       
      },
      fail: function(res) {
+<<<<<<< HEAD
       
 
       //  debugger
@@ -74,6 +75,8 @@ let that=this;
        wx.redirectTo({
          url: pages  //或者url: '/page/person/goldcoin/index'
        })
+=======
+>>>>>>> 54a2cf8418f80c390df6329a65552978df7ffd87
 
      },
      complete: function(res) {},
