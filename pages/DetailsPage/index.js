@@ -151,7 +151,7 @@ Page({
             // debugger
             let matchSalesArray = [];
             item.saleList.forEach((salesItem) => {
-              salesItem['ruleJson'] = eval('(' + salesItem.ruleJson + ')');
+              salesItem['ruleJson'] = JSON.parse(salesItem.ruleJson);
               if (parseInt(salesItem.beginDate) <= currentTimeStamp && currentTimeStamp <= parseInt(salesItem.endDate)) {
                 matchSalesArray.push(salesItem);
               }

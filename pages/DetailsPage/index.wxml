@@ -1,7 +1,7 @@
 <!--pages/DetailsPage/index.wxml-->
 <view class='container'>
   <view class='MerPictures'>
-    <image src='../../asset/images/bginfo.png'></image>
+    <image src='{{bgImage}}'></image>
     <view class='PicturesNumber' bindtap="">108张</view>
   </view>
   <view class='MerContent'>
@@ -19,10 +19,16 @@
       <view>2天1晚</view>
     </view>
   </view>
+  <view class="targetAddress">
+    <view>
+      <text class='iconfont icon-didian Mail'></text>
+      <view class='targetAddressWord'>千岛湖度假村中心湖景区</view>
+    </view>
+  </view>
   <view class='choseWhichBuy'>
     <view style='display:inline-block;'>
       <view class='choseWhichBuy_left'>
-        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:for="{{BuyKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichBuyClick' data-value="{{item.value}}">{{item.name}}</view>
+        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:for="{{BuyScienceKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichBuyClick' data-value="{{item.value}}">{{item.name}}</view>
         <!-- <view class='choseBuy'>儿童票</view>
         <view class='choseBuy'>学生票</view>
         <view class='choseBuy'>家庭套票</view> -->
@@ -46,59 +52,34 @@
 
   <view class='GoodLists'>
     <scroll-view class='GoodListsCenterScroll' scroll-y>
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
+      <view class='GoodListsCenter' wx:for="{{qualificationObj.productList}}" wx:key="{{item.index}}">
+        <view class='GoodName'>
+          <view class='sale_logo' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
+            <view v-if="salesitem.type==0" style='display:inline-block'>
+              {{saleItem.ruleJson.discount}}折促销
+            </view>
+          </view>
+          {{item.name}}
+          <view class='manjian' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
+            <view class="manjianInside" v-if="salesitem.type==1">满减</view>
+          </view>
         </view>
-      </view>
-
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
+        <view wx:if="{{type == 'scenic'}}">
+          <view class='GoodKind' wx:if="{{item.type == 1}}">成人票</view>
+          <view class='GoodKind' wx:elif="{{item.type == 2}}">儿童票</view>
+          <view class='GoodKind' wx:elif="{{item.type == 3}}">学生票</view>
+          <view class='GoodKind' wx:else="{{item.type == 4}}">家庭套票</view>
         </view>
-      </view>
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
+        <view wx:if="{{type == 'hotel'}}">
+          <view class='GoodKind' wx:if="{{item.type == 1}}">单人标间</view>
+          <view class='GoodKind' wx:elif="{{item.type == 2}}">大床房</view>
+          <view class='GoodKind' wx:elif="{{item.type == 3}}">家庭套房</view>
+          <view class='GoodKind' wx:else="{{item.type == 4}}">总统套房</view>
         </view>
-      </view>
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
+        <view class='GoodPrice'>¥{{item.minPrice}}</view>
         <view class='TakeGood'>
           <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
-        </view>
-      </view>
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
-        </view>
-      </view>
-      <view class='GoodListsCenter'>
-        <view class='GoodName'>横店影视城</view>
-        <view class='GoodKind'>成人票</view>
-        <view class='GoodPrice'>¥498</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>到店付</view>
+          <view class='TakeGood_daodianfu'>在线付</view>
         </view>
       </view>
     </scroll-view>
@@ -178,6 +159,6 @@
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
-    <data-price-picker inner-text="Some text"></data-price-picker>
+     <data-price-picker inner-text="Some text" optionsId='{{optionsId}}'></data-price-picker>
   </van-popup>
 </view>
