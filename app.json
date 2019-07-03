@@ -6,9 +6,9 @@
         "pages/scenic/index",
     "pages/index/index",
     "pages/fillOrder/index",
-    "pages/payment/index",
+    
     "pages/evaluation/index",
-
+"pages/payment/index",
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",

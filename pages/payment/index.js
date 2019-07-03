@@ -49,7 +49,7 @@ Page({
         })
       }
     })
-
+    this.pay()
   },
   reviewPriceDetail(){
 var that=this;
@@ -82,7 +82,7 @@ var that=this;
    * 支付
    */
   pay(){
-    var res_paydata='weixin://wxpay/bizpayurl?pr=edV4Oaj';
+    var res_paydata ='wx0310383198035679d854ef361105608800';
     console.log(Date.parse(new Date()))
     debugger
     var timeStamp = this.timeStamp();
@@ -92,15 +92,17 @@ var that=this;
     wx.requestPayment(
       {
         'timeStamp': timeStamp,
-        'nonceStr': randomString,
-        'package': 'prepay_id ='+ wx2017033010242291fcfe0db70013231072,
-        'signType': 'MD5',
-        'paySign': paySign,
+        'nonceStr': 'ACHyPj7NcAiGeRtgyLy70owU8OtgwIG6',
+        'package': 'prepay_id =' + res_paydata,
+        'signType': 'HMAC-SHA256',
+        'paySign':' 7408E7828535DBAEE857EB9CE09B1AC7D74964F27C5CD0B5C03D85FC4AA2F099',
         'success': function (res) { 
-
+console.log(res)
         },
-        'fail': function (res) { },
-        'complete': function (res) { }
+        'fail': function (res) { 
+          console.log(res)
+        },
+        'complete': function (res) { console.log(res) }
       }) 
 
 
@@ -108,7 +110,7 @@ var that=this;
   },
   // 调起支付签名
  MixedencryMD5(res_paydata, randomString, timeStamp) {
-    return "appId=" + config.appid + "&nonceStr=" + randomString + "&package=prepay_id=" + res_paydata + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=" + config.key;
+   return "appId=" + 'wx7ed0955cce3e8d15' + "&nonceStr=" + randomString + "&package=prepay_id=" + res_paydata + "&signType=MD5" + "&timeStamp=" + timeStamp + "&key=" +'123456789012345678901234567890SP' ;
   },
   // / 时间戳
  timeStamp() {
