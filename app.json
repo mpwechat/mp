@@ -2,13 +2,13 @@
 {
   "pages": [
     
-      "pages/hotel/index",
-        "pages/scenic/index",
+      
     "pages/index/index",
     "pages/fillOrder/index",
     "pages/payment/index",
     "pages/evaluation/index",
-
+"pages/hotel/index",
+        "pages/scenic/index",
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",

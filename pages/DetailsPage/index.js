@@ -8,6 +8,8 @@ Page({
     bgImage: '',
     name: '', //名字
     qualificationObj: {},//价格列表
+    choosesList:[],
+    minPrice:[],
     Collection: false,
     show: false,
     Reserve: true,
@@ -195,11 +197,24 @@ Page({
    */
   onLoad: function (options) {
     const id = options.id
-    const type = options.type
+    let type = options.type
+    console.log(type, 'type')
+    switch (type) {
+      case 'hotel':
+        this.setData({
+          type: 1
+        })
+        break;
+      case 'scenic':
+        this.setData({
+          type: 2
+        })
+        break;
+    }
     this.setData({
       optionsId: id,
-      type: type
     })
+    console.log(this.data.type, 'type')
     this.getInfo(id)
   },
 
@@ -289,21 +304,103 @@ Page({
     console.log(e.currentTarget);
   },
 
-  // 酒店选择票类
-  choseWhichHotelClick(e) {
-    console.log(e,'hotel')
+  // 酒店 景区 选择票类
+  choseWhichClick(e) {
+    console.log(e, 'hotel')
     this.setData({
       KindListState: e.currentTarget.dataset.key,
     })
-  },
-  // 景区选择票类
-  choseWhichScienceClick(e) {
-    console.log(e, 'science')
+    let item = e.target.dataset.item
+    /**
+         * 筛选操作
+         */
+    let choosesArray = [];
+    console.log(typeof (this.data));
+    console.log(this.qualificationType);
+    switch (parseInt(this.data.type)) {
+      case 1:
+      debugger
+        item.check = !item.check;
+        console.log(item, 'hotelItem')
+        this.data.BuyHotelKindList.forEach((item) => {
+          if (item.check) {
+            let screenItem = {};
+            screenItem['type'] = 'type';
+            screenItem['value'] = item.value;
+            choosesArray.push(screenItem);
+          }
+        })
+        break;
+      case 2:
+        debugger
+        item.check = !item.check;
+        console.log(item,'sciencItem')
+        this.data.BuyScienceKindList.forEach((item) => {
+          if (item.check) {
+            let screenItem = {};
+            screenItem['type'] = 'type';
+            screenItem['value'] = item.value;
+            choosesArray.push(screenItem);
+          }
+        })
+        break;
+    }
+    console.log(item,'item')
+    // this.data.choosesList = choosesArray;
     this.setData({
-      ScreenListState: e.currentTarget.dataset.key,
+      choosesList: choosesArray
+    })
+    let conditions = {
+      minPrice: this.data.minPrice,
+      chooses: this.data.choosesList
+    };
+    // this.data.qualificationObj = this.choosesFilter(this.data.qualificationObj, conditions)
+    this.setData({
+      qualificationObj: this.choosesFilter(this.data.qualificationObj, conditions)
     })
   },
 
+  // 条件筛选返回数组
+  choosesFilter(products, Conditions) {
+    console.log(products, 'products')
+    console.log(Conditions,'Conditions')
+    let tmpProducts = [];
+    if (Conditions.chooses.length === 0 && Conditions.minPrice.length === 0) {
+      tmpProducts = products;
+    } else if (Conditions.chooses.length !== 0) {
+      /**
+       * 选择类型条件是或逻辑，使用数组连接concat
+       */
+      for (let choice of Conditions.chooses) {
+        tmpProducts = tmpProducts.concat(products.filter(function (item) {
+          switch (Conditions.minPrice.length) {
+            case 0:
+              return (item[choice.type] + '').indexOf(choice.value) !== -1;
+              break;
+            default:
+              if (Conditions.minPrice[0].low !== undefined && Conditions.minPrice[0].high !== undefined) {
+                return (item[choice.type] + '').indexOf(choice.value) !== -1 && item['minPrice'] >= Conditions.minPrice[0].low && item['minPrice'] <= Conditions.minPrice[0].high;
+              } else if (Conditions.minPrice[0].low !== undefined) {
+                return (item[choice.type] + '').indexOf(choice.value) !== -1 && item['minPrice'] >= Conditions.minPrice[0].low;
+              } else {
+                return (item[choice.type] + '').indexOf(choice.value) !== -1 && item['minPrice'] <= Conditions.minPrice[0].high;
+              }
+          }
+        }));
+      }
+    } else if (Conditions.chooses.length == 0 && Conditions.minPrice.length !== 0) {
+      tmpProducts = products.filter(function (item) {
+        if (Conditions.minPrice[0].low !== undefined && Conditions.minPrice[0].high !== undefined) {
+          return item['minPrice'] >= Conditions.minPrice[0].low && item['minPrice'] <= Conditions.minPrice[0].high;
+        } else if (Conditions.minPrice[0].low !== undefined) {
+          return item['minPrice'] >= Conditions.minPrice[0].low;
+        } else {
+          return item['minPrice'] <= Conditions.minPrice[0].high;
+        }
+      });
+    }
+    return tmpProducts;
+  },
 
 
 
