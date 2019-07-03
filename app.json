@@ -7,12 +7,12 @@
     "pages/fillOrder/index",
     
     "pages/evaluation/index",
-<<<<<<< HEAD
+
 "pages/payment/index",
-=======
+
 "pages/hotel/index",
         "pages/scenic/index",
->>>>>>> f5c95682fc96ad1a9e779f8ce9da512ad9fa0bcb
+
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",

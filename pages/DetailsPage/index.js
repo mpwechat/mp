@@ -132,6 +132,7 @@ Page({
           bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
         })
         let qualificationObj = res.data.obj.hits[0]._source;
+        qualificationObj.introduce = qualificationObj.description.substr(0,100)
         //资质商品列表 计算商品最小价格
         //资质最小价格
         let qualificationGoodsPrice = [];

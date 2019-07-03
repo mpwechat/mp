@@ -10,7 +10,7 @@
       <view class="ContentInfo_neirongTitle" wx:if='{{type=="1"}}'>酒店介绍：</view>
       <view class="ContentInfo_neirongTitle"  wx:if='{{type=="2"}}'>景区介绍：</view>
       <view class='ContentInfo_neirong'>
-        <view >{{qualificationObj.description}}  <text class="lookMoreIntrdouction">....</text></view> 
+        <view >{{qualificationObj.introduce}}  <text class="lookMoreIntrdouction">....</text></view> 
       </view>
     </view>
     <view class='ContentDay'>
