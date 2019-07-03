@@ -278,27 +278,25 @@ page{
   background: url(http://image.supconit.net/discount.png) center no-repeat;
   background-size: 100% 100%;
   width: 39rpx;
-  height: 58rpx;
-  font-size: 16rpx;
+  height: 54rpx;
+  font-size: 14rpx;
   color: #fff;
-  text-align: center;
-  line-height: 16rpx;
 }
 .manjian{
   position: absolute;
   left: 28rpx;
   bottom: 20rpx;
-  width: 83rpx;
-  height: 29rpx;
+  width: 80rpx;
+  height: 22rpx;
   border: 1px solid #D83D45;
 }
 .manjianInside{
   width: 78rpx;
-  height: 25rpx;
-  margin: 1px auto;
+  height: 20rpx;
+  margin: 0 auto;
   background-color: #D83D45;
   text-align: center;
-  font-size: 19rpx;
+  font-size: 12rpx;
   color: #fff;
 }
 .GoodKind{
@@ -403,21 +401,4 @@ page{
   width: 100%;
   height: 312rpx;
   background-color: #000;
-}
-.ContentInfo_neirongTitle{
-  width: 130rpx;
- 
-  float:left;
-}
-.ContentInfo_neirong{
-  width: calc(100% - 130rpx);
-  float: right;
-}
-.lookMoreIntrdouction{
-  /* color:#409EFF;
-  text-decoration: underline; */
-
-}
-.iconfont.icon-didian.Mail{
-  color: #409EFF;
 }

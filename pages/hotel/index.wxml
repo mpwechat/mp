@@ -152,6 +152,8 @@
       return Math.round(state / 100) * 10000
     }
     module.exports.showPrice = showPrice;
+
+   
   </wxs>
 
 </view>

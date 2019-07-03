@@ -451,7 +451,11 @@ console.log(index);
    */
   loadingMoreGood(){
     let currentPage = this.data.recodePage;
-console.log('拼命加载中')
+console.log('拼命加载中');
+this.setData({
+  recodePage: currentPage+1
+})
+    this.getRecodes()
   },
 
   /**

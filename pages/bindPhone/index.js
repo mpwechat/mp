@@ -67,7 +67,6 @@ let that=this;
      },
      fail: function(res) {
 
-      //  debugger
        let pages = wx.getStorageSync('router')
        wx.setStorageSync("sessionid", res.header["Set-Cookie"])
        wx.redirectTo({

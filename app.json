@@ -1,11 +1,14 @@
+
 {
   "pages": [
-
+    
+      "pages/hotel/index",
+        "pages/scenic/index",
     "pages/index/index",
     "pages/fillOrder/index",
     "pages/payment/index",
     "pages/evaluation/index",
-    "pages/scenic/index",
+
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",
@@ -15,7 +18,6 @@
     "pages/logs/logs",
     "pages/Hot/index",
     "pages/userCenter/index",
-    "pages/hotel/index",
     "pages/food/index",
     "pages/travelSelf/index",
     "pages/travelPlus/index",
@@ -93,3 +95,4 @@
     "van-toast": "/miniprogram_npm/vant-weapp/toast/index"
   }
 }
+
