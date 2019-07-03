@@ -278,25 +278,27 @@ page{
   background: url(http://image.supconit.net/discount.png) center no-repeat;
   background-size: 100% 100%;
   width: 39rpx;
-  height: 54rpx;
-  font-size: 14rpx;
+  height: 58rpx;
+  font-size: 16rpx;
   color: #fff;
+  text-align: center;
+  line-height: 16rpx;
 }
 .manjian{
   position: absolute;
   left: 28rpx;
   bottom: 20rpx;
-  width: 80rpx;
-  height: 22rpx;
+  width: 83rpx;
+  height: 29rpx;
   border: 1px solid #D83D45;
 }
 .manjianInside{
   width: 78rpx;
-  height: 20rpx;
-  margin: 0 auto;
+  height: 25rpx;
+  margin: 1px auto;
   background-color: #D83D45;
   text-align: center;
-  font-size: 12rpx;
+  font-size: 19rpx;
   color: #fff;
 }
 .GoodKind{

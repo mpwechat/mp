@@ -5,16 +5,16 @@ Page({
    * 页面的初始数据
    */
   data: {
-    bgImage:'',
-    name:'', //名字
-    qualificationObj:{},//价格列表
+    bgImage: '',
+    name: '', //名字
+    qualificationObj: {},//价格列表
     Collection: false,
     show: false,
     Reserve: true,
-    screenShow:false,
-    menuTop:'',
-    optionsId:'',
-    type:'',
+    screenShow: false,
+    menuTop: '',
+    optionsId: '',
+    type: '',
     BuyScienceKindList: [
       {
         value: '1',
@@ -41,22 +41,22 @@ Page({
       {
         value: '1',
         check: false,
-        name: '成人票'
+        name: '单人标间'
       },
       {
         value: '2',
         check: false,
-        name: '儿童票'
+        name: '大床房'
       },
       {
         value: '3',
         check: false,
-        name: '学生票'
+        name: '家庭套房'
       },
       {
         value: '4',
         check: false,
-        name: '家庭套票'
+        name: '总统套房'
       }
     ],
     ScreenList: [
@@ -73,30 +73,30 @@ Page({
         name: '200以上'
       }
     ],
-    list:[
+    list: [
       {
-        id:'list_1',
-        name:'套餐说明'
+        id: 'list_1',
+        name: '套餐说明'
       },
       {
-        id:'list_2',
-        name:'预定须知'
+        id: 'list_2',
+        name: '预定须知'
       },
       {
-        id:'list_3',
-        name:'地图交通'
+        id: 'list_3',
+        name: '地图交通'
       },
       {
-        id:'list_4',
+        id: 'list_4',
         name: '点评'
       }
     ],
     toView: '',
     fixTop: '',
 
-    state:'',
-    KindListState:'',
-    ScreenListState:''
+    state: '',
+    KindListState: '',
+    ScreenListState: ''
   },
   Collection() {
     this.setData({
@@ -113,7 +113,7 @@ Page({
     this.setData({ show: false });
   },
   // 获取商品详情信息
-  getInfo(id){
+  getInfo(id) {
     let that = this
     wx.request({
       url: 'https://www.supconit.net/search/aptitude/byIds/' + id,
@@ -124,10 +124,10 @@ Page({
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success:function(res){
-        console.log(res,'info')
+      success: function (res) {
+        console.log(res, 'info')
         that.setData({
-          bgImage:'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
+          bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
         })
         let qualificationObj = res.data.obj.hits[0]._source;
         //资质商品列表 计算商品最小价格
@@ -163,11 +163,11 @@ Page({
           qualificationObj: qualificationObj
         })
         console.log(qualificationObj, 'qualificationObj')
-        console.log(that.data.qualificationObj,'data.qualificationObj')
+        console.log(that.data.qualificationObj, 'data.qualificationObj')
       }
     })
   },
-  getTicketType(value){
+  getTicketType(value) {
     switch (value) {
       case 1:
         return '成人票';
@@ -182,7 +182,7 @@ Page({
   /**
    * 点击筛选是否显示价格
    */
-  screen(){
+  screen() {
     let screenShowOrNot = !this.data.screenShow
     this.setData({
       screenShow: screenShowOrNot
@@ -197,8 +197,8 @@ Page({
     const id = options.id
     const type = options.type
     this.setData({
-      optionsId : id,
-      type:type
+      optionsId: id,
+      type: type
     })
     this.getInfo(id)
   },
@@ -281,19 +281,24 @@ Page({
 
   clickScroll: function (e) {
     var id = e.currentTarget.dataset.id
-    
+
     this.setData({
       toView: id,
       state: e.currentTarget.dataset.key,
     })
     console.log(e.currentTarget);
   },
-  choseWhichBuyClick(e){
+
+  // 酒店选择票类
+  choseWhichHotelClick(e) {
+    console.log(e,'hotel')
     this.setData({
       KindListState: e.currentTarget.dataset.key,
     })
   },
-  choseScreenClick(e){
+  // 景区选择票类
+  choseWhichScienceClick(e) {
+    console.log(e, 'science')
     this.setData({
       ScreenListState: e.currentTarget.dataset.key,
     })
@@ -324,7 +329,7 @@ Page({
       // })
     } else {
       // that.setData({
-        // menuFixed: false
+      // menuFixed: false
       // })
     }
   }

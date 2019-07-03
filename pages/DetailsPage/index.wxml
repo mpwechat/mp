@@ -28,10 +28,9 @@
   <view class='choseWhichBuy'>
     <view style='display:inline-block;'>
       <view class='choseWhichBuy_left'>
-        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:for="{{BuyScienceKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichBuyClick' data-value="{{item.value}}">{{item.name}}</view>
-        <!-- <view class='choseBuy'>儿童票</view>
-        <view class='choseBuy'>学生票</view>
-        <view class='choseBuy'>家庭套票</view> -->
+        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:if="{{type === 'scenic'}}" wx:for="{{BuyScienceKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichScienceClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
+
+        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:if="{{type === 'hotel'}}" wx:for="{{BuyHotelKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichHotelClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
       </view>
     </view>
     <view class='chose' bindtap='screen'>
@@ -44,8 +43,6 @@
     <view style='display:inline-block;'>
       <view class='choseScreenWhich'>
         <view class="{{ScreenListState==index?'choseThis':'choseBuy'}}" wx:for="{{ScreenList}}" wx:key="list" data-key='{{index}}' bindtap='choseScreenClick' data-value="{{item.value}}">{{item.name}}</view>
-        <!-- <view class='choseBuy'>100-200</view>
-        <view class='choseBuy'>200以上</view> -->
       </view>
     </view>
   </view>
@@ -54,14 +51,14 @@
     <scroll-view class='GoodListsCenterScroll' scroll-y>
       <view class='GoodListsCenter' wx:for="{{qualificationObj.productList}}" wx:key="{{item.index}}">
         <view class='GoodName'>
-          <view class='sale_logo' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
-            <view v-if="salesitem.type==0" style='display:inline-block'>
-              {{saleItem.ruleJson.discount}}折促销
-            </view>
+          <view wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
+            <text class='sale_logo' v-if="salesitem.type==0">
+              {{saleItem.ruleJson.discount}}折\n促销
+            </text>
           </view>
           {{item.name}}
           <view class='manjian' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
-            <view class="manjianInside" v-if="salesitem.type==1">满减</view>
+            <view class="manjianInside" v-if="salesitem.type==1" style="line-height:13px;">满减</view>
           </view>
         </view>
         <view wx:if="{{type == 'scenic'}}">
@@ -143,11 +140,8 @@
           <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
         </view>
       </view>
-
-
     </scroll-view>
   </view>
-
 
   <view class='CollectionAndReserve'>
     <view class='Collection' bindtap='Collection'>
@@ -159,6 +153,6 @@
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
-     <data-price-picker inner-text="Some text" optionsId='{{optionsId}}'></data-price-picker>
+    <data-price-picker inner-text="Some text" optionsId='{{optionsId}}'></data-price-picker>
   </van-popup>
 </view>
