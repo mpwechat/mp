@@ -402,20 +402,3 @@ page{
   height: 312rpx;
   background-color: #000;
 }
-.ContentInfo_neirongTitle{
-  width: 130rpx;
- 
-  float:left;
-}
-.ContentInfo_neirong{
-  width: calc(100% - 130rpx);
-  float: right;
-}
-.lookMoreIntrdouction{
-  /* color:#409EFF;
-  text-decoration: underline; */
-
-}
-.iconfont.icon-didian.Mail{
-  color: #409EFF;
-}

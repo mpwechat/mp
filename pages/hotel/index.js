@@ -446,6 +446,10 @@ console.log(index);
   loadingMoreGood(){
     let currentPage = this.data.recodePage;
 console.log('拼命加载中')
+this.setData({
+  recodePage: currentPage+1
+})
+this.getRecodes()
   },
 
   /**
@@ -454,6 +458,7 @@ console.log('拼命加载中')
   getRecodes(){
     let that=this;
     let page = that.data.recodePage+'';
+    
     wx.request({
       url: 'https://www.supconit.net/search/aptitude?type=1&size=8&page='+page,
       data: '',
@@ -479,9 +484,9 @@ console.log('拼命加载中')
           })
           item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
         });
-        // that.data.goodShowArray.concat(
+        // 
           that.setData({
-            goodShowArray: recodesArray
+            goodShowArray: that.data.goodShowArray.concat(recodesArray)
           })
         console.log(that.data.goodShowArray,'goodShowArray')
       }

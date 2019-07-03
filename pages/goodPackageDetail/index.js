@@ -145,10 +145,6 @@ Page({
         });
         qualificationObj['minPrice'] = Math.min.apply(null, qualificationGoodsPrice)
         qualificationObj['productList'] = productArray;
-        // 简介 
-        qualificationObj['introduce'] = qualificationObj.description.substr(0, 100);
-        // 轮播图
-        qualificationObj['cover'] = qualificationObj.cover.split(',');
         let currentTimeStamp = Date.parse(new Date());
         qualificationObj.productList.forEach((item) => {
           if (item.saleList !== "") {
@@ -199,21 +195,12 @@ Page({
    */
   onLoad: function (options) {
     const id = options.id
-    var type ;
-    switch (options.type){
-      case 'hotel':
-        type=1;
-      break
-      case 'scenic':
-        type = 2;
-      break
-    }
+    const type = options.type
     this.setData({
       optionsId : id,
       type:type
     })
     this.getInfo(id)
-    // debugger
   },
 
   /**

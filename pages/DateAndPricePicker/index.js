@@ -78,7 +78,7 @@ Component({
       that.setData({
         optionsId: that.properties.optionsId
       })
-      let dataUrl = 'http://www.supconit.net/search/aptitude/byIds/'+that.data.optionsId
+      let dataUrl = 'https://www.supconit.net/search/aptitude/byIds/'+that.data.optionsId
       console.log(dataUrl,'dataUrldataUrl')
       http(dataUrl).then(res => {
         console.log(res,'httpreeeeeesssss')
