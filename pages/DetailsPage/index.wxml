@@ -10,7 +10,7 @@
       <view class="ContentInfo_neirongTitle" wx:if='{{type=="1"}}'>酒店介绍：</view>
       <view class="ContentInfo_neirongTitle"  wx:if='{{type=="2"}}'>景区介绍：</view>
       <view class='ContentInfo_neirong'>
-        <view >{{qualificationObj.introduce}}  <text class="lookMoreIntrdouction">....</text></view> 
+        <view >{{qualificationObj.description}}  <text class="lookMoreIntrdouction">....</text></view> 
       </view>
     </view>
     <view class='ContentDay'>
@@ -27,10 +27,10 @@
   <view class='choseWhichBuy'>
     <view style='display:inline-block;'>
       <view class='choseWhichBuy_left'>
-        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:if="{{type === 'scenic'}}" wx:for="{{BuyScienceKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichScienceClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
+        <view wx:for="{{BuyScienceKindList}}" class="{{item.check?'choseThis':'choseBuy'}}" wx:if="{{type == '2'}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
 
 
-        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:if="{{type === 'hotel'}}" wx:for="{{BuyHotelKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichHotelClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
+        <view class="{{item.check?'choseThis':'choseBuy'}}" wx:if="{{type == '1'}}" wx:for="{{BuyHotelKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">{{item.name}}</view>
       </view>
     </view>
     <view class='chose' bindtap='screen'>

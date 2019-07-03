@@ -10,7 +10,7 @@
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": true,
-		"autoAudits": true,
+		"autoAudits": false,
 		"checkInvalidKey": true,
 		"coverView": true,
 		"checkSiteMap": true,
