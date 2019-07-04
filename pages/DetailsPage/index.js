@@ -144,6 +144,7 @@ Page({
         })
         let qualificationObj = res.data.obj.hits[0]._source;
         qualificationObj.introduce = qualificationObj.description.substr(0,100)
+        qualificationObj['cover'] = qualificationObj.cover.split(',')
         //资质商品列表 计算商品最小价格
         //资质最小价格
         let qualificationGoodsPrice = [];
@@ -444,6 +445,18 @@ Page({
       // })
     }
   },
+<<<<<<< HEAD
+  getpicture(){
+    let id = this.data.optionsId;
+    debugger
+    wx.navigateTo({
+      url: '/pages/qualificationPictures/index?id='+id,
+      success:function(res){
+console.log(res)
+      }
+    })
+  }
+=======
   SureBuy(){
     console.log(this.data.show,'show')
     console.log(this.data.show == true, 'show')
@@ -466,4 +479,5 @@ Page({
     })
     console.log(res,'componentPass');
   },
+>>>>>>> 50d55c5cc28b5c5359001982f00c4af6aeff73a5
 })

@@ -1,11 +1,11 @@
 
 {
   "pages": [
-    
-      
-    "pages/index/index",
+         
     "pages/fillOrder/index",
-    
+    "pages/index/index",
+    "pages/myContacts/index",
+
     "pages/evaluation/index",
 
 "pages/payment/index",
@@ -28,7 +28,7 @@
     "pages/globalSearch/index",
     "pages/integral/index",
     "pages/paySuccess/index",
-    "pages/myContacts/index",
+
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
