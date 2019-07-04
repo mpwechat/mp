@@ -445,7 +445,7 @@ Page({
       // })
     }
   },
-<<<<<<< HEAD
+
   getpicture(){
     let id = this.data.optionsId;
     debugger
@@ -455,8 +455,8 @@ Page({
 console.log(res)
       }
     })
-  }
-=======
+  },
+
   SureBuy(){
     console.log(this.data.show,'show')
     console.log(this.data.show == true, 'show')
@@ -479,5 +479,5 @@ console.log(res)
     })
     console.log(res,'componentPass');
   },
->>>>>>> 50d55c5cc28b5c5359001982f00c4af6aeff73a5
+
 })
