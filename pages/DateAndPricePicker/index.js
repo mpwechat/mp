@@ -188,7 +188,7 @@ Component({
       for (var a = 0; a < dateArr.length; a++) {
         for (var b = 0; b < this.data.PriceCalendarList.length; b++) {
           if (dateArr[a].dailyDay == this.data.PriceCalendarList[b].dailyDate) {
-            dateArr[a].amount = '$' + this.data.PriceCalendarList[b].price
+            dateArr[a].amount = '￥' + this.data.PriceCalendarList[b].price
           }
         }
       }
