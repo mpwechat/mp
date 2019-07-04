@@ -8,6 +8,7 @@ Page({
     bgImage: '',
     name: '', //名字
     qualificationObj: {},//价格列表
+    productList:[],//商品列表
     choosesList:[],
     minPrice:[],
     Collection: false,
@@ -98,21 +99,31 @@ Page({
 
     state: '',
     KindListState: '',
-    ScreenListState: ''
+    ScreenListState: '',
+
+    productDailyList:{} // datePicker组件使用数据
   },
   Collection() {
     this.setData({
       Collection: !this.data.Collection
     })
   },
-  Reserve() {
+  Reserve(e) {
     this.setData({
       Reserve: !this.data.Reserve,
-      show: true
+      show: true,
+      datePickerProductDailyList: e.currentTarget.dataset.item.productDailyList
     })
+    // 调用子组件的方法
+    this.selectComponent('#dataPricePicker').onedate()
+    console.log(this.data.datePickerProductDailyList,'datePickerProductDailyList')
+    console.log(e,'reserveData')
   },
   onClose() {
     this.setData({ show: false });
+    // this.reviewdate()
+    this.selectComponent('#dataPricePicker').reviewdate()
+
   },
   // 获取商品详情信息
   getInfo(id) {
@@ -164,10 +175,11 @@ Page({
           }
         })
         that.setData({
-          qualificationObj: qualificationObj
+          qualificationObj: qualificationObj,
+          productList: qualificationObj['productList']
         })
         console.log(qualificationObj, 'qualificationObj')
-        console.log(that.data.qualificationObj, 'data.qualificationObj')
+        console.log(that.data.productList, 'that.data.productList')
       }
     })
   },
@@ -319,10 +331,13 @@ Page({
     let choosesArray = [];
     console.log(typeof (this.data));
     console.log(this.qualificationType);
+    debugger
     switch (parseInt(this.data.type)) {
       case 1:
-      debugger
+     
         item.check = !item.check;
+
+        debugger
         console.log(item, 'hotelItem')
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
@@ -358,7 +373,7 @@ Page({
     };
     // this.data.qualificationObj = this.choosesFilter(this.data.qualificationObj, conditions)
     this.setData({
-      qualificationObj: this.choosesFilter(this.data.qualificationObj, conditions)
+      productList: this.choosesFilter(this.data.qualificationObj, conditions)
     })
   },
 
@@ -404,8 +419,6 @@ Page({
     return tmpProducts;
   },
 
-
-
   onShow: function () {
     var that = this;
     var query = wx.createSelectorQuery()//创建节点查询器 query
@@ -432,6 +445,7 @@ Page({
       // })
     }
   },
+<<<<<<< HEAD
   getpicture(){
     let id = this.data.optionsId;
     debugger
@@ -442,4 +456,28 @@ console.log(res)
       }
     })
   }
+=======
+  SureBuy(){
+    console.log(this.data.show,'show')
+    console.log(this.data.show == true, 'show')
+    if(this.data.show == true){
+      console.log(this.data.show, 'show')
+
+      this.selectComponent('#dataPricePicker').goFatherNeed()
+    }
+  },
+
+  compontpass: function (res) {
+    // if (e.detail.val) { }
+    let { choooseValenceList, chooseNumber, goodId} = res.detail
+    let a = JSON.stringify(choooseValenceList)
+    wx:wx.redirectTo({
+      url: '/pages/fillOrder/index?choooseValenceList=' + a + '&chooseNumber=' + chooseNumber + '&goodId=' + goodId,
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+    console.log(res,'componentPass');
+  },
+>>>>>>> 50d55c5cc28b5c5359001982f00c4af6aeff73a5
 })
