@@ -100,8 +100,9 @@ Component({
       that.setData({
         optionsId: that.properties.optionsId,
         productList: that.properties.productDailyList,
-        id: that.properties.productDailyList[0].id
+        id: that.properties.productDailyList[0].productId
       })
+      debugger
       console.log(that.properties, 'properties')
       console.log(that.data.productDailyList,'productDailyList')
       let newDateList = []
@@ -298,16 +299,12 @@ Component({
     },
     /**检查数组中是否存在该元素 */
     checkItemExist: function(arr, value) {
-      console.log(arr, 'arr')
-      console.log(1111)
       for (var i = 0; i < arr.length; i++) {
         if (value === arr[i].day) {
           return i;
         }
       }
       return -1;
-      console.log(222222)
-
     },
     //购买份数
     onChange(e) {
