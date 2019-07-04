@@ -8,9 +8,11 @@
     <view class='ContentTitle'>{{qualificationObj.name}}</view>
     <view class='ContentInfo'>
       <view class="ContentInfo_neirongTitle" wx:if='{{type=="1"}}'>酒店介绍：</view>
-      <view class="ContentInfo_neirongTitle"  wx:if='{{type=="2"}}'>景区介绍：</view>
+      <view class="ContentInfo_neirongTitle" wx:if='{{type=="2"}}'>景区介绍：</view>
       <view class='ContentInfo_neirong'>
-        <view >{{qualificationObj.introduce}}  <text class="lookMoreIntrdouction">....</text></view> 
+        <view>{{qualificationObj.introduce}}
+          <text class="lookMoreIntrdouction">....</text>
+        </view>
       </view>
     </view>
     <view class='ContentDay'>
@@ -49,7 +51,7 @@
 
   <view class='GoodLists'>
     <scroll-view class='GoodListsCenterScroll' scroll-y>
-      <view class='GoodListsCenter' wx:for="{{qualificationObj.productList}}" wx:key="{{item.index}}">
+      <view class='GoodListsCenter' wx:for="{{productList}}" wx:key="{{item.index}}">
         <view class='GoodName'>
           <view wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
             <text class='sale_logo' v-if="salesitem.type==0">
@@ -61,7 +63,7 @@
             <view class="manjianInside" v-if="salesitem.type==1" style="line-height:13px;">满减</view>
           </view>
         </view>
-         <view wx:if="{{type == '2'}}">
+        <view wx:if="{{type == '2'}}">
           <view class='GoodKind' wx:if="{{item.type == 1}}">成人票</view>
           <view class='GoodKind' wx:elif="{{item.type == 2}}">儿童票</view>
           <view class='GoodKind' wx:elif="{{item.type == 3}}">学生票</view>
@@ -74,7 +76,7 @@
           <view class='GoodKind' wx:else="{{item.type == 4}}">总统套房</view>
         </view>
         <view class='GoodPrice'>¥{{item.minPrice}}</view>
-        <view class='TakeGood'>
+        <view class='TakeGood' data-item="{{item}}" bindtap='Reserve'>
           <view class='TakeGood_ding'>订</view>
           <view class='TakeGood_daodianfu'>在线付</view>
         </view>
@@ -91,10 +93,10 @@
     <scroll-view class='rightScroll' scroll-y scroll-into-view="{{toView}}" scroll-with-animation="true">
       <view class='list_center'>
         <view id="list_1">
-          <view class="list_1_title"> 
-          <text wx:if='{{type=="1"}}'>酒店介绍</text> 
-          <text wx:if='{{type=="2"}}'>景区介绍</text> 
-           </view>
+          <view class="list_1_title">
+            <text wx:if='{{type=="1"}}'>酒店介绍</text>
+            <text wx:if='{{type=="2"}}'>景区介绍</text>
+          </view>
           <view class='list_small_title'>费用包含：</view>
           <view class='list_small_title'>【酒店】</view>
           <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
@@ -151,11 +153,11 @@
       <text class='iconfont  {{Collection ? "icon-collection":"icon-shoucang"}}'></text>
       <view style='display:inline-block'>收藏</view>
     </view>
-    <view class='Reserve' bindtap='Reserve'>
-      <button>{{show?'立即预订':'预定'}}</button>
+    <view class='Reserve'>
+      <button  bindtap='SureBuy'>{{show?'立即预订':'预定'}}</button>
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
-    <data-price-picker inner-text="Some text" optionsId='{{optionsId}}'></data-price-picker>
+    <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
   </van-popup>
 </view>

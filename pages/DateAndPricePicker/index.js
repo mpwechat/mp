@@ -33,27 +33,32 @@ Component({
           });
         }
       })
+      console.log(this.properties, 'attached')
     },
 
     detached: function() {
       // 在组件实例被从页面节点树移除时执行
+      console.log(this.properties, 'detached')
     },
   },
   // 以下是旧式的定义方式，可以保持对 <2.2.3 版本基础库的兼容
   attached: function() {
     // 在组件实例进入页面节点树时执行
+    // console.log(this.properties, 'attached')
   },
   detached: function() {
     // 在组件实例被从页面节点树移除时执行
+    // console.log(this.properties,'detached')
   },
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
-    optionsId: String
+    optionsId: String,
+    productDailyList: Array
   },
-  ready: function () {
-    console.log(this.properties,'readyready');
+  ready: function() {
+    console.log(this.properties, 'readyready');
     this.setData({
-      optionsId : this.properties.optionsId
+      optionsId: this.properties.optionsId
     })
     //获取价钱列表先行转环时间戳
     this.changeDate()
@@ -64,31 +69,50 @@ Component({
     month: '',
     day: '',
     days: {},
-    optionsId:'',
+    optionsId: '',
+    productList: [],
     systemInfo: {},
     weekStr: ['日', '一', '二', '三', '四', '五', '六'],
     checkDate: [],
     PriceCalendarList: [],
+    chooseNumber: '1' //购买份数
   },
   methods: {
     //获取到的价格列表循环处理时间
     changeDate(year, month) {
       let that = this
-      console.log(that.properties)
+      console.log(that.properties.productDailyList, 'productDailyListchange')
       that.setData({
-        optionsId: that.properties.optionsId
+        optionsId: that.properties.optionsId,
+        productList: that.properties.productDailyList
       })
-      let dataUrl = 'https://www.supconit.net/search/aptitude/byIds/'+that.data.optionsId
-      console.log(dataUrl,'dataUrldataUrl')
-      http(dataUrl).then(res => {
-        console.log(res,'httpreeeeeesssss')
-        that.data.PriceCalendarList = res.obj.hits[0]._source.productList[0].productDailyList
-        for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
-          that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
-        }
-      }).then(res => {
-        this.createDateListData(year, month)
+      // that.data.PriceCalendarList = that.data.productList
+      //   for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
+      //     that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
+      //   }
+      this.createDateListData(year, month)
+
+    },
+    // 不用每次装时间格式的方法
+    onedate(year, month) {
+      let that = this
+      that.setData({
+        optionsId: that.properties.optionsId,
+        productList: that.properties.productDailyList
       })
+      console.log(that.properties.productDailyList, 'onedateproductDailyList')
+      that.setData({
+        optionsId: that.properties.optionsId,
+        productList: that.properties.productDailyList
+      })
+      let newDateList = []
+      that.data.PriceCalendarList = that.data.productList
+      for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
+        that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
+        newDateList.push(that.data.PriceCalendarList[i].dailyDate)
+      }
+      console.log(newDateList, 'newDateList')
+      this.createDateListData(year, month)
     },
     // 时间戳转时间
     Conversiontime(timestamp) {
@@ -238,6 +262,12 @@ Component({
       for (var j = 0; j < days.length; j++) {
         var tempDay = days[j].day;
         if (tempDay == day) {
+          if (month < 10) {
+            month = '0' + month
+          }
+          if (day < 10) {
+            day = '0' + day
+          }
           var date = year + "-" + month + "-" + day;
           var obj = {
             day: date,
@@ -255,7 +285,7 @@ Component({
           this.setData({
             checkDate: checkDateJson
           })
-          console.log(JSON.stringify(this.data.checkDate));
+          console.log(this.data.checkDate, 'checkdate');
           break;
         }
       }
@@ -266,12 +296,45 @@ Component({
     },
     /**检查数组中是否存在该元素 */
     checkItemExist: function(arr, value) {
+      console.log(arr, 'arr')
+      console.log(1111)
       for (var i = 0; i < arr.length; i++) {
         if (value === arr[i].day) {
           return i;
         }
       }
       return -1;
+      console.log(222222)
+
+    },
+    //购买份数
+    onChange(e) {
+      console.log(e, 'conchange')
+      this.setData({
+        chooseNumber: e.detail
+      })
+      console.log(this.data.chooseNumber,'chooseNumber')
+    },
+    // 父组件每次关闭选项卡重新赋予年月
+    reviewdate() {
+      let now = new Date();
+      let year = now.getFullYear();
+      let month = now.getMonth();
+      this.setData({
+        year: year,
+        month: month + 1
+      })
+    },
+    //子组件传给父组件所需要的值
+    goFatherNeed() {
+      let myEventDetail = {
+        choooseValenceList: this.data.checkDate,
+        goodId: this.data.optionsId,
+        chooseNumber: this.data.chooseNumber
+      }
+      console.log(myEventDetail)
+      console.log(this.triggerEvent('compontpass', myEventDetail))
+      this.triggerEvent('myevent', myEventDetail)
     }
   }
 })
