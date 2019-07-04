@@ -70,6 +70,7 @@ Component({
     day: '',
     days: {},
     optionsId: '',
+    id:'',
     productList: [],
     systemInfo: {},
     weekStr: ['日', '一', '二', '三', '四', '五', '六'],
@@ -98,13 +99,11 @@ Component({
       let that = this
       that.setData({
         optionsId: that.properties.optionsId,
-        productList: that.properties.productDailyList
+        productList: that.properties.productDailyList,
+        id: that.properties.productDailyList[0].id
       })
-      console.log(that.properties.productDailyList, 'onedateproductDailyList')
-      that.setData({
-        optionsId: that.properties.optionsId,
-        productList: that.properties.productDailyList
-      })
+      console.log(that.properties, 'properties')
+      console.log(that.data.productDailyList,'productDailyList')
       let newDateList = []
       that.data.PriceCalendarList = that.data.productList
       for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
@@ -188,7 +187,7 @@ Component({
       for (var a = 0; a < dateArr.length; a++) {
         for (var b = 0; b < this.data.PriceCalendarList.length; b++) {
           if (dateArr[a].dailyDay == this.data.PriceCalendarList[b].dailyDate) {
-            dateArr[a].amount = '$' + this.data.PriceCalendarList[b].price
+            dateArr[a].amount = '￥' + this.data.PriceCalendarList[b].price
           }
         }
       }
@@ -256,6 +255,7 @@ Component({
 
       this.renderPressStyle(year, month, day, amount);
     },
+
     renderPressStyle: function(year, month, day, amount) {
       var days = this.data.days;
       //渲染点击样式
@@ -276,9 +276,11 @@ Component({
           var checkDateJson = this.data.checkDate;
           var index = this.checkItemExist(checkDateJson, date);
           if (index == -1) {
+            console.log(checkDateJson, 'CheckDateJson')
             checkDateJson.push(obj);
             days[j].class = days[j].class + ' active';
           } else {
+            console.log(checkDateJson,'elseCheckDateJson')
             checkDateJson.splice(index, 1);
             days[j].class = days[j].class.replace('active', ' ');
           }
@@ -313,7 +315,7 @@ Component({
       this.setData({
         chooseNumber: e.detail
       })
-      console.log(this.data.chooseNumber,'chooseNumber')
+      console.log(this.data.chooseNumber, 'chooseNumber')
     },
     // 父组件每次关闭选项卡重新赋予年月
     reviewdate() {
@@ -329,7 +331,7 @@ Component({
     goFatherNeed() {
       let myEventDetail = {
         choooseValenceList: this.data.checkDate,
-        goodId: this.data.optionsId,
+        goodId: this.data.id,
         chooseNumber: this.data.chooseNumber
       }
       console.log(myEventDetail)
