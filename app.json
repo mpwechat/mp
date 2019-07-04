@@ -2,10 +2,10 @@
 {
   "pages": [
          
-    "pages/fillOrder/index",
+
     "pages/index/index",
     "pages/myContacts/index",
-
+    "pages/fillOrder/index",
     "pages/evaluation/index",
 
 "pages/payment/index",

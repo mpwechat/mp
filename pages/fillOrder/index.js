@@ -107,23 +107,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var chooseValenceAray = [{
-        productId: "1126460575448010753",
-        price: 258,
-        dailyDate: "1562169600000",
-        inventory: 20,
-        refund: ""
-      },
-      {
-        productId: "1126460575448010753",
-        price: 258,
-        dailyDate: "1562256000000",
-        inventory: 20,
-        refund: ""
-      }
-    ];
+    console.log(options)
+    let optionchooseValenceAray =  JSON.parse(options.choooseValenceList)
+    let shijianc = Date.parse(optionchooseValenceAray[0].day)
+    optionchooseValenceAray.forEach(function(item){
+      item['price'] = item.amount.substr(1); //删除第一个字符
+      item['dailyDate'] = Date.parse(item.day)
+    })
+    debugger
+    var chooseValenceAray = optionchooseValenceAray
     var statDate;
-    var endDate
+    var endDate;
     chooseValenceAray.forEach(function(item, index) {
       item['dailyDate'] = parseInt(item.dailyDate);
       if (index == 0) {
@@ -134,7 +128,7 @@ Page({
     })
 
     this.setData({
-      goodId: '1127744180350586881',
+      goodId: options.goodId,
       checkInStartDate: statDate.dailyDate,
       checkInEndDate: endDate.dailyDate,
 
@@ -393,6 +387,7 @@ Page({
    */
   getGoodDetail(goodId) {
     var that = this;
+    
     wx.request({
       url: 'https://www.supconit.net/search/aptitude/byProductId/' + goodId,
       data: '',
