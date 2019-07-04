@@ -133,6 +133,7 @@ Page({
         })
         let qualificationObj = res.data.obj.hits[0]._source;
         qualificationObj.introduce = qualificationObj.description.substr(0,100)
+        qualificationObj['cover'] = qualificationObj.cover.split(',')
         //资质商品列表 计算商品最小价格
         //资质最小价格
         let qualificationGoodsPrice = [];
@@ -430,5 +431,15 @@ Page({
       // menuFixed: false
       // })
     }
+  },
+  getpicture(){
+    let id = this.data.optionsId;
+    debugger
+    wx.navigateTo({
+      url: '/pages/qualificationPictures/index?id='+id,
+      success:function(res){
+console.log(res)
+      }
+    })
   }
 })
