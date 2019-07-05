@@ -6,7 +6,11 @@
   "pages/payment/index",
     "pages/hotel/index",
     "pages/myContacts/index",
+<<<<<<< HEAD
     "pages/fillOrder/index",
+=======
+"pages/fillOrder/index",
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
     "pages/evaluation/index",
     "pages/order/index",
     "pages/searchResult/index",

@@ -158,6 +158,6 @@
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
-    <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
+    <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" type='{{type}}' optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
   </van-popup>
 </view>

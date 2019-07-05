@@ -33,32 +33,29 @@ Component({
           });
         }
       })
-      console.log(this.properties, 'attached')
     },
 
     detached: function() {
       // 在组件实例被从页面节点树移除时执行
-      console.log(this.properties, 'detached')
     },
   },
   // 以下是旧式的定义方式，可以保持对 <2.2.3 版本基础库的兼容
   attached: function() {
     // 在组件实例进入页面节点树时执行
-    // console.log(this.properties, 'attached')
   },
   detached: function() {
     // 在组件实例被从页面节点树移除时执行
-    // console.log(this.properties,'detached')
   },
   properties: {
     // 这里定义了innerText属性，属性值可以在组件使用时指定
     optionsId: String,
-    productDailyList: Array
+    productDailyList: Array,
+    type: String
   },
   ready: function() {
-    console.log(this.properties, 'readyready');
     this.setData({
-      optionsId: this.properties.optionsId
+      optionsId: this.properties.optionsId,
+      type: this.properties.type
     })
     //获取价钱列表先行转环时间戳
     this.changeDate()
@@ -70,7 +67,7 @@ Component({
     day: '',
     days: {},
     optionsId: '',
-    id:'',
+    id: '',
     productList: [],
     systemInfo: {},
     weekStr: ['日', '一', '二', '三', '四', '五', '六'],
@@ -82,7 +79,6 @@ Component({
     //获取到的价格列表循环处理时间
     changeDate(year, month) {
       let that = this
-      console.log(that.properties.productDailyList, 'productDailyListchange')
       that.setData({
         optionsId: that.properties.optionsId,
         productList: that.properties.productDailyList
@@ -102,16 +98,18 @@ Component({
         productList: that.properties.productDailyList,
         id: that.properties.productDailyList[0].productId
       })
+<<<<<<< HEAD
    
       console.log(that.properties, 'properties')
       console.log(that.data.productDailyList,'productDailyList')
+=======
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
       let newDateList = []
       that.data.PriceCalendarList = that.data.productList
       for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
         that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
         newDateList.push(that.data.PriceCalendarList[i].dailyDate)
       }
-      console.log(newDateList, 'newDateList')
       this.createDateListData(year, month)
     },
     // 时间戳转时间
@@ -139,7 +137,7 @@ Component({
       let nextMonth = (month + 1) > 10 ? 1 : (month + 1);
       console.log("当前选中月nextMonth：" + nextMonth);
       //目标月1号对应的星期
-      let startWeek = this.getWeek(year, nextMonth, 1); //new Date(year + ',' + (month + 1) + ',' + 1).getDay();  
+      let startWeek = this.getWeek(year, nextMonth, 1); //new Date(year + ',' + (month + 1) + ',' + 1).getDay(); 
       console.log("目标月1号对应的星期startWeek:" + startWeek);
       //获取目标月有多少天
       let dayNums = this.getTotalDayByMonth(year, nextMonth); //new Date(year, nextMonth, 0).getDate();         
@@ -196,6 +194,7 @@ Component({
         days: dateArr
       })
     },
+
     /**
      * 上个月
      */
@@ -208,7 +207,6 @@ Component({
         month: (month + 1)
       })
       this.changeDate(year, month)
-      // this.createDateListData(year, month);
     },
     /**
      * 下个月
@@ -243,21 +241,23 @@ Component({
      * 点击日期事件
      */
     onPressDateEvent: function(e) {
+      console.log(e, 'e')
       var {
         year,
         month,
         day,
-        amount
+        amount,
+        index
       } = e.currentTarget.dataset;
       console.log("当前点击的日期：" + year + "-" + month + "-" + day);
       //当前选择的日期为同一个月并小于今天，或者点击了空白处（即day<0），不执行
-      if ((day < DATE_DAY && month == DATE_MONTH) || day <= 0)
+      if ((day < DATE_DAY && month == DATE_MONTH) || day <= 0 || month < DATE_MONTH)
         return;
 
-      this.renderPressStyle(year, month, day, amount);
+      this.renderPressStyle(year, month, day, amount, index);
     },
 
-    renderPressStyle: function(year, month, day, amount) {
+    renderPressStyle: function(year, month, day, amount, choseIndex) {
       var days = this.data.days;
       //渲染点击样式
       for (var j = 0; j < days.length; j++) {
@@ -272,30 +272,71 @@ Component({
           var date = year + "-" + month + "-" + day;
           var obj = {
             day: date,
-            amount: amount
+            amount: amount,
+            index: choseIndex
           };
           var checkDateJson = this.data.checkDate;
           var index = this.checkItemExist(checkDateJson, date);
+          console.log(index, 'index')
           if (index == -1) {
-            console.log(checkDateJson, 'CheckDateJson')
-            checkDateJson.push(obj);
-            days[j].class = days[j].class + ' active';
+            checkDateJson.push(obj)
+            if (this.data.type == '2') { //景区
+              let NewCheckDateJson = checkDateJson.slice(-1)
+              for (let i = 0; i < NewCheckDateJson.length; i++) {
+                days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
+                if (checkDateJson.length >= 1) {
+                  for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
+                    console.log(checkDateJson[i]['index'], 'checkDateJson[i].index')
+                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.replace(' active', '');
+                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.trim()
+                    console.log(checkDateJson, '1111')
+                    checkDateJson.splice(i, 1);
+                    console.log(checkDateJson, '222')
+                  }
+                }
+              }
+            } else if (this.data.type == '1') { //酒店
+              let NewCheckDateJson = checkDateJson.slice(-2)
+              for (let i = 0; i < NewCheckDateJson.length; i++) {
+                days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
+                if (checkDateJson.length >= 2) {
+                  for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
+                    console.log(checkDateJson[i]['index'], 'checkDateJson[i].index')
+                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.replace('active active', '');
+                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.trim()
+                    console.log(checkDateJson, '1111')
+                    checkDateJson.splice(i, 1);
+                    console.log(checkDateJson, '222')
+                  }
+                }
+
+              }
+            }
           } else {
-            console.log(checkDateJson,'elseCheckDateJson')
+            console.log(checkDateJson, 'elseCheckDateJson111111')
             checkDateJson.splice(index, 1);
-            days[j].class = days[j].class.replace('active', ' ');
+            console.log(j, 'jjjjjjj')
+            if (days[j].class == ' active active') {
+              days[j].class = days[j].class.replace(' active active', ' ');
+              console.log(days[j].class.split(" "), 'split1111')
+              days[j].class = days[j].class.trim()
+            } else {
+              days[j].class = days[j].class.replace(' active', ' ');
+              days[j].class = days[j].class.trim()
+            }
+            console.log(checkDateJson, 'elseCheckDateJson22222')
           }
           this.setData({
             checkDate: checkDateJson
           })
-          console.log(this.data.checkDate, 'checkdate');
+          console.log(this.data.checkDate)
           break;
         }
       }
       this.setData({
         days: days
       });
-
+      console.log(this.data.days, 'days')
     },
     /**检查数组中是否存在该元素 */
     checkItemExist: function(arr, value) {
@@ -308,11 +349,9 @@ Component({
     },
     //购买份数
     onChange(e) {
-      console.log(e, 'conchange')
       this.setData({
         chooseNumber: e.detail
       })
-      console.log(this.data.chooseNumber, 'chooseNumber')
     },
     // 父组件每次关闭选项卡重新赋予年月
     reviewdate() {
@@ -331,8 +370,6 @@ Component({
         goodId: this.data.id,
         chooseNumber: this.data.chooseNumber
       }
-      console.log(myEventDetail)
-      console.log(this.triggerEvent('compontpass', myEventDetail))
       this.triggerEvent('myevent', myEventDetail)
     }
   }

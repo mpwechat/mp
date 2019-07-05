@@ -163,7 +163,6 @@ Page({
         let currentTimeStamp = Date.parse(new Date());
         qualificationObj.productList.forEach((item) => {
           if (item.saleList !== "") {
-            // debugger
             let matchSalesArray = [];
             item.saleList.forEach((salesItem) => {
               salesItem['ruleJson'] = JSON.parse(salesItem.ruleJson);
@@ -331,13 +330,19 @@ Page({
     let choosesArray = [];
     console.log(typeof (this.data));
     console.log(this.qualificationType);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
     switch (parseInt(this.data.type)) {
       case 1:
      
         item.check = !item.check;
 
+<<<<<<< HEAD
      
+=======
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
         console.log(item, 'hotelItem')
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
@@ -349,7 +354,6 @@ Page({
         })
         break;
       case 2:
-        debugger
         item.check = !item.check;
         console.log(item,'sciencItem')
         this.data.BuyScienceKindList.forEach((item) => {
@@ -448,7 +452,6 @@ Page({
 
   getpicture(){
     let id = this.data.optionsId;
-    debugger
     wx.navigateTo({
       url: '/pages/qualificationPictures/index?id='+id,
       success:function(res){
