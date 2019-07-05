@@ -16,7 +16,7 @@
       </view>
     </view>
     <view class="layout-flex row" style="flex-wrap: wrap;margin-top:30rpx;">
-      <view class="date-day {{item.day<=0?'bgwhite':item.class}}" style="width:{{systemInfo.windowWidth/7-10}}px;height:{{systemInfo.windowWidth/7}}px;" data-year="{{year}}" data-month="{{month}}" data-day="{{item.day}}" data-amount="{{item.amount}}" bindtap="onPressDateEvent"
+      <view class="date-day {{item.day<=0?'bgwhite':item.class}}" style="width:{{systemInfo.windowWidth/7-10}}px;height:{{systemInfo.windowWidth/7}}px;" data-index="{{index}}" data-year="{{year}}" data-month="{{month}}" data-day="{{item.day}}" data-amount="{{item.amount}}" bindtap="onPressDateEvent"
         wx:for="{{days}}" wx:key="{{index}}">
         <view class='item-days'>
           <text>{{item.day>0?(item.daytext?item.daytext:item.day):''}}</text>

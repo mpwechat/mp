@@ -1,18 +1,10 @@
 
 {
   "pages": [
-         
-<<<<<<< HEAD
-
-    "pages/index/index",
-    "pages/myContacts/index",
-    "pages/fillOrder/index",
-=======
     
     "pages/index/index",
     "pages/myContacts/index",
 "pages/fillOrder/index",
->>>>>>> 31c417c03808ecd0620fd9e30d83f5c3c7da9865
     "pages/evaluation/index",
 
 "pages/payment/index",
