@@ -12,7 +12,7 @@ Page({
     goodId: '',
     chooseNumber: '',
     goodObject: {},
-    overlay: true,
+    overlay: false,
     chooseValenceArray: [],
     salesList: [],
     matchSalesList: [],
@@ -54,13 +54,13 @@ Page({
     // 游玩人
     playerArray: [{
         name: '',
-      idcard: '',
+        idcard: '',
         phone: '',
         IdCardType: '身份证',
       }
-     
+
     ],
-    palyerIndex:0,
+    palyerIndex: 0,
     columns: ['身份证', '港澳台通行证', '护照'],
     idCardTypePopShow: false,
     currentPlayer: 0,
@@ -108,35 +108,47 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
-    let optionchooseValenceAray =  JSON.parse(options.choooseValenceList)
+    let optionchooseValenceAray = JSON.parse(options.choooseValenceList)
     let shijianc = Date.parse(optionchooseValenceAray[0].day)
-    optionchooseValenceAray.forEach(function(item){
+    optionchooseValenceAray.forEach(function(item) {
       item['price'] = item.amount.substr(1); //删除第一个字符
       item['dailyDate'] = Date.parse(item.day)
     })
-    debugger
+
     var chooseValenceAray = optionchooseValenceAray
     var statDate;
     var endDate;
-    chooseValenceAray.forEach(function(item, index) {
-      item['dailyDate'] = parseInt(item.dailyDate);
-      if (index == 0) {
-        statDate = item
-      } else {
-        endDate = item
-      }
-    })
+    var ticketOrderTime;
+    if (chooseValenceAray.length > 1) {
+      chooseValenceAray.forEach(function(item, index) {
+        item['dailyDate'] = parseInt(item.dailyDate);
+        if (index == 0) {
+          statDate = item
+        } else {
+          endDate = item
+        }
+      })
+      this.setData({
+        goodId: options.goodId,
+        checkInStartDate: statDate.dailyDate,
+        checkInEndDate: endDate.dailyDate,
+        roomNumber: options.chooseNumber
+      });
+      this.count()
+    } else {
+      this.setData({
+        goodId: options.goodId,
+        ticketOrderDate: chooseValenceAray[0].dailyDate,
+        ticketNumber: options.chooseNumber
+      });
 
-    this.setData({
-      goodId: options.goodId,
-      checkInStartDate: statDate.dailyDate,
-      checkInEndDate: endDate.dailyDate,
+    }
 
-    });
 
-    this.count()
+
+
     this.getGoodDetail(this.data.goodId);
-    this.getList() 
+    this.getList()
   },
 
 
@@ -264,9 +276,9 @@ Page({
           let contactSales = matcSaleshArray.filter(function(item) {
             return parseInt(item.beginDate) <= ValenceDateTimeStamp && ValenceDateTimeStamp <= parseInt(item.endDate);
           });
-     
+
           that.data.matchSalesList = contactSales;
-          let matchdailyPrice = matchdaily[0].price ;
+          let matchdailyPrice = matchdaily[0].price;
           // 折前价格
           let discountPrice = matchdailyPrice * that.data.ticketNumber
           if (contactSales.length > 0) {
@@ -275,7 +287,7 @@ Page({
                 let percentage = parseInt(contactSales[0].ruleJson.discount);
                 let floatPercent = percentage / 100.00;
                 realTimePriceArray.push((matchdailyPrice * that.data.ticketNumber) * floatPercent.toFixed(2));
-              //  折后价格
+                //  折后价格
                 let disCountedPrice = discountPrice * floatPercent
                 that.setData({
                   payablePrice: discountPrice.toFixed(2),
@@ -286,7 +298,7 @@ Page({
                 break;
               case 1:
                 let ticketNuber = that.data.ticketNumber;
-               
+
                 let matchRuleJson = contactSales[0].ruleJson
                 let contactFullReduction = matchRuleJson.filter(function(item) {
                   return (matchdailyPrice * ticketNuber) >= item.full
@@ -302,15 +314,16 @@ Page({
                     priceOrder: (discountPrice.toFixed(2)) - contactFullReduction[0].reduction,
                     realTimePriceList: realTimePriceArray
                   })
-              
+
                 } else {
                   realTimePriceArray.push(discountPrice).toFixed(2);
                   that.setData({
-                    priceOrder:discountPrice.toFixed(2),
+                    payablePrice: discountPrice.toFixed(2),
+                    priceOrder: discountPrice.toFixed(2),
                     realTimePriceList: realTimePriceArray
                   })
-                 
-              
+
+
                 }
                 break;
 
@@ -319,11 +332,11 @@ Page({
             realTimePriceArray.push((matchdailyPrice * that.data.ticketNumber).toFixed(2));
             that.setData({
               payablePrice: (matchdailyPrice * that.data.ticketNumber).toFixed(2),
-              priceOrder: (matchdailyPrice* that.data.ticketNumber).toFixed(2),
-              realTimePriceList : realTimePriceArray,
+              priceOrder: (matchdailyPrice * that.data.ticketNumber).toFixed(2),
+              realTimePriceList: realTimePriceArray,
               ticketDaliyprice: matchdailyPrice
             })
-            
+
           }
 
         }
@@ -387,7 +400,7 @@ Page({
    */
   getGoodDetail(goodId) {
     var that = this;
-    
+
     wx.request({
       url: 'https://www.supconit.net/search/aptitude/byProductId/' + goodId,
       data: '',
@@ -423,11 +436,11 @@ Page({
           goodType: type,
           salesList: salesArray
         })
-        
-        if (type==1){
+
+        if (type == 1) {
           that.getBatchValence();
         }
-    
+
         that.calculatePrice()
       }
     })
@@ -486,7 +499,7 @@ Page({
       checkInEndDate: event.detail,
       checkInEndDatePopupShow: false
     })
-    debugger
+  
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -555,7 +568,7 @@ Page({
   },
   // 选择联系人
   chooseContacts(e) {
-    let palyerIndex=e.currentTarget.dataset.index;
+    let palyerIndex = e.currentTarget.dataset.index;
     this.setData({
       chooseContact: true,
       palyerIndex: palyerIndex
@@ -568,30 +581,38 @@ Page({
     })
   },
   chooseThisContact(e) {
-    var that=this;
+    var that = this;
     console.log(e.currentTarget.dataset);
     let ind = e.currentTarget.dataset.index;
     let currentContactList = that.data.chooseContactList;
-    currentContactList.forEach(function(item, index) {
-      if (ind == index) {
-        item.select = true
-      } else {
-        item.select = false
+    debugger
+    for (var ContactI = 0; ContactI < currentContactList.length; ContactI++){
+      if (ind == ContactI){
+        currentContactList[ContactI].select=true
+      }else{
+        currentContactList[ContactI].select = false
+      }
+    }
+    // currentContactList.forEach(function (ContactItem,ContactIndex) {
+    //   if (ind == ContactIndex) {
+    //     ContactItem.select = true
+    //   } else {
+    //     ContactItem.select = false
+    //   }
+    // })
+
+    let currenrPlayerArray = that.data.playerArray;
+    currenrPlayerArray.forEach(function(PlayerItem, PlayerIndex) {
+      if (PlayerIndex == that.data.palyerIndex) {
+        PlayerItem['name'] = e.currentTarget.dataset.name,
+          PlayerItem['phone'] = e.currentTarget.dataset.phone,
+          PlayerItem['idcard'] = e.currentTarget.dataset.idcard
       }
     })
- 
-    let currenrPlayerArray = that.data.playerArray;
-    currenrPlayerArray.forEach(function (PlayerItem,PlayerIndex){
-      if (PlayerIndex == that.data.palyerIndex){
-  PlayerItem['name'] = e.currentTarget.dataset.name,
-    PlayerItem['phone'] = e.currentTarget.dataset.phone,
-    PlayerItem['idcard'] = e.currentTarget.dataset.idcard
-}
-    })
-   debugger
+    debugger
     that.setData({
       chooseContactList: currentContactList,
-      playerArray:currenrPlayerArray,
+      playerArray: currenrPlayerArray,
       chooseContact: false,
 
     })
@@ -672,9 +693,9 @@ Page({
     let index = that.data.currentPlayer;
     let value = e.detail.value;
     let currentplayerArray = that.data.playerArray;
-    currentplayerArray.forEach(function(item,ind){
-      if (ind == index){
-        item['IdCardType'] = value 
+    currentplayerArray.forEach(function(item, ind) {
+      if (ind == index) {
+        item['IdCardType'] = value
       }
     })
     that.setData({
@@ -692,7 +713,7 @@ Page({
     playerJson['name'] = '';
     playerJson['phoneNumber'] = '';
     playerJson['IdCardNumber'] = '',
-      playerJson['IdCardType'] ='身份证',
+      playerJson['IdCardType'] = '身份证',
       currentplayrArray.push(playerJson);
     this.setData({
       playerArray: currentplayrArray
@@ -718,11 +739,54 @@ Page({
       })
     }
   },
-/**
- * 姓名输入
- */
-  nameInput(e){
-console.log(e)
+  /**
+   * 姓名输入
+   */
+  nameInput(e) {
+    console.log(e);
+    let inputChangePlayerIndex = e.currentTarget.dataset.index;
+    let currentPlayerArray = this.data.playerArray;
+    currentPlayerArray.forEach(function(palyerItem, playerIndex) {
+      if (inputChangePlayerIndex == playerIndex) {
+        palyerItem['name'] = e.detail.value
+      }
+    })
+    this.setData({
+      playerArray: currentPlayerArray
+    })
+
+  },
+  /**
+   * 电话输入
+   */
+  phoneInput(e) {
+    console.log(e);
+    let inputChangePlayerIndex = e.currentTarget.dataset.index;
+    let currentPlayerArray = this.data.playerArray;
+    currentPlayerArray.forEach(function(palyerItem, playerIndex) {
+      if (inputChangePlayerIndex == playerIndex) {
+        palyerItem['phone'] = e.detail.value
+      }
+    })
+    this.setData({
+      playerArray: currentPlayerArray
+    })
+  },
+  /**
+   * 身份证输入
+   */
+  IdCardInput(e) {
+    console.log(e);
+    let inputChangePlayerIndex = e.currentTarget.dataset.index;
+    let currentPlayerArray = this.data.playerArray;
+    currentPlayerArray.forEach(function(palyerItem, playerIndex) {
+      if (inputChangePlayerIndex == playerIndex) {
+        palyerItem['idcard'] = e.detail.value
+      }
+    })
+    this.setData({
+      playerArray: currentPlayerArray
+    })
   },
 
   /**
@@ -785,32 +849,31 @@ console.log(e)
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         that.setData({
           chooseContactList: res.data.obj
         })
-        
+
       }
     })
   },
   /**
    * 保存新的联系人
    */
-  saveContact(e){
+  saveContact(e) {
     console.log(e);
-   debugger
-   let dataSet=e.currentTarget.dataset;
-    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard=="" ){
-wx.showToast({
-  title: '联系人信息不能为空',
-})
-    }else{
-      let params={};
-      params['idenCard'] = item.idCard;
-      params['name'] = it.name;
-      params['phone'] = it.name;
-      params['IdCardType'] = it.IdCardType;
-   
+    var that = this;
+    let dataSet = e.currentTarget.dataset;
+    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == "") {
+      wx.showToast({
+        title: '联系人信息不能为空',
+      })
+    } else {
+      let params = {};
+      params['idenCard'] = dataSet.idcard;
+      params['name'] = dataSet.name;
+      params['phone'] = dataSet.phone;
+      params['IdCardType'] = dataSet.idcardtype;
       wx.request({
         url: 'https://www.supconit.net/customer/contacts',
         data: params,
@@ -820,14 +883,112 @@ wx.showToast({
         method: 'POST',
         dataType: 'json',
         responseType: 'text',
-        success: function (res) {
+        success: function(res) {
           that.setData({
             chooseContactList: res.data.obj
           })
+          wx.showToast({
+            title: '保存成功',
+          })
+          that.getList()
 
         }
       })
     }
-    
+
+  },
+  /**
+   * 提交订单
+   */
+  payNow() {
+    let parmas = {};
+    debugger
+    if (this.data.playerArray[0].name !== '' || this.data.playerArray[0].phone !== '' || this.data.playerArray[0].idcard == !'') {
+      console.log(this.data.playerArray);
+      //拼接联系人
+      parmas['contactsJson'] = this.data.playerArray;
+      parmas['productId'] = this.data.goodId;
+      // parmas['quantity'] = this.chooseValenceArray.length;
+      parmas['other'] = '加个鸡腿';
+      parmas['price'] = this.data.priceOrder;
+      //拼接商品list
+      let productArray = [];
+      let realTimePriceList = this.data.realTimePriceList;
+      // debugger;
+      switch (this.data.goodType) {
+        case 1:
+          let ValenceArray = this.data.chooseValenceArray;
+          console.log(ValenceArray);
+          ValenceArray.forEach((item, index) => {
+            let productItem = {};
+            productItem['buyDate'] = moment(new Date()).format('YYYY-MM-DD');
+            productItem['realTimePrice'] = this.data.realTimePriceList[index];
+            productItem['useDate'] = item.date;
+            productItem['quantity'] = this.data.roomValue;
+            productArray.push(productItem);
+          });
+          parmas['productInfoList'] = productArray;
+          parmas['quantity'] = this.data.roomValue * this.data.chooseValenceArray.length;
+          break
+        case 2:
+        debugger
+          console.log(this.data.realTimePriceList)
+          let productItem = {};
+          productItem['buyDate'] = moment(new Date()).format('YYYY-MM-DD');
+          productItem['realTimePrice'] = this.data.realTimePriceList[0];
+          productItem['useDate'] = moment(this.data.ticketOrderDate).format('YYYY-MM-DD');
+          productItem['quantity'] = this.data.ticketNumber;
+          productArray.push(productItem);
+          parmas['productInfoList'] = productArray;
+          parmas['quantity'] = this.data.ticketNumber;
+          break
+      };
+      wx.request({
+        url: 'https://www.supconit.net/order/info/finishOrder',
+        data: parmas,
+        header: {
+          'cookie': wx.getStorageSync("sessionid") //读取cookie
+        },
+        method: 'POST',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          if (res.data.msg =='操作成功'){
+wx.navigateTo({
+  url: '/pages/payment/index?orderId=' + res.data.obj,
+})
+          }
+       
+
+        }
+      })
+      // http.post('/order/info/finishOrder', parmas).then(res => {
+      //   console.log(res);
+      //   if (res.success) {
+      //     this.orderStep = 1;
+      //     this.payWrapShow = false;
+      //     ScrollTop(0, 0);
+      //     this.$refs.orderSwiper.goTo(1, false);
+      //     this.orderId = res.obj.id;
+      //     this.$store.commit('setcreatorderTime', moment(new Date()).valueOf());
+      //     this.computedLastPayTime();
+      //   }
+      // })
+    } else {
+      let tips = '';
+      switch (this.data.goodType) {
+        case 1:
+          tips = '联系人不能为空'
+          break
+        case 2:
+          tips = '游玩人不能为空'
+          break
+      }
+      wx.showModal({
+        title: '提示',
+        content: tips,
+      })
+    }
+
   }
 })

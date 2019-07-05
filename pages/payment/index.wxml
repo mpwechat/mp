@@ -4,7 +4,8 @@
   <view class='order-detail-wrap'>
     <view class='order-detail-content'>
       <view class='payment-security-tips'>
-        <image src='../../asset/images/orderIcon.png'></image>恭喜您支付成功！</view>
+        安全支付...
+        </view>
       <view class='order-content  '>
         <view class='middle-wrap payment'>
           <text class='order-good-name'>乐园（2成人票）+烂苹果乐园（2成人票）+湘湖大酒店（大床房/一晚）</text>

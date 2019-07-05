@@ -102,7 +102,7 @@ Component({
         productList: that.properties.productDailyList,
         id: that.properties.productDailyList[0].productId
       })
-      debugger
+   
       console.log(that.properties, 'properties')
       console.log(that.data.productDailyList,'productDailyList')
       let newDateList = []

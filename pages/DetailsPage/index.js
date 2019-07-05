@@ -331,13 +331,13 @@ Page({
     let choosesArray = [];
     console.log(typeof (this.data));
     console.log(this.qualificationType);
-    debugger
+
     switch (parseInt(this.data.type)) {
       case 1:
      
         item.check = !item.check;
 
-        debugger
+     
         console.log(item, 'hotelItem')
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
