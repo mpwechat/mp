@@ -133,8 +133,6 @@ Page({
     state: '',
     KindListState: '',
     ScreenListState: '',
-
-<<<<<<< HEAD
     productDailyList:{}, // datePicker组件使用数据
     mapObj :{
       lng:'113.324520',
@@ -174,9 +172,9 @@ commentArray:[
   },
   controltap(e) {
     console.log(e.controlId)
-=======
+
     productDailyList: {} // datePicker组件使用数据
->>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
+
   },
   Collection() {
     this.setData({
@@ -406,15 +404,9 @@ commentArray:[
      * 筛选操作
      */
     let choosesArray = [];
-<<<<<<< HEAD
+
     console.log(typeof (this.data));
     console.log(this.qualificationType);
-    switch (parseInt(this.data.type)) {
-      case 1:
-    
-        item.check = !item.check;
-        console.log(item, 'hotelItem')
-=======
 
     switch (parseInt(this.data.type)) {
       case 1:
@@ -427,7 +419,7 @@ commentArray:[
         this.setData({
           BuyHotelKindList: this.data.BuyHotelKindList
         })
->>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
+
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
             let screenItem = {};

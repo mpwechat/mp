@@ -430,10 +430,8 @@ Page({
       checkInStartDate: event.detail,
       checkInStartDatePopupShow: false
     })
-<<<<<<< HEAD
-=======
-    // debugger
->>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
+
+ 
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -547,11 +545,7 @@ Page({
           PlayerItem['idcard'] = e.currentTarget.dataset.idcard
       }
     })
-<<<<<<< HEAD
- 
-=======
 
->>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
     that.setData({
       chooseContactList: currentContactList,
       playerArray: currenrPlayerArray,
@@ -805,9 +799,8 @@ Page({
    */
   saveContact(e) {
     console.log(e);
-<<<<<<< HEAD
     var that = this;
-    let dataSet = e.currentTarget.dataset;
+    var dataSet = e.currentTarget.dataset;
     let validation ;
     switch(that.data.goodType){
       case 1:
@@ -817,18 +810,14 @@ case 2:
         validation = dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == ""
 break
     }
-    if (validation) {
-      wx.showToast({
-        title: '联系人信息不能为空',
-      })
-=======
+
   //  debugger
-   let dataSet=e.currentTarget.dataset;
-    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard=="" ){
+ 
+    if (validation){
 wx.showToast({
   title: '联系人信息不能为空',
 })
->>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
+
     } else {
       let params = {};
       params['idenCard'] = dataSet.idcard;
