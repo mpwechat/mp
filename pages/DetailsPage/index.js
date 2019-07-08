@@ -357,9 +357,26 @@ Page({
      * 筛选操作
      */
     let choosesArray = [];
+<<<<<<< HEAD
+=======
+    console.log(typeof (this.data));
+    console.log(this.qualificationType);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
+>>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
     switch (parseInt(this.data.type)) {
       case 1:
         item.check = !item.check;
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+     
+=======
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
+>>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
         console.log(item, 'hotelItem')
         for (let i = 0; i < this.data.BuyHotelKindList.length; i++) {
           if (item.value == this.data.BuyHotelKindList[i].value) {

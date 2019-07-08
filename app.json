@@ -1,17 +1,17 @@
-
 {
   "pages": [
     
     "pages/index/index",
+    "pages/scenic/index",
+  "pages/payment/index",
+    "pages/hotel/index",
     "pages/myContacts/index",
+<<<<<<< HEAD
+    "pages/fillOrder/index",
+=======
 "pages/fillOrder/index",
+>>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
     "pages/evaluation/index",
-
-"pages/payment/index",
-
-"pages/hotel/index",
-        "pages/scenic/index",
-
     "pages/order/index",
     "pages/searchResult/index",
     "pages/bindPhone/index",
@@ -27,7 +27,6 @@
     "pages/globalSearch/index",
     "pages/integral/index",
     "pages/paySuccess/index",
-
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
@@ -98,4 +97,3 @@
     "van-toast": "/miniprogram_npm/vant-weapp/toast/index"
   }
 }
-

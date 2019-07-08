@@ -115,7 +115,7 @@
           </view>
           <view class='conatct-item'>
             联系电话：
-            <input placeholder="请输入游玩人电话" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.phone}}' />
+            <input placeholder="请输入游玩人电话" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.phone}}' data-index="{{index}}"  bindinput="phoneInput" />
           </view>
           <view class='conatct-item' bindtap='openThisChooseType' data-index='{{index}}'>
             证件类型：
@@ -134,7 +134,7 @@
           </view>
           <view class='conatct-item'>
             证件号码：
-            <input placeholder="请输入证件号码" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.idcard}}'   />
+            <input placeholder="请输入证件号码" class='conatct-input' placeholder-style='color:#BABABA;font-size:28rpx;' value='{{item.idcard}}'  data-index="{{index}}"  bindinput="IdCardInput"  />
           </view>
           <!-- 保存联系人 -->
           <view class='saveContact' bindtap="saveContact"     
@@ -168,7 +168,7 @@ data-idenCard='{{item.idenCard}}'  data-idCardType='{{item.IdCardType}}'
       <text class='order-price'>¥ {{priceOrder}}</text>
       <text class='cost-detail' bindtap='costDetailShowOpen'>费用明细</text>
     </view>
-    <view class='pay-now'>提交订单</view>
+    <view class='pay-now' bindtap="payNow">提交订单</view>
   </view>
   <!-- 费用明细 -->
   <van-popup show="{{ costDetailShow }}" position="bottom" overlay="{{ overlay}}" bind:close="costDetailOnClose">
