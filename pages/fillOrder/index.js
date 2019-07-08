@@ -114,11 +114,6 @@ Page({
       item['price'] = item.amount.substr(1); //删除第一个字符
       item['dailyDate'] = Date.parse(item.day)
     })
-<<<<<<< HEAD
-    // debugger
-=======
-
->>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
     var chooseValenceAray = optionchooseValenceAray
     var statDate;
     var endDate;
@@ -503,11 +498,7 @@ Page({
       checkInEndDate: event.detail,
       checkInEndDatePopupShow: false
     })
-<<<<<<< HEAD
-    // debugger
-=======
-  
->>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
+
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -610,16 +601,7 @@ Page({
     // })
 
     let currenrPlayerArray = that.data.playerArray;
-<<<<<<< HEAD
-    currenrPlayerArray.forEach(function (PlayerItem,PlayerIndex){
-      if (PlayerIndex == that.data.palyerIndex){
-  PlayerItem['name'] = e.currentTarget.dataset.name,
-    PlayerItem['phone'] = e.currentTarget.dataset.phone,
-    PlayerItem['idcard'] = e.currentTarget.dataset.idcard
-}
-    })
-  //  debugger
-=======
+
     currenrPlayerArray.forEach(function(PlayerItem, PlayerIndex) {
       if (PlayerIndex == that.data.palyerIndex) {
         PlayerItem['name'] = e.currentTarget.dataset.name,
@@ -627,8 +609,7 @@ Page({
           PlayerItem['idcard'] = e.currentTarget.dataset.idcard
       }
     })
-    debugger
->>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
+
     that.setData({
       chooseContactList: currentContactList,
       playerArray: currenrPlayerArray,
@@ -881,34 +862,18 @@ Page({
    */
   saveContact(e) {
     console.log(e);
-<<<<<<< HEAD
   //  debugger
    let dataSet=e.currentTarget.dataset;
     if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard=="" ){
 wx.showToast({
   title: '联系人信息不能为空',
 })
-    }else{
-      let params={};
-      params['idenCard'] = item.idCard;
-      params['name'] = it.name;
-      params['phone'] = it.name;
-      params['IdCardType'] = it.IdCardType;
-   
-=======
-    var that = this;
-    let dataSet = e.currentTarget.dataset;
-    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == "") {
-      wx.showToast({
-        title: '联系人信息不能为空',
-      })
     } else {
       let params = {};
       params['idenCard'] = dataSet.idcard;
       params['name'] = dataSet.name;
       params['phone'] = dataSet.phone;
       params['IdCardType'] = dataSet.idcardtype;
->>>>>>> 784dd30c7780d802add5a8826808fced85d56e9d
       wx.request({
         url: 'https://www.supconit.net/customer/contacts',
         data: params,
