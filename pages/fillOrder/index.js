@@ -73,7 +73,6 @@ Page({
       item['price'] = item.amount.substr(1); //删除第一个字符
       item['dailyDate'] = Date.parse(item.day)
     })
-
     var chooseValenceAray = optionchooseValenceAray
     var statDate;
     var endDate;
@@ -431,6 +430,10 @@ Page({
       checkInStartDate: event.detail,
       checkInStartDatePopupShow: false
     })
+<<<<<<< HEAD
+=======
+    // debugger
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -460,7 +463,7 @@ Page({
       checkInEndDate: event.detail,
       checkInEndDatePopupShow: false
     })
-  
+
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -536,6 +539,7 @@ Page({
       }
     }
     let currenrPlayerArray = that.data.playerArray;
+
     currenrPlayerArray.forEach(function(PlayerItem, PlayerIndex) {
       if (PlayerIndex == that.data.palyerIndex) {
         PlayerItem['name'] = e.currentTarget.dataset.name,
@@ -543,7 +547,11 @@ Page({
           PlayerItem['idcard'] = e.currentTarget.dataset.idcard
       }
     })
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
     that.setData({
       chooseContactList: currentContactList,
       playerArray: currenrPlayerArray,
@@ -797,6 +805,7 @@ Page({
    */
   saveContact(e) {
     console.log(e);
+<<<<<<< HEAD
     var that = this;
     let dataSet = e.currentTarget.dataset;
     let validation ;
@@ -812,6 +821,14 @@ break
       wx.showToast({
         title: '联系人信息不能为空',
       })
+=======
+  //  debugger
+   let dataSet=e.currentTarget.dataset;
+    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard=="" ){
+wx.showToast({
+  title: '联系人信息不能为空',
+})
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
     } else {
       let params = {};
       params['idenCard'] = dataSet.idcard;

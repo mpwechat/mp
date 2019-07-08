@@ -8,6 +8,12 @@
           "pages/DetailsPage/index",
     "pages/payment/index",
     "pages/myContacts/index",
+<<<<<<< HEAD
+=======
+
+"pages/fillOrder/index",
+
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
     "pages/evaluation/index",
     "pages/order/index",
     "pages/searchResult/index",

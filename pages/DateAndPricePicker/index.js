@@ -98,7 +98,10 @@ Component({
         productList: that.properties.productDailyList,
         id: that.properties.productDailyList[0].productId
       })
+<<<<<<< HEAD
 
+=======
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
       let newDateList = []
       that.data.PriceCalendarList = that.data.productList
       for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
@@ -360,6 +363,7 @@ Component({
     },
     //子组件传给父组件所需要的值
     goFatherNeed() {
+      console.log(1111111)
       let myEventDetail = {
         choooseValenceList: this.data.checkDate,
         goodId: this.data.id,

@@ -288,7 +288,7 @@ page{
   position: absolute;
   left: 28rpx;
   bottom: 20rpx;
-  width: 83rpx;
+  width: 82rpx;
   height: 29rpx;
   border: 1px solid #D83D45;
 }

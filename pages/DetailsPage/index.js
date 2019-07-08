@@ -1,16 +1,15 @@
 // pages/DetailsPage/index.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     bgImage: '',
     name: '', //名字
-    qualificationObj: {},//价格列表
-    productList:[],//商品列表
-    choosesList:[],
-    minPrice:[],
+    qualificationObj: {}, //价格列表
+    productList: [], //商品列表
+    choosesList: [],
+    minPrice: [],
     Collection: false,
     show: false,
     Reserve: true,
@@ -18,8 +17,7 @@ Page({
     menuTop: '',
     optionsId: '',
     type: '',
-    BuyScienceKindList: [
-      {
+    BuyScienceKindList: [{
         value: '1',
         check: false,
         name: '成人票'
@@ -40,8 +38,7 @@ Page({
         name: '家庭套票'
       }
     ],
-    BuyHotelKindList: [
-      {
+    BuyHotelKindList: [{
         value: '1',
         check: false,
         name: '单人标间'
@@ -62,22 +59,59 @@ Page({
         name: '总统套房'
       }
     ],
-    ScreenList: [
-      {
+    HotelScreenList: [{
         value: '1',
-        name: '100以下'
+        name: '100以下',
+        check: false,
+        priceRange: {
+          high: 100
+        }
       },
       {
         value: '2',
-        name: '100-200'
+        name: '100-200',
+        check: false,
+        priceRange: {
+          low: 100,
+          high: 200
+        }
       },
       {
         value: '3',
-        name: '200以上'
+        name: '200以上',
+        check: false,
+        priceRange: {
+          low: 200
+        }
       }
     ],
-    list: [
+    ScienceScreenList: [{
+      value: '1',
+      name: '100以下',
+      check: false,
+      priceRange: {
+        high: 100
+      }
+    },
       {
+        value: '2',
+        name: '100-200',
+        check: false,
+        priceRange: {
+          low: 100,
+          high: 200
+        }
+      },
+      {
+        value: '3',
+        name: '200以上',
+        check: false,
+        priceRange: {
+          low: 200
+        }
+      }
+    ],
+    list: [{
         id: 'list_1',
         name: '套餐说明'
       },
@@ -100,6 +134,7 @@ Page({
     KindListState: '',
     ScreenListState: '',
 
+<<<<<<< HEAD
     productDailyList:{}, // datePicker组件使用数据
     mapObj :{
       lng:'113.324520',
@@ -139,6 +174,9 @@ commentArray:[
   },
   controltap(e) {
     console.log(e.controlId)
+=======
+    productDailyList: {} // datePicker组件使用数据
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
   },
   Collection() {
     this.setData({
@@ -153,15 +191,14 @@ commentArray:[
     })
     // 调用子组件的方法
     this.selectComponent('#dataPricePicker').onedate()
-    console.log(this.data.datePickerProductDailyList,'datePickerProductDailyList')
-    console.log(e,'reserveData')
   },
   onClose() {
-    this.setData({ show: false });
-    // this.reviewdate()
+    this.setData({
+      show: false
+    });
     this.selectComponent('#dataPricePicker').reviewdate()
-
   },
+
   // 获取商品详情信息
   getInfo(id) {
     let that = this
@@ -174,13 +211,13 @@ commentArray:[
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         console.log(res, 'info')
         that.setData({
           bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
         })
         let qualificationObj = res.data.obj.hits[0]._source;
-        qualificationObj.introduce = qualificationObj.description.substr(0,100)
+        qualificationObj.introduce = qualificationObj.description.substr(0, 100)
         qualificationObj['cover'] = qualificationObj.cover.split(',')
         //资质商品列表 计算商品最小价格
         //资质最小价格
@@ -253,7 +290,7 @@ commentArray:[
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     const id = options.id
     let type = options.type
     console.log(type, 'type')
@@ -279,59 +316,59 @@ commentArray:[
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  getCode: function () {
+  getCode: function() {
     this.setData({
       countdownShow: false
     })
     this.timer()
   },
   // 倒计时函数
-  timer: function () {
+  timer: function() {
     let promise = new Promise((resolve, reject) => {
       let setTimer = setInterval(() => {
         this.setData({
@@ -352,9 +389,8 @@ commentArray:[
   },
 
 
-  clickScroll: function (e) {
+  clickScroll: function(e) {
     var id = e.currentTarget.dataset.id
-
     this.setData({
       toView: id,
       state: e.currentTarget.dataset.key,
@@ -365,14 +401,12 @@ commentArray:[
   // 酒店 景区 选择票类
   choseWhichClick(e) {
     console.log(e, 'hotel')
-    this.setData({
-      KindListState: e.currentTarget.dataset.key,
-    })
-    let item = e.target.dataset.item
+    let item = e.currentTarget.dataset.item
     /**
-         * 筛选操作
-         */
+     * 筛选操作
+     */
     let choosesArray = [];
+<<<<<<< HEAD
     console.log(typeof (this.data));
     console.log(this.qualificationType);
     switch (parseInt(this.data.type)) {
@@ -380,6 +414,20 @@ commentArray:[
     
         item.check = !item.check;
         console.log(item, 'hotelItem')
+=======
+
+    switch (parseInt(this.data.type)) {
+      case 1:
+        item.check = !item.check;
+        for (let i = 0; i < this.data.BuyHotelKindList.length; i++) {
+          if (item.value == this.data.BuyHotelKindList[i].value) {
+            this.data.BuyHotelKindList[i].check = item.check
+          }
+        }
+        this.setData({
+          BuyHotelKindList: this.data.BuyHotelKindList
+        })
+>>>>>>> fc7c116c28eca0e5e153be1b9fdae76fed8e80c2
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
             let screenItem = {};
@@ -391,7 +439,14 @@ commentArray:[
         break;
       case 2:
         item.check = !item.check;
-        console.log(item,'sciencItem')
+        for (let i = 0; i < this.data.BuyScienceKindList.length; i++) {
+          if (item.value == this.data.BuyScienceKindList[i].value) {
+            this.data.BuyScienceKindList[i].check = item.check
+          }
+        }
+        this.setData({
+          BuyScienceKindList: this.data.BuyScienceKindList
+        })
         this.data.BuyScienceKindList.forEach((item) => {
           if (item.check) {
             let screenItem = {};
@@ -402,8 +457,6 @@ commentArray:[
         })
         break;
     }
-    console.log(item,'item')
-    // this.data.choosesList = choosesArray;
     this.setData({
       choosesList: choosesArray
     })
@@ -411,25 +464,23 @@ commentArray:[
       minPrice: this.data.minPrice,
       chooses: this.data.choosesList
     };
-    // this.data.qualificationObj = this.choosesFilter(this.data.qualificationObj, conditions)
     this.setData({
       productList: this.choosesFilter(this.data.qualificationObj, conditions)
     })
+    console.log(this.data.productList, 'productListproductList')
   },
 
   // 条件筛选返回数组
   choosesFilter(products, Conditions) {
-    console.log(products, 'products')
-    console.log(Conditions,'Conditions')
     let tmpProducts = [];
     if (Conditions.chooses.length === 0 && Conditions.minPrice.length === 0) {
-      tmpProducts = products;
+      tmpProducts = products.productList;
     } else if (Conditions.chooses.length !== 0) {
       /**
        * 选择类型条件是或逻辑，使用数组连接concat
        */
       for (let choice of Conditions.chooses) {
-        tmpProducts = tmpProducts.concat(products.filter(function (item) {
+        tmpProducts = tmpProducts.concat(products.productList.filter(function(item) {
           switch (Conditions.minPrice.length) {
             case 0:
               return (item[choice.type] + '').indexOf(choice.value) !== -1;
@@ -446,7 +497,7 @@ commentArray:[
         }));
       }
     } else if (Conditions.chooses.length == 0 && Conditions.minPrice.length !== 0) {
-      tmpProducts = products.filter(function (item) {
+      tmpProducts = products.productList.filter(function(item) {
         if (Conditions.minPrice[0].low !== undefined && Conditions.minPrice[0].high !== undefined) {
           return item['minPrice'] >= Conditions.minPrice[0].low && item['minPrice'] <= Conditions.minPrice[0].high;
         } else if (Conditions.minPrice[0].low !== undefined) {
@@ -459,11 +510,70 @@ commentArray:[
     return tmpProducts;
   },
 
-  onShow: function () {
+  choseScreenClick(e) {
+    let it = e.currentTarget.dataset.item
+    this.setData({
+      KindListState: e.currentTarget.dataset.key,
+    })
+    switch (parseInt(this.data.type)) {
+      case 1:
+        // it.check = true;
+        for (let i = 0; i < this.data.HotelScreenList.length; i++) {
+          if (it.value == this.data.HotelScreenList[i].value) {
+            this.data.HotelScreenList[i].check = true
+          }else{
+            this.data.HotelScreenList[i].check = false
+          }
+        }
+        this.setData({
+          HotelScreenList: this.data.HotelScreenList
+        })
+        this.data.HotelScreenList.forEach((item) => {
+          if (item.check) {
+            this.setData({
+              minPrice: [item.priceRange]
+            })
+          }
+        })
+        break;
+      case 2:
+        for (let i = 0; i < this.data.ScienceScreenList.length; i++) {
+          if (it.value == this.data.ScienceScreenList[i].value) {
+            this.data.ScienceScreenList[i].check = true
+          } else {
+            this.data.ScienceScreenList[i].check = false
+          }
+        }
+        this.setData({
+          ScienceScreenList: this.data.ScienceScreenList
+        })
+        /**
+         * 条件筛选
+         */
+        this.data.ScienceScreenList.forEach((item) => {
+          if (item.check) {
+            this.setData({
+              minPrice: [item.priceRange]
+            })
+          }
+        })
+    }
+
+    let conditions = {
+      minPrice: this.data.minPrice,
+      chooses: this.data.choosesList
+    };
+    this.setData({
+      productList: this.choosesFilter(this.data.qualificationObj, conditions)
+    })
+  },
+
+  
+  onShow: function() {
     var that = this;
-    var query = wx.createSelectorQuery()//创建节点查询器 query
-    query.select('#left').boundingClientRect()//这段代码的意思是选择Id= the - id的节点，获取节点位置信息的查询请求
-    query.exec(function (res) {
+    var query = wx.createSelectorQuery() //创建节点查询器 query
+    query.select('#left').boundingClientRect() //这段代码的意思是选择Id= the - id的节点，获取节点位置信息的查询请求
+    query.exec(function(res) {
       console.log(res); // #affix节点的上边界坐
       // that.setData({
       //   menuTop: res[0].top
@@ -471,7 +581,7 @@ commentArray:[
     });
   },
   // 2.监听页面滚动距离scrollTop
-  onPageScroll: function (e) {
+  onPageScroll: function(e) {
     // console.log(e.scrollTop);
     var that = this;
     // 3.当页面滚动距离scrollTop > menuTop菜单栏距离文档顶部的距离时，菜单栏固定定位
@@ -486,37 +596,112 @@ commentArray:[
     }
   },
 
-  getpicture(){
+  getpicture() {
     let id = this.data.optionsId;
     wx.navigateTo({
-      url: '/pages/qualificationPictures/index?id='+id,
-      success:function(res){
-console.log(res)
+      url: '/pages/qualificationPictures/index?id=' + id,
+      success: function(res) {
+        console.log(res)
       }
     })
   },
 
-  SureBuy(){
-    console.log(this.data.show,'show')
+  SureBuy() {
+    console.log(this.data.show, 'show')
     console.log(this.data.show == true, 'show')
-    if(this.data.show == true){
+    if (this.data.show == true) {
       console.log(this.data.show, 'show')
 
       this.selectComponent('#dataPricePicker').goFatherNeed()
     }
   },
 
-  compontpass: function (res) {
-    // if (e.detail.val) { }
-    let { choooseValenceList, chooseNumber, goodId} = res.detail
+  compontpass: function(res) {
+    console.log(res, 'compontpassRes')
+    let {
+      choooseValenceList,
+      chooseNumber,
+      goodId
+    } = res.detail
+    let that = this
+    switch (that.data.type) {
+      case 1:
+        if (choooseValenceList.length < 2) {
+          wx.showToast({
+            title: '请选择入住与离店时间',
+          })
+        } else {
+          that.getCurrentUserInfo(res)
+        }
+        break;
+      case 2:
+        if (choooseValenceList.length < 1) {
+          wx.showToast({
+            title: '请选择景点门票日期',
+          })
+        } else {
+          that.getCurrentUserInfo(res)
+        }
+        break;
+    }
+  },
+
+  getCurrentUserInfo(e) {
+    var that = this;
+    wx.request({
+      url: 'https://www.supconit.net/customer/info/getCurrentInfo',
+      data: '',
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function(res) {
+        let avatarImgUrl = ''
+        switch (res.statusCode) {
+          case 200:
+            that.payMoney(e)
+            break;
+          case 401:
+            wx.showToast({
+              title: '暂未登录，即将跳转至登录页',
+            })
+            setTimeout(function() {
+              wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
+              wx.redirectTo({
+                url: '/pages/bindPhone/index',
+              })
+            }, 1500)
+            break;
+        }
+      },
+      fail: function() {
+        wx.showToast({
+          title: '暂未登录，即将跳转至登录页',
+        })
+        setTimeout(function() {
+          wx.navigateTo({
+            url: '/pages/bindPhone/index',
+          })
+        }, 1500)
+      }
+
+    })
+  },
+
+  payMoney(res) {
+    let {
+      choooseValenceList,
+      chooseNumber,
+      goodId
+    } = res.detail
     let a = JSON.stringify(choooseValenceList)
-    wx:wx.redirectTo({
+    wx: wx.redirectTo({
       url: '/pages/fillOrder/index?choooseValenceList=' + a + '&chooseNumber=' + chooseNumber + '&goodId=' + goodId,
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
     })
-    console.log(res,'componentPass');
-  },
-
+  }
 })
