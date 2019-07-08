@@ -12,7 +12,7 @@ Page({
     goodId: '',
     chooseNumber: '',
     goodObject: {},
-    overlay: false,
+    overlay: true,
     chooseValenceArray: [],
     salesList: [],
     matchSalesList: [],
@@ -37,15 +37,10 @@ Page({
     daysDetween: 1,
     // 房间数
     roomNumber: 1,
-    // 联系人数量
-    contactArray: [{
-        name: '',
-        phoneNumber: ''
-      }
 
-    ],
+    
     // 费用明细
-    costDetailShow: false,
+    costDetailShow: true,
     // 门票数量
     // 门票日期
     ticketOrderDate: new Date().getTime(),
@@ -65,43 +60,7 @@ Page({
     idCardTypePopShow: false,
     currentPlayer: 0,
     chooseContact: false,
-    chooseContactList: [{
-        name: '杨贤斐',
-        phone: '15709613628',
-        idCard: '431229199610312825',
-        select: true
-      },
-      {
-        name: 'nayana',
-        phone: '15709613628',
-        idCard: '431229199610312587',
-        select: false
-      },
-      {
-        name: 'nayana',
-        phone: '15709613628',
-        idCard: '431229199610312587',
-        select: false
-      },
-      {
-        name: '杨贤斐',
-        phone: '15709613628',
-        idCard: '431229199610312825',
-        select: false
-      },
-      {
-        name: 'nayana',
-        phone: '15709613628',
-        idCard: '431229199610312587',
-        select: false
-      },
-      {
-        name: 'nayana',
-        phone: '15709613628',
-        idCard: '431229199610312587',
-        select: false
-      },
-    ]
+    chooseContactList: []
   },
   /**
    * 生命周期函数--监听页面加载
@@ -132,14 +91,14 @@ Page({
         goodId: options.goodId,
         checkInStartDate: statDate.dailyDate,
         checkInEndDate: endDate.dailyDate,
-        roomNumber: options.chooseNumber
+        roomNumber: parseInt(options.chooseNumber)
       });
       this.count()
     } else {
       this.setData({
         goodId: options.goodId,
         ticketOrderDate: chooseValenceAray[0].dailyDate,
-        ticketNumber: options.chooseNumber
+        ticketNumber: parseInt(options.chooseNumber)
       });
 
     }
@@ -277,7 +236,9 @@ Page({
             return parseInt(item.beginDate) <= ValenceDateTimeStamp && ValenceDateTimeStamp <= parseInt(item.endDate);
           });
 
-          that.data.matchSalesList = contactSales;
+         that.setData({
+           matchSalesList: contactSales,
+         })
           let matchdailyPrice = matchdaily[0].price;
           // 折前价格
           let discountPrice = matchdailyPrice * that.data.ticketNumber
@@ -290,6 +251,7 @@ Page({
                 //  折后价格
                 let disCountedPrice = discountPrice * floatPercent
                 that.setData({
+                
                   payablePrice: discountPrice.toFixed(2),
                   priceOrder: disCountedPrice.toFixed(2),
                   realTimePriceList: realTimePriceArray
@@ -342,7 +304,7 @@ Page({
         }
         break;
     }
-
+    console.log(that.data.matchSalesList)
   },
 
 
@@ -469,7 +431,6 @@ Page({
       checkInStartDate: event.detail,
       checkInStartDatePopupShow: false
     })
-    debugger
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -546,26 +507,7 @@ Page({
       contactArray: currentContactArray
     })
   },
-  // 删除当前联系人
-  deleteThisConatct(e) {
-    console.log(e);
-    let index = e.currentTarget.dataset.index;
-    let currentContactArray = this.data.contactArray;
-    if (this.data.contactArray.length <= 1) {
-      wx.showToast({
-        title: "需一位联系人",
-        image: '/asset/images/warm1.png', //自定义图标的本地路径，image 的优先级高于 icon
-        duration: 2000, //提示的延迟时间，单位毫秒，默认：1500 
-        mask: true, //是否显示透明蒙层，防止触摸穿透，默认：false 
-
-      })
-    } else {
-      currentContactArray.splice(index, 1);
-      this.setData({
-        contactArray: currentContactArray
-      })
-    }
-  },
+  
   // 选择联系人
   chooseContacts(e) {
     let palyerIndex = e.currentTarget.dataset.index;
@@ -593,14 +535,6 @@ Page({
         currentContactList[ContactI].select = false
       }
     }
-    // currentContactList.forEach(function (ContactItem,ContactIndex) {
-    //   if (ind == ContactIndex) {
-    //     ContactItem.select = true
-    //   } else {
-    //     ContactItem.select = false
-    //   }
-    // })
-
     let currenrPlayerArray = that.data.playerArray;
     currenrPlayerArray.forEach(function(PlayerItem, PlayerIndex) {
       if (PlayerIndex == that.data.palyerIndex) {
@@ -609,7 +543,7 @@ Page({
           PlayerItem['idcard'] = e.currentTarget.dataset.idcard
       }
     })
-    debugger
+ 
     that.setData({
       chooseContactList: currentContactList,
       playerArray: currenrPlayerArray,
@@ -771,6 +705,7 @@ Page({
     this.setData({
       playerArray: currentPlayerArray
     })
+    console.log(this.data.playerArray)
   },
   /**
    * 身份证输入
@@ -864,7 +799,16 @@ Page({
     console.log(e);
     var that = this;
     let dataSet = e.currentTarget.dataset;
-    if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == "") {
+    let validation ;
+    switch(that.data.goodType){
+      case 1:
+        validation = dataSet.name == '' || dataSet.phone == '' 
+      break
+case 2:
+        validation = dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == ""
+break
+    }
+    if (validation) {
       wx.showToast({
         title: '联系人信息不能为空',
       })
@@ -924,11 +868,11 @@ Page({
             productItem['buyDate'] = moment(new Date()).format('YYYY-MM-DD');
             productItem['realTimePrice'] = this.data.realTimePriceList[index];
             productItem['useDate'] = item.date;
-            productItem['quantity'] = this.data.roomValue;
+            productItem['quantity'] = this.data.roomNumber;
             productArray.push(productItem);
           });
           parmas['productInfoList'] = productArray;
-          parmas['quantity'] = this.data.roomValue * this.data.chooseValenceArray.length;
+          parmas['quantity'] = this.data.roomNumber * this.data.chooseValenceArray.length;
           break
         case 2:
         debugger

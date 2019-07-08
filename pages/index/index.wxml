@@ -109,7 +109,7 @@
   <view class='hot-activity '>
     <text class='item-title'>热门景区</text>
     <scroll-view scroll-x='true'>
-      <view class='figure' wx:for="{{hotSpot}}" wx:key='index'>
+      <view class='figure' wx:for="{{hotSpot}}" wx:key='index'  data-type="{{item.type}}"  data-qualificationId="{{item.id}}"  bindtap="getQualificationDetail">
         <view class='img-wrap'>
           <image src='{{item.cover}}'></image>
         </view>
@@ -126,7 +126,7 @@
   <view class='hot-activity ' style='margin-top:70rpx;margin-bottom:30rpx;'>
     <text class='item-title'>热门酒店</text>
     <scroll-view scroll-x='true'>
-      <view class='figure' wx:for="{{hotHotel}}" wx:key='index'>
+      <view class='figure' wx:for="{{hotHotel}}" wx:key='index' data-type="{{item.type}}"  data-qualificationId="{{item.id}}"  bindtap="getQualificationDetail">
         <view class='img-wrap'>
           <image src='{{item.cover}}'></image>
         </view>

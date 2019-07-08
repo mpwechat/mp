@@ -1,16 +1,13 @@
 {
   "pages": [
-    
+
     "pages/index/index",
-    "pages/scenic/index",
-  "pages/payment/index",
     "pages/hotel/index",
+    "pages/scenic/index",
+      "pages/fillOrder/index",
+          "pages/DetailsPage/index",
+    "pages/payment/index",
     "pages/myContacts/index",
-<<<<<<< HEAD
-    "pages/fillOrder/index",
-=======
-"pages/fillOrder/index",
->>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
     "pages/evaluation/index",
     "pages/order/index",
     "pages/searchResult/index",
@@ -30,7 +27,7 @@
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
-    "pages/DetailsPage/index",
+   
     "pages/DateAndPricePicker/index",
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",

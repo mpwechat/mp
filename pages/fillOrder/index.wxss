@@ -119,39 +119,44 @@ color:rgba(51,51,51,1);
 margin:10rpx  20rpx;
 }
 .choose-from-contact-list{
-  float: right;
-  height: 40rpx;
+  display: inline-block;
+ width: 80rpx;
+  height: 78rpx;
   font-size:24rpx;
-text-decoration:underline;
+position: absolute;
+top:0;
+bottom: 0;
+right: 10rpx;
+margin: auto ;
 color:rgba(65,159,255,1);
+text-align: center;
+}
+.choose-from-contact-list image{
+  width: 44rpx;
+  height: 44rpx;
+  margin: 0 auto;
+  display: block;
 }
 .conatct-item{
   height: 60rpx;
-  width: 100%;
+   width: 100%;
+
   position: relative;
   font-size:26rpx;
 font-weight:400;
 color:rgba(51,51,51,1);
 line-height: 60rpx;
+
 }
-.conatct-input{
- height: 40rpx;
- width: 300rpx;
- position: absolute;
- margin: auto;
- top:0;
- left: 0;
- bottom:0;
- right:0;
-}
+
 .saveContact{
-width:200rpx;
+width:100%;
 height:25rpx;
 font-size:24rpx;
 text-decoration:underline;
 color:rgba(65,159,255,1);
-margin: 20rpx auto;
-text-align: center;
+margin: 50rpx auto 30rpx;
+text-align: right;
 }
 .add-contact-number .iconfont{
 font-size:40rpx;
@@ -290,4 +295,72 @@ box-sizing: border-box;
   border:1px solid rgba(65,159,255,1);
 background:rgba(255,255,255,1);
 color:#409EFF;
+}
+.conatct-item-wrap{
+z-index:99;
+  position: relative;
+
+}
+.conatct-item-wrap .conatct-item{
+ width: calc(100% - 90rpx);
+}
+.conatct-item-wrap .conatct-input{
+ right:90rpx;
+}
+
+.conatct-input{
+ height: 40rpx;
+ width: 300rpx;
+ position: absolute;
+ margin: auto;
+ top:0;
+ bottom:0;
+right: 180rpx;
+}
+.ticket-number{
+  font-size: 28rpx;
+}
+.ticket-number text{
+  font-size:28rpx;
+  color: #409EFF;
+}
+.payablePrice{
+font-size: 26rpx;
+}
+.payablePrice text{
+font-size: 28rpx;
+color: gray;
+text-decoration: line-through;
+}
+.discount{
+font-size: 26rpx;
+
+}
+.discount text{
+  color: #ff8547;
+}
+.priceOrder{
+  font-size: 26rpx;
+}
+.priceOrder text{
+  color: rgba(245,108,108,1);
+font-size: 32rpx;
+}
+.cost-detail-wrap{
+  line-height: 50rpx;
+}
+.daily-price{
+  font-size: 28rpx;
+}
+.daily-price .date{
+color: #333;
+}
+.daily-price .daily{
+  color: #409EFF;
+}
+.ticketOrderDate{
+  display: inline-block;
+}
+.start-date{
+  margin: 10rpx 0 0 0;
 }

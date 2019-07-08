@@ -446,6 +446,23 @@ this.setData({
       fail: function (res) { },
       complete: function (res) { },
     })
+  },
+  /**
+   * 获取资质详情
+   */
+  getQualificationDetail(e){
+    var qualificationId = e.currentTarget.dataset.qualificationid;
+    let type ;
+    switch (e.currentTarget.dataset.type){
+      case 1:
+        type='hotel'
+      break
+      case 2:
+        type = 'scenic'
+      break;
+    }
+    wx.navigateTo({
+      url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type,
+    })
   }
-
 })

@@ -127,22 +127,28 @@
         <view id="list_3">
           <view class="list_1_title"> 地图交通</view>
           <view class='ditu'>
+            <map id="map" longitude="{{mapObj.lng}}" latitude="{{mapObj.lat}}" scale="{{mapObj.scale}}" bindcontroltap="controltap" markers="{{mapObj.markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:312rpx;"></map>
 
           </view>
         </view>
         <view id="list_4">
           <view class="list_1_title">点评</view>
-          <view class='list_small_title'>费用包含：</view>
-          <view class='list_small_title'>【酒店】</view>
-          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
-          <view class='list_small_title'>【门票】</view>
-          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
-          <view class='list_small_title'>【其他】</view>
-          <view class='list_introduce'>森林氧吧（2人）</view>
-          <view class='list_small_title'>温馨提示：</view>
-          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
-          <view class='list_small_title'>费用不包含：</view>
-          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+          <view class="comments-wrap">
+            <view class="comments-item" wx:for="{{commentArray}}" wx:key="{{index}}">
+              <view class="comment-grade">
+                <view class="rate-wrap">{{item.score}}</view>
+                <text class="conmmet-user">{{item.user}}</text>
+                <view class="zan-option">
+                  <text class="iconfont icon-icon-thumbs-up {{item.zanActive?'active':''}}"></text> ({{item.zanNunber}})</view>
+              </view>
+              <!-- 用户信息 -->
+              <view class="comment-user-info"> {{item.user}} 对 “ {{qualificationObj.name}}” 发表评论 </view>
+              <view class="comment-content"> {{item.words}}</view>
+            </view>
+            <!-- 查看更多评论 -->
+            <view class="look-more-comment"> 查看更多评论 </view>
+          </view>
+
         </view>
       </view>
     </scroll-view>
@@ -154,7 +160,7 @@
       <view style='display:inline-block'>收藏</view>
     </view>
     <view class='Reserve'>
-      <button  bindtap='SureBuy'>{{show?'立即预订':'预定'}}</button>
+      <button bindtap='SureBuy'>{{show?'立即预订':'预定'}}</button>
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">

@@ -402,7 +402,7 @@ page{
 .ditu{
   width: 100%;
   height: 312rpx;
-  background-color: #000;
+
 }
 .ContentInfo_neirongTitle{
   width: 130rpx;
@@ -420,4 +420,72 @@ page{
 }
 .iconfont.icon-didian.Mail{
   color: #409EFF;
+}
+/**
+评论
+**/
+.comments-wrap{
+  width: 100%;
+  height: auto;
+}
+.comments-item{
+   width: 100%;
+   margin-bottom: 30rpx;
+
+}
+.comment-grade{
+height: 62rpx;
+width: 100%;
+}
+ .zan-option  .icon-icon-thumbs-up.active{
+  color:#409EFF;
+}
+.rate-wrap{
+width:62rpx;
+height:62rpx;
+background:rgba(248,195,0,1);
+border-radius:50%;
+line-height: 62rpx;
+text-align: center;
+display: inline-block;
+color:#fff;
+font-size: 32rpx;
+}
+.conmmet-user{
+  color:#333;
+  font-size:28rpx;
+  margin-left: 25rpx;
+}
+.zan-option{
+  height: 62rpx;
+  width: auto;
+  float: right;
+  font-size: 20rpx;
+  color:#409EFF;
+  line-height: 62rpx;
+}
+.zan-option  .icon-icon-thumbs-up{
+color:rgba(173,173,173,1);
+}
+.comment-user-info{
+height:19rpx;
+font-size:20rpx;
+font-family:PingFang-SC-Regular;
+font-weight:400;
+color:rgba(173,173,173,1);
+margin: 20rpx 0;
+}
+.comment-content{
+  font-size:26rpx;
+font-weight:500;
+color:rgba(51,51,51,1);
+line-height:35rpx;
+}
+.look-more-comment{
+  width: 100%;
+  text-align: center;
+font-size:24rpx;
+font-weight:400;
+color:rgba(64,158,255,1);
+margin: 30rpx 0;
 }

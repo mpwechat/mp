@@ -98,12 +98,7 @@ Component({
         productList: that.properties.productDailyList,
         id: that.properties.productDailyList[0].productId
       })
-<<<<<<< HEAD
-   
-      console.log(that.properties, 'properties')
-      console.log(that.data.productDailyList,'productDailyList')
-=======
->>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
+
       let newDateList = []
       that.data.PriceCalendarList = that.data.productList
       for (var i = 0; i < that.data.PriceCalendarList.length; i++) {

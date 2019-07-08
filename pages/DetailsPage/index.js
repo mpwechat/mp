@@ -96,12 +96,49 @@ Page({
     ],
     toView: '',
     fixTop: '',
-
     state: '',
     KindListState: '',
     ScreenListState: '',
 
-    productDailyList:{} // datePicker组件使用数据
+    productDailyList:{}, // datePicker组件使用数据
+    mapObj :{
+      lng:'113.324520',
+      lat: '23.099994',
+      scale:'13',
+      markers: [{
+        iconPath: "../../asset/images/shadow.png",
+        id: 0,
+        latitude: 23.099994,
+        longitude: 113.324520,
+        width: 30,
+        height: 16,
+        callout:{
+          content:'杭州市上城区古墩路583号',
+          bgColor: "#409EFF",
+          borderWidth:0,
+          borderRadius: 20,
+          padding:10,
+          display: "ALWAYS",
+          textAlign: "left",
+          color:'#fff'
+        }
+      }],
+
+    },
+commentArray:[
+  { user: '15709613629', score: '4', zanNunber: 157, zanActive: false, words:'干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。'},
+  { user: 'Nayana', score: '4', zanNunber: 157, zanActive: true, words: '干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。' }
+]
+  },
+
+  regionchange(e) {
+    console.log(e.type)
+  },
+  markertap(e) {
+    console.log(e.markerId)
+  },
+  controltap(e) {
+    console.log(e.controlId)
   },
   Collection() {
     this.setData({
@@ -173,9 +210,17 @@ Page({
             })
           }
         })
+        // 修改map Object
+        var currentMapObject=that.data.mapObj;
+        currentMapObject['lng'] = qualificationObj.amapY,
+          currentMapObject['lat']=qualificationObj.amapX,
+        currentMapObject.markers[0]['latitude'] = qualificationObj.amapX;
+        currentMapObject.markers[0]['longitude'] = qualificationObj.amapY;
+        currentMapObject.markers[0]['callout']['content'] = qualificationObj.address;
         that.setData({
           qualificationObj: qualificationObj,
-          productList: qualificationObj['productList']
+          productList: qualificationObj['productList'],
+          mapObj: currentMapObject
         })
         console.log(qualificationObj, 'qualificationObj')
         console.log(that.data.productList, 'that.data.productList')
@@ -330,19 +375,10 @@ Page({
     let choosesArray = [];
     console.log(typeof (this.data));
     console.log(this.qualificationType);
-<<<<<<< HEAD
-
-=======
->>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
     switch (parseInt(this.data.type)) {
       case 1:
-     
+    
         item.check = !item.check;
-
-<<<<<<< HEAD
-     
-=======
->>>>>>> 4bcd40715f2a2ea659ffb79f63c32095dba0126c
         console.log(item, 'hotelItem')
         this.data.BuyHotelKindList.forEach((item) => {
           if (item.check) {
