@@ -359,6 +359,7 @@ Component({
     },
     //子组件传给父组件所需要的值
     goFatherNeed() {
+      console.log(1111111)
       let myEventDetail = {
         choooseValenceList: this.data.checkDate,
         goodId: this.data.id,

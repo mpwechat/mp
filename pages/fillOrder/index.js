@@ -114,7 +114,7 @@ Page({
       item['price'] = item.amount.substr(1); //删除第一个字符
       item['dailyDate'] = Date.parse(item.day)
     })
-    debugger
+    // debugger
     var chooseValenceAray = optionchooseValenceAray
     var statDate;
     var endDate;
@@ -456,7 +456,7 @@ Page({
       checkInStartDate: event.detail,
       checkInStartDatePopupShow: false
     })
-    debugger
+    // debugger
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -486,7 +486,7 @@ Page({
       checkInEndDate: event.detail,
       checkInEndDatePopupShow: false
     })
-    debugger
+    // debugger
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -588,7 +588,7 @@ Page({
     PlayerItem['idcard'] = e.currentTarget.dataset.idcard
 }
     })
-   debugger
+  //  debugger
     that.setData({
       chooseContactList: currentContactList,
       playerArray:currenrPlayerArray,
@@ -798,7 +798,7 @@ console.log(e)
    */
   saveContact(e){
     console.log(e);
-   debugger
+  //  debugger
    let dataSet=e.currentTarget.dataset;
     if (dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard=="" ){
 wx.showToast({
