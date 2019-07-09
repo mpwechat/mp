@@ -144,13 +144,14 @@
 .choseThis {
   font-size: 24rpx;
   color: #333;
-  height: 24rpx;
-  line-height: 24rpx;
+  height:20rpx;
+  line-height:19rpx;
   border: 2rpx solid rgba(64, 158, 255, 1);
   border-radius: 4rpx;
   background-color: #fff;
   padding: 15rpx 20rpx;
   margin-top: 20rpx;
+  position: relative;
 }
 
 .chose {

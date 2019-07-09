@@ -81,6 +81,10 @@
 
 .icon-righTopduihao:before {
   content: "\e602";
+  color: #409EFF;
+  position: absolute;
+  right: -8rpx;
+  top: 1rpx;
 }
 
 .icon-jia1:before {

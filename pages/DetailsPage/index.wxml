@@ -30,12 +30,16 @@
     <view style='display:inline-block;'>
       <view class='choseWhichBuy_left'>
         <view wx:for="{{BuyScienceKindList}}" wx:if="{{type == '2'}}" wx:key="index" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">
-        <view class="choseBuy {{item.check?'choseThis':''}}">{{item.name}}</view>
+        <view class="choseBuy {{item.check?'choseThis':''}}">
+        <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text>
+        {{item.name}}</view>
         </view>
 
 
         <view wx:if="{{type == '1'}}" wx:for="{{BuyHotelKindList}}" wx:key="index" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">
-        <view class="choseBuy {{item.check?'choseThis':''}}">{{item.name}}</view>
+        <view class="choseBuy {{item.check?'choseThis':''}}">
+        <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text>
+        {{item.name}}</view>
         </view>
       </view>
     </view>
@@ -49,12 +53,16 @@
     <view style='display:inline-block;'>
       <view class='choseScreenWhich' wx:if="{{type == '1'}}">
         <view wx:for="{{HotelScreenList}}" wx:key="list" data-key='{{index}}' data-item="{{item}}" bindtap='choseScreenClick' data-value="{{item.value}}">
-        <view class="{{item.check?'choseThis':'choseBuy'}}">{{item.name}}</view></view>
+        <view class="{{item.check?'choseThis':'choseBuy'}}">
+        <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text>
+        {{item.name}}</view></view>
       </view>
 
       <view class='choseScreenWhich' wx:if="{{type == '2'}}">
         <view wx:for="{{ScienceScreenList}}" wx:key="list" data-key='{{index}}' data-item="{{item}}" bindtap='choseScreenClick' data-value="{{item.value}}">
-        <view class="{{item.check?'choseThis':'choseBuy'}}">{{item.name}}</view></view>
+        <view class="{{item.check?'choseThis':'choseBuy'}}">
+        <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text>
+        {{item.name}}</view></view>
       </view>
     </view>
     <view class='reset' bindtap='reset'>重置</view>
