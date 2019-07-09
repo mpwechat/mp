@@ -57,6 +57,7 @@
         <view class="{{item.check?'choseThis':'choseBuy'}}">{{item.name}}</view></view>
       </view>
     </view>
+    <view class='reset' bindtap='reset'>重置</view>
   </view>
 
   <view class='GoodLists'>
@@ -96,7 +97,8 @@
 
   <view id='left' class=" {{menuFixed ? 'fixed': 'left'}}" id='affix'>
     <scroll-view class='leftScroll' scroll-y>
-      <view class="{{state==index?'active-tag':''}}" wx:for="{{list}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
+      <view wx:if='{{type=="1"}}' class="{{state==index?'active-tag':''}}" wx:for="{{Hotellist}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
+      <view wx:if='{{type=="2"}}' class="{{state==index?'active-tag':''}}" wx:for="{{Sciencelist}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
     </scroll-view>
   </view>
   <view class='right'>

@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    login: '', //登陆
     bgImage: '',
     name: '', //名字
     qualificationObj: {}, //价格列表
@@ -86,13 +87,13 @@ Page({
       }
     ],
     ScienceScreenList: [{
-      value: '1',
-      name: '100以下',
-      check: false,
-      priceRange: {
-        high: 100
-      }
-    },
+        value: '1',
+        name: '100以下',
+        check: false,
+        priceRange: {
+          high: 100
+        }
+      },
       {
         value: '2',
         name: '100-200',
@@ -111,9 +112,26 @@ Page({
         }
       }
     ],
-    list: [{
+    Hotellist: [{
         id: 'list_1',
-        name: '套餐说明'
+        name: '酒店说明'
+      },
+      {
+        id: 'list_2',
+        name: '预定须知'
+      },
+      {
+        id: 'list_3',
+        name: '地图交通'
+      },
+      {
+        id: 'list_4',
+        name: '点评'
+      }
+    ],
+    Sciencelist: [{
+        id: 'list_1',
+        name: '景区说明'
       },
       {
         id: 'list_2',
@@ -133,11 +151,11 @@ Page({
     state: '',
     KindListState: '',
     ScreenListState: '',
-    productDailyList:{}, // datePicker组件使用数据
-    mapObj :{
-      lng:'113.324520',
+    productDailyList: {}, // datePicker组件使用数据
+    mapObj: {
+      lng: '113.324520',
       lat: '23.099994',
-      scale:'13',
+      scale: '13',
       markers: [{
         iconPath: "../../asset/images/shadow.png",
         id: 0,
@@ -145,23 +163,34 @@ Page({
         longitude: 113.324520,
         width: 30,
         height: 16,
-        callout:{
-          content:'杭州市上城区古墩路583号',
+        callout: {
+          content: '杭州市上城区古墩路583号',
           bgColor: "#409EFF",
-          borderWidth:0,
+          borderWidth: 0,
           borderRadius: 20,
-          padding:10,
+          padding: 10,
           display: "ALWAYS",
           textAlign: "left",
-          color:'#fff'
+          color: '#fff'
         }
       }],
 
     },
-commentArray:[
-  { user: '15709613629', score: '4', zanNunber: 157, zanActive: false, words:'干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。'},
-  { user: 'Nayana', score: '4', zanNunber: 157, zanActive: true, words: '干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。' }
-]
+    commentArray: [{
+        user: '15709613629',
+        score: '4',
+        zanNunber: 157,
+        zanActive: false,
+        words: '干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。'
+      },
+      {
+        user: 'Nayana',
+        score: '4',
+        zanNunber: 157,
+        zanActive: true,
+        words: '干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。'
+      }
+    ]
   },
 
   regionchange(e) {
@@ -177,9 +206,57 @@ commentArray:[
 
   },
   Collection() {
-    this.setData({
-      Collection: !this.data.Collection
-    })
+    let that = this;
+    debugger
+    if (that.data.login) {
+      if (that.data.Collection) {
+        wx.request({
+          url: 'https://www.supconit.net/customer/store/' + that.data.optionsId,
+          data: '',
+          header: {
+            'cookie': wx.getStorageSync("sessionid") //读取cookie
+          },
+          method: 'DELETE',
+          dataType: 'json',
+          responseType: 'text',
+          success: function(res) {
+            console.log(res, 'resssss')
+            that.setData({
+              Collection: false
+            })
+          },
+          fail: function() {
+
+          }
+        })
+      } else {
+        wx.request({
+          url: 'https://www.supconit.net/customer/store/save',
+          data: {
+            aptitudeId: that.data.optionsId
+          },
+          header: {
+            'cookie': wx.getStorageSync("sessionid") //读取cookie
+          },
+          method: 'POST',
+          dataType: 'json',
+          responseType: 'text',
+          success: function(res) {
+            console.log(res, 'resssss')
+            that.setData({
+              Collection: true
+            })
+          },
+          fail: function() {
+
+          }
+        })
+      }
+
+    }
+    // this.setData({
+    //   Collection: !this.data.Collection
+    // })
   },
   Reserve(e) {
     this.setData({
@@ -246,10 +323,10 @@ commentArray:[
           }
         })
         // 修改map Object
-        var currentMapObject=that.data.mapObj;
+        var currentMapObject = that.data.mapObj;
         currentMapObject['lng'] = qualificationObj.amapY,
-          currentMapObject['lat']=qualificationObj.amapX,
-        currentMapObject.markers[0]['latitude'] = qualificationObj.amapX;
+          currentMapObject['lat'] = qualificationObj.amapX,
+          currentMapObject.markers[0]['latitude'] = qualificationObj.amapX;
         currentMapObject.markers[0]['longitude'] = qualificationObj.amapY;
         currentMapObject.markers[0]['callout']['content'] = qualificationObj.address;
         that.setData({
@@ -309,6 +386,8 @@ commentArray:[
     })
     console.log(this.data.type, 'type')
     this.getInfo(id)
+    this.getCurrentUserInfo()
+
   },
 
   /**
@@ -405,7 +484,7 @@ commentArray:[
      */
     let choosesArray = [];
 
-    console.log(typeof (this.data));
+    console.log(typeof(this.data));
     console.log(this.qualificationType);
 
     switch (parseInt(this.data.type)) {
@@ -513,7 +592,7 @@ commentArray:[
         for (let i = 0; i < this.data.HotelScreenList.length; i++) {
           if (it.value == this.data.HotelScreenList[i].value) {
             this.data.HotelScreenList[i].check = true
-          }else{
+          } else {
             this.data.HotelScreenList[i].check = false
           }
         }
@@ -559,8 +638,41 @@ commentArray:[
       productList: this.choosesFilter(this.data.qualificationObj, conditions)
     })
   },
-
-  
+  // 重置选项
+  reset() {
+    switch (parseInt(this.data.type)) {
+      case 1:
+        this.data.BuyHotelKindList.forEach((item) => {
+          item.check = false
+        });
+        this.data.HotelScreenList.forEach((item) => {
+          item.check = false
+        });
+        this.setData({
+          BuyHotelKindList: this.data.BuyHotelKindList,
+          HotelScreenList: this.data.HotelScreenList
+        })
+        break;
+      case 2:
+        this.data.BuyScienceKindList.forEach((item) => {
+          item.check = false
+        });
+        this.data.ScienceScreenList.forEach((item) => {
+          item.check = false
+        });
+        this.setData({
+          BuyScienceKindList: this.data.BuyScienceKindList,
+          ScienceScreenList: this.data.ScienceScreenList
+        })
+    }
+    let conditions = {
+      minPrice: [],
+      chooses: []
+    };
+    this.setData({
+      productList: this.choosesFilter(this.data.qualificationObj, conditions)
+    })
+  },
   onShow: function() {
     var that = this;
     var query = wx.createSelectorQuery() //创建节点查询器 query
@@ -623,7 +735,7 @@ commentArray:[
             title: '请选择入住与离店时间',
           })
         } else {
-          that.getCurrentUserInfo(res)
+          that.payMoney(res)
         }
         break;
       case 2:
@@ -632,13 +744,14 @@ commentArray:[
             title: '请选择景点门票日期',
           })
         } else {
-          that.getCurrentUserInfo(res)
+          that.payMoney(res)
         }
         break;
     }
   },
 
-  getCurrentUserInfo(e) {
+  getCurrentUserInfo() {
+    console.log(1112312313)
     var that = this;
     wx.request({
       url: 'https://www.supconit.net/customer/info/getCurrentInfo',
@@ -650,50 +763,89 @@ commentArray:[
       dataType: 'json',
       responseType: 'text',
       success: function(res) {
-        let avatarImgUrl = ''
-        switch (res.statusCode) {
-          case 200:
-            that.payMoney(e)
-            break;
-          case 401:
-            wx.showToast({
-              title: '暂未登录，即将跳转至登录页',
-            })
-            setTimeout(function() {
-              wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
-              wx.redirectTo({
-                url: '/pages/bindPhone/index',
+        console.log(res, 'resssss')
+        if (res.statusCode == 200) {
+          wx.request({
+            url: 'https://www.supconit.net/customer/store/list',
+            data: '',
+            header: {
+              'cookie': wx.getStorageSync("sessionid") //读取cookie
+            },
+            method: 'GET',
+            dataType: 'json',
+            responseType: 'text',
+            success: function (res) {
+              console.log(res,'resssaaa')
+              let collectionArray = [];
+              let responseCollectionArray = res.data.obj;
+              responseCollectionArray.forEach((item) => {
+                collectionArray.push(item.aptitudeId)
               })
-            }, 1500)
-            break;
+              that.userCollectionArray = collectionArray;
+              if (that.userCollectionArray.length > 0) {
+                if (that.userCollectionArray.includes(that.data.optionsId)) {
+                  that.setData({
+                    Collection:true
+                  })
+                } else {
+                  that.setData({
+                    Collection:false
+                  })
+                }
+              } else {
+                that.setData({
+                  Collection:false
+                })
+              }
+            },
+          })
+          that.setData({
+            login: true
+          })
+        } else {
+          that.setData({
+            login: false
+          })
         }
       },
       fail: function() {
-        wx.showToast({
-          title: '暂未登录，即将跳转至登录页',
+        that.setData({
+          login: false,
+          Collection:false
         })
-        setTimeout(function() {
-          wx.navigateTo({
-            url: '/pages/bindPhone/index',
-          })
-        }, 1500)
       }
 
     })
   },
 
   payMoney(res) {
-    let {
-      choooseValenceList,
-      chooseNumber,
-      goodId
-    } = res.detail
-    let a = JSON.stringify(choooseValenceList)
-    wx: wx.redirectTo({
-      url: '/pages/fillOrder/index?choooseValenceList=' + a + '&chooseNumber=' + chooseNumber + '&goodId=' + goodId,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
+    // let that = this
+    // console.log(that.getCurrentUserInfo(),'getCurrentUserInfo')
+    if (this.data.login) {
+      console.log(1222)
+      let {
+        choooseValenceList,
+        chooseNumber,
+        goodId
+      } = res.detail
+      let a = JSON.stringify(choooseValenceList)
+      wx: wx.redirectTo({
+        url: '/pages/fillOrder/index?choooseValenceList=' + a + '&chooseNumber=' + chooseNumber + '&goodId=' + goodId,
+        success: function(res) {},
+        fail: function(res) {},
+        complete: function(res) {},
+      })
+    } else {
+      wx.showToast({
+        title: '暂未登录，即将跳转至登录页',
+      })
+      setTimeout(function() {
+        wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
+        wx.redirectTo({
+          url: '/pages/bindPhone/index',
+        })
+      }, 1500)
+    }
   }
+
 })
