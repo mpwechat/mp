@@ -92,32 +92,40 @@ getAllorders(){
         case 200:
 
           let recodesArray = res.data.obj.records;
-          recodesArray.forEach(function (item, index) {
-            switch (item.type) {
-              case 1:
-                item['icon'] = '/asset/images/hotelOrder.png'
-                break;
-              case 2:
-                item['icon'] = '/asset/images/viewOrder.png'
-                break;
-            }
-            item['productSnapshot'] = JSON.parse(item.productSnapshot);
-            console.log(item.productSnapshot)
-            if (item['productSnapshot'].productInfoList.length > 1) {
-              item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate + ' 至' + item.productSnapshot[item.productSnapshot.productInfoList.length - 1].useDate
-            } else {
-              item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
-            }
-          })
+          if (recodesArray.length>0){
+            recodesArray.forEach(function (item, index) {
+              switch (item.type) {
+                case 1:
+                  item['icon'] = '/asset/images/hotelOrder.png'
+                  break;
+                case 2:
+                  item['icon'] = '/asset/images/viewOrder.png'
+                  break;
+              }
+              item['productSnapshot'] = JSON.parse(item.productSnapshot);
+              console.log(item.productSnapshot)
+              if (item['productSnapshot'].productInfoList.length > 1) {
+                item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate + ' 至' + item.productSnapshot[item.productSnapshot.productInfoList.length - 1].useDate
+              } else {
+                item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
+              }
+            })
 
-          that.setData({
-            currntPageRecods: recodesArray
-          })
+            that.setData({
+              currntPageRecods: recodesArray
+            })
 
-          that.judageSate()
-        break
+            that.judageSate()
+            break
+          }else{
+            wx.redirectTo({
+              url: '/pages/noRecods/index',
+            })
+          }
+          
       }
-  
+
+         
     },
     fail: function () {
       wx.showToast({

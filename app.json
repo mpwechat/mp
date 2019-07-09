@@ -1,9 +1,10 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/paySuccess/index",
     "pages/hotel/index",
     "pages/scenic/index",
-      "pages/fillOrder/index",
+    "pages/fillOrder/index",
     "pages/DetailsPage/index",
     "pages/payment/index",
     "pages/myContacts/index",
@@ -22,17 +23,16 @@
     "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/integral/index",
-    "pages/paySuccess/index",
     "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
-   
     "pages/DateAndPricePicker/index",
     "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
     "pages/noRecods/index",
     "pages/noNetWork/index",
-    "pages/qualificationPictures/index"
+    "pages/qualificationPictures/index",
+    "pages/paymentH5/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

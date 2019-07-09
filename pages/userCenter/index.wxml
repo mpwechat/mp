@@ -27,9 +27,9 @@
   </view>
   <!-- 用户模块菜单 -->
   <view class='user-menu-wrap'>
-    <view class='menu-item'>
+    <view class='menu-item' >
       <image src='../../asset/images/myorders.png'></image>
-      <view class='menu-item-content'>我的订单</view>
+      <view class='menu-item-content' bindtap="myOrders">我的订单</view>
     </view>
     <view class='menu-item'>
       <image src='../../asset/images/mycollection.png'></image>

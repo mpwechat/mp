@@ -905,7 +905,9 @@ wx.showToast({
         success: function (res) {
           if (res.data.msg =='操作成功'){
 wx.navigateTo({
-  url: '/pages/payment/index?orderId=' + res.data.obj,
+  // url: '/pages/payment/index?orderId=' + res.data.obj,
+  
+  url: '/pages/paymentH5/index?orderId=' + res.data.obj + '&cookie=' + wx.getStorageSync("sessionid"),
 })
           }
        

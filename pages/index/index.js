@@ -464,5 +464,6 @@ this.setData({
     wx.navigateTo({
       url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type,
     })
-  }
+  },
+
 })

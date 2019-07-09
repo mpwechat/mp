@@ -209,5 +209,10 @@ this.getCurrentUserInfo()
    */
   onShareAppMessage: function () {
 
+  },
+  myOrders() {
+    wx.switchTab({
+      url: '/pages/order/index',
+    })
   }
 })

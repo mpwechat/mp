@@ -42,10 +42,7 @@ Page({
  * 解析路有参数
  */
 // console.log(JSON.parse(options));
-
 // 获取订单快照
-
-
     // 获取openID
     var that = this;
     const APP_ID = 'wx7ed0955cce3e8d15'; //输入小程序appid 
