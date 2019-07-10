@@ -120,10 +120,10 @@ Page({
         id: 'list_2',
         name: '预定须知'
       },
-      {
-        id: 'list_3',
-        name: '地图交通'
-      },
+      // {
+      //   id: 'list_3',
+      //   name: '地图交通'
+      // },
       {
         id: 'list_4',
         name: '点评'
@@ -137,10 +137,10 @@ Page({
         id: 'list_2',
         name: '预定须知'
       },
-      {
-        id: 'list_3',
-        name: '地图交通'
-      },
+      // {
+      //   id: 'list_3',
+      //   name: '地图交通'
+      // },
       {
         id: 'list_4',
         name: '点评'
@@ -846,6 +846,14 @@ Page({
         })
       }, 1500)
     }
+  },
+  // 地图展示
+  goMap(e){
+    console.log(e,'eeeeee')
+    let a = JSON.stringify(e.currentTarget.dataset.item)
+    wx.navigateTo({
+      url: '/pages/map/index?a=' + a,
+    })
   }
 
 })

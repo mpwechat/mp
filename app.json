@@ -32,13 +32,15 @@
     "pages/noRecods/index",
     "pages/noNetWork/index",
     "pages/qualificationPictures/index",
-    "pages/paymentH5/index"
+    "pages/paymentH5/index",
+    "pages/map/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#409eff",
     "navigationBarTitleText": "营销平台",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "color": "#666666",

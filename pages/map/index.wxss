@@ -1,0 +1,160 @@
+/* pages/map/map.page.wxss */
+.map_container{
+  /* position: relative;
+  width: 100%;
+  height: 100%; */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.map{
+  width: 100%;
+  height: 100%;
+}
+.swiper-container{
+ position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+   height: 178rpx;
+   width: 100%;
+}
+.map_text{
+  background: #fff;
+  padding: 30rpx 15px 0;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+text{
+  /* margin: 5px 0; */
+  display: block;
+  font-size:24rpx;
+}
+.h1{
+  margin: 0 0 10rpx;
+  font-size:30rpx;
+  min-height: 50rpx;
+  line-height: 50rpx;
+}
+.icon-wrap{
+  width: 50rpx;
+  height: 50rpx;
+  -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius:50%;
+    overflow: hidden;
+     float: left;
+     margin-right: 20rpx;
+    /* margin-top: 15rpx; */
+}
+.icon-wrap  cover-image{
+  width: 50rpx;
+  height: 50rpx;
+   -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius:50%;
+    margin: 2rpx 30rpx 0  0;
+   
+}
+.discribe-wrap{
+  width: calc(100% - 100rpx);
+  display: inline-block;
+  height: 100%;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+ 
+}
+.guide-icon{
+  width: 100rpx;
+  height: 150rpx;
+  float: right;
+  margin-right: 0;
+  text-align: center;
+  font-size: 24rpx;
+  -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius:0;
+}
+.address{
+  width: 100%;
+  padding: 0 0 0 70rpx;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 26rpx;
+  line-height: 40rpx;
+ color: rgba(92,92,92,1);
+}
+.guide-icon cover-image{
+  width: 90rpx;height: 90rpx;
+   margin: 0 auto;
+
+}
+.spareState{
+  display: inline-block;
+  /* padding: 0 10rpx 0 0; */
+   font-size: 26rpx;
+   color:green; 
+}
+.operatingState{
+  display: inline-block;
+   font-size: 26rpx;
+    padding: 0 0 0 50rpx;
+}
+.operatingState.open,.spareState.spare{
+  color: green;
+}
+.operatingState.close,.spareState.crowd{
+  color: indianred;
+}
+.goMap.goList{
+bottom:240rpx;
+}
+.mark-detail-wrap{
+  height: 100%;
+}
+.map_text{
+  width: 100%;
+  height: 100%;
+}
+.option-coverView{
+  bottom:240rpx;
+}
+.parkState cover-view{
+  float: left;
+  margin-left: 10rpx;
+}
+.parkState cover-view:first-child{
+  margin-left: 0;
+}
+.spareState{
+ width: 45rpx;
+ text-align: center;
+}
+@keyframes slidedown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+.slidedown {
+    animation: slidedown 0.5s linear ;
+}
+.slideup {
+    animation: slideup 0.5s linear ;
+}
+@keyframes slideup {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
