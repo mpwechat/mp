@@ -32,5 +32,5 @@
       <van-stepper value="{{ 1 }}" bind:change="onChange" />
     </view>
   </view>
-  <slot></slot>
+  <!-- <slot></slot> -->
 </view>

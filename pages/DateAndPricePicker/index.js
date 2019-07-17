@@ -28,6 +28,7 @@ Component({
       })
       wx.getSystemInfo({
         success: function(res) {
+          console.log(res,'system')
           _this.setData({
             systemInfo: res,
           });
@@ -294,6 +295,9 @@ Component({
               let NewCheckDateJson = checkDateJson.slice(-2)
               for (let i = 0; i < NewCheckDateJson.length; i++) {
                 days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
+                if (days[NewCheckDateJson[i]['index']].class.split(' ').length >= 3) {
+                  days[NewCheckDateJson[i]['index']].class = ' active active'
+                }
                 if (checkDateJson.length >= 2) {
                   for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
                     console.log(checkDateJson[i]['index'], 'checkDateJson[i].index')
