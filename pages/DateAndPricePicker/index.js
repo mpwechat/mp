@@ -162,6 +162,10 @@ Component({
         if (j < DATE_DAY && year == DATE_YEAR && nextMonth == DATE_MONTH)
           //当天之前的日期不可用
           clazz = 'unavailable ' + clazz;
+        if (nextMonth < DATE_MONTH && year == DATE_YEAR)
+          clazz = 'unavailable ' + clazz;
+        if (year < DATE_YEAR)
+          clazz = 'unavailable ' + clazz;
         else
           clazz = '' + clazz
         /**如果当前日期已经选中，则变色 */
