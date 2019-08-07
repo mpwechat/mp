@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loading:true,
     overlay: true,
     areaValue: '杭州',
     areaList: addressJson,
@@ -120,16 +121,7 @@ Page({
       }
     ],
     // 商品列表
-    goodShowArray:[
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img:'http://image.supconit.net/food3.png'},
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food3.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' }
-    ]
+    goodShowArray:[]
   },
 
   /**
@@ -474,25 +466,34 @@ console.log('拼命加载中')
       responseType: 'text',
       success: function (res) { 
         let recodesArray = res.data.obj.hits;
+     
         console.log(recodesArray)
-        recodesArray.forEach(function(item ,index) {
-          let itemProductArray = item._source.productList;
-          // console.log(itemProductArray);
-          let dailPriceArray = [];
-          itemProductArray.forEach(goodItem => {
-            let priceList = goodItem.productDailyList;
-            priceList.forEach((priceDaliyItem) => {
-              dailPriceArray.push(priceDaliyItem.price)
+        if (recodesArray.length>0){
+          recodesArray.forEach(function (item, index) {
+            let itemProductArray = item._source.productList;
+            // console.log(itemProductArray);
+            let dailPriceArray = [];
+            itemProductArray.forEach(goodItem => {
+              let priceList = goodItem.productDailyList;
+              priceList.forEach((priceDaliyItem) => {
+                dailPriceArray.push(priceDaliyItem.price)
+              })
+              // console.log(dailPriceArray)
+              item['minPrice'] = Math.min.apply(null, dailPriceArray);
+
             })
-            // console.log(dailPriceArray)
-            item['minPrice'] = Math.min.apply(null, dailPriceArray);
-           
-          })
-          item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
-        });
+            item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
+          });
           that.setData({
-            goodShowArray: that.data.goodShowArray.concat(recodesArray)
+            goodShowArray:that.data.goodShowArray.concat(recodesArray),
+            loading:false
           })
+        }else{
+          that.setData({
+            loading: true
+          })
+        }
+       
       }
       })
   },

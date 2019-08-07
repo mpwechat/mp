@@ -7,7 +7,10 @@ Page({
   data: {
     height: 0,
     recordPage: 0,
-    scroeArray: []
+    scroeArray: [],
+    allScoreHasScore:false,
+    earn: false, 
+    outScoreHasScore:false
   },
 
   /**
@@ -25,6 +28,19 @@ Page({
       }
 
     })
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     that.getAllReocde();
   },
   loadingMoreintegral() {
@@ -50,18 +66,33 @@ Page({
         console.log(res);
         switch (res.statusCode){
           case 200:
-   let recordArray = res.data.obj.records;
-          recordArray.forEach(function (item, index) {
-            if (item.scoreChange > 0) {
-              item['positive'] = true
-            } else {
-              item['positive'] = false
+            debugger
+            let recordArray = res.data.obj.records;
+            if (recordArray.length>0){
+              recordArray.forEach(function (item, index) {
+                if (item.scoreChange > 0) {
+                  item['positive'] = true
+                } else {
+                  item['positive'] = false
+                }
+              })
+             
+              // positive
+              that.setData({
+                scroeArray: recordArray,
+                allScoreHasScore:true,
+                earn: false,
+                outScoreHasScore: false
+              })
+            }else{
+              that.setData({
+                allScoreHasScore: false,
+                earn: false,
+                outScoreHasScore: false
+              })
             }
-          })
-          // positive
-          that.setData({
-            scroeArray: recordArray
-          })
+  
+   
           break;
           case 401:
             wx.showToast({

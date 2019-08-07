@@ -8,16 +8,22 @@
     </view>
   </view>
   <view class='view-title'>积分明细</view>
+
   <van-tabs animated>
     <van-tab title="全部">
       <view class='integral-content-wrap'>
-        <view class='integral-content'>
+        <view class='integral-content' wx:if='{{!allScoreHasScore}}' style='position:relative;height:{{height}}'>
+          <view class="tips-wrap">
+            空空如也
+          </view>
+        </view>
+        <view class='integral-content'wx:if='{{allScoreHasScore}}'>
           <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
             <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
               <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
               <wxs module="filter">
                 var formmater = function(ts) {
-                  var d = getDate( parseInt(ts))
+                  var d = getDate(parseInt(ts))
                   return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
                 }
                 module.exports.formmater = formmater;
@@ -37,13 +43,18 @@
     </van-tab>
     <van-tab title="收入">
       <view class='integral-content-wrap'>
-        <view class='integral-content'>
+      <view class='integral-content' wx:if='{{!earnScoreHasScore}}' style='position:relative;height:{{height}}'>
+          <view class="tips-wrap">
+            空空如也
+          </view>
+        </view>
+        <view class='integral-content' wx:if='{{earnScoreHasScore}}'>
           <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
             <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
               <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
               <wxs module="filter">
                 var formmater = function(ts) {
-                  var d = getDate( parseInt(ts))
+                  var d = getDate(parseInt(ts))
                   return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
                 }
                 module.exports.formmater = formmater;
@@ -62,14 +73,19 @@
       </view>
     </van-tab>
     <van-tab title="支出">
-     <view class='integral-content-wrap'>
-        <view class='integral-content'>
+      <view class='integral-content-wrap'>
+      <view class='integral-content' wx:if='{{!outScoreHasScore}}' style='position:relative;height:{{height}}'>
+          <view class="tips-wrap">
+            空空如也
+          </view>
+        </view>
+        <view class='integral-content' wx:if='{{outScoreHasScore}}'>
           <scroll-view scroll-y class='scroll-view' lower-threshold='100' style='height:{{height}}' bindscrolltolower="loadingMoreintegral">
             <view class='integral-item' wx:for="{{scroeArray}}" wx:key='*'>
               <!-- <text class='integral-change-date'>{{filter.formmater(item.createTime)}}</text> -->
               <wxs module="filter">
                 var formmater = function(ts) {
-                  var d = getDate( parseInt(ts))
+                  var d = getDate(parseInt(ts))
                   return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
                 }
                 module.exports.formmater = formmater;

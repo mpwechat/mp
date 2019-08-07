@@ -1,5 +1,11 @@
 <!--pages/MyContacts/index.wxml-->
 <view class='container'>
+<!-- 加载动画 -->
+<view class="loade-animate" hidden="{{!loading}}">
+<image class="animate" src="../../asset/images/loading.gif"></image>
+</view>
+<!-- 加载完内容 -->
+<view class="container-content" hidden="{{loading}}">
   <view class='flex_center'>
     <view class='mainInfo'>
       <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100'>
@@ -32,4 +38,5 @@
     <van-dialog id="van-dialog" />
   </view>
    <van-toast id="van-toast" />
+   </view>
 </view>

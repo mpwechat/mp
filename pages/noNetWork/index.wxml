@@ -1,6 +1,9 @@
 <!--pages/noNetWork/index.wxml-->
 <view class="container">
-<view class="tips-wrap">
+<view class="tips-wrap network">
+<view class="tips-wrap-content">
+<image src="../../asset/images/network.png"></image>
 暂无网络
+</view>
 </view>
 </view>

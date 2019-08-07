@@ -10,7 +10,9 @@ Page({
     currntPageRecods:[],
     allOrderRecods:[],
    untravelRecods:[],
-   finishRecods:[]
+   finishRecods:[],
+    loading:true,
+    hasRecord:false
   },
  
   /**
@@ -26,7 +28,19 @@ Page({
         })
       }
     })
-   
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
   },
   getDetail(e){
 console.log(e)
@@ -75,6 +89,7 @@ getAllorders(){
     dataType: 'json',
     responseType: 'text',
     success: function (res) {
+      
       console.log(res);
       switch (res.statusCode){
         case 401:
@@ -110,17 +125,22 @@ getAllorders(){
                 item['effectiveDate'] = item.productSnapshot.productInfoList[0].useDate
               }
             })
-
             that.setData({
-              currntPageRecods: recodesArray
+              currntPageRecods: recodesArray,
+              loading: false,
+              hasRecord:true,
             })
 
             that.judageSate()
             break
           }else{
-            wx.redirectTo({
-              url: '/pages/noRecods/index',
+            that.setData({
+              hasRecord: false,
+              loading: false,
             })
+            // wx.redirectTo({
+            //   url: '/pages/noRecods/index',
+            // })
           }
           
       }

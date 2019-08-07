@@ -5,7 +5,6 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: res => {
@@ -32,8 +31,24 @@ App({
         }
       }
     })
+    // setInterval(function(){
+    //   wx.getNetworkType({
+    //     success: function (res) {
+    //       console.log(res);
+    //       switch (res.networkType) {
+    //         case 'none':
+    //           wx.reLaunch({
+    //             url: '/pages/noNetWork/index',
+    //           })
+    //           break
+    //       }
+
+    //     }
+    //   });
+    // },2000)
   },
   globalData: {
     userInfo: null
-  }
+  },
+
 })

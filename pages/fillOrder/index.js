@@ -67,6 +67,19 @@ Page({
    */
   onLoad: function(options) {
     console.log(options)
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     let optionchooseValenceAray = JSON.parse(options.choooseValenceList)
     let shijianc = Date.parse(optionchooseValenceAray[0].day)
     optionchooseValenceAray.forEach(function(item) {

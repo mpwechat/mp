@@ -37,6 +37,19 @@ Page({
     this.setData({
       orderId: options.orderId
     })
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
   },
   /**
    * 星星点击

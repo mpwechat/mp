@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    addressList:'' // 常用地址列表
+    addressList:'', // 常用地址列表,
+    loading:true
   },
   onClose(event) {
     console.log(event)
@@ -69,9 +70,17 @@ Page({
         console.log(res)
         switch (res.statusCode) {
           case 200:
-            that.setData({
-              addressList: res.data.obj //联系人列表赋值
-            })
+            if (res.data.obj.length>0){
+              that.setData({
+                addressList: res.data.obj ,//联系人列表赋值,
+                loading:false
+              })
+            }else{
+              wx.redirectTo({
+                url: '/pages/noRecods/index',
+              })
+            }
+          
             break;
           case 401:
             wx.showToast({
@@ -95,6 +104,19 @@ Page({
     // }).then(() => {
     //   // on close
     // });
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     this.getList()
   },
 

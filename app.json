@@ -1,16 +1,19 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/evaluation/index",
+    "pages/searchResult/index",
+    "pages/scenic/index",
+    "pages/integral/index",
+    "pages/myAddress/index",
+    "pages/MyCollection/index",
+    "pages/order/index",
     "pages/paySuccess/index",
     "pages/hotel/index",
-    "pages/scenic/index",
     "pages/fillOrder/index",
     "pages/DetailsPage/index",
     "pages/payment/index",
     "pages/myContacts/index",
-    "pages/evaluation/index",
-    "pages/order/index",
-    "pages/searchResult/index",
     "pages/bindPhone/index",
     "pages/userInfo/index",
     "pages/bindEmail/index",
@@ -22,18 +25,19 @@
     "pages/travelSelf/index",
     "pages/travelPlus/index",
     "pages/globalSearch/index",
-    "pages/integral/index",
-    "pages/myAddress/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
     "pages/DateAndPricePicker/index",
-    "pages/MyCollection/index",
     "pages/noRecodes_userCenter/index",
     "pages/noRecods/index",
     "pages/noNetWork/index",
     "pages/qualificationPictures/index",
     "pages/paymentH5/index",
+<<<<<<< Updated upstream
     "pages/map/index"
+=======
+    "pages/goodPackageDetail/index"
+>>>>>>> Stashed changes
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -50,7 +54,7 @@
       {
         "pagePath": "pages/index/index",
         "text": "主页",
-        "iconPath": "asset/images/index_active.png",
+        "iconPath": "asset/images/index.png",
         "selectedIconPath": "asset/images/index_active.png"
       },
       {
@@ -92,6 +96,7 @@
     "van-switch-cell": "/miniprogram_npm/vant-weapp/switch-cell/index",
     "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index",
     "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
-    "van-toast": "/miniprogram_npm/vant-weapp/toast/index"
+    "van-toast": "/miniprogram_npm/vant-weapp/toast/index",
+    "van-search": "/miniprogram_npm/vant-weapp/search/index"
   }
 }

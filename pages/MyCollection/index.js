@@ -7,11 +7,15 @@ Page({
   data: {
     recodePage: 0,
     height: 0,
-    goodShowArray: []
+    goodShowArray: [],
+    loading: true
   },
   onClose(event) {
     console.log(event, 'event')
-    const { position, instance } = event.detail;
+    const {
+      position,
+      instance
+    } = event.detail;
     const that = this
     switch (position) {
       case 'right':
@@ -43,7 +47,7 @@ Page({
       method: 'DELETE',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
+      success: function(res) {
         switch (res.data.code) {
           case 1:
             Toast.success('删除成功');
@@ -68,31 +72,40 @@ Page({
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) {
-        console.log(res, 'resList')
+      success: function(res) {
+        console.log(res, 'resList');
+
         // let recodesArray = res.data.obj;
         let collectionRecodes = res.data.obj;
-        //资质商品列表 计算 最小价格
-        collectionRecodes.forEach(item => {
-          console.log(item, 'item')
-          let itemProductArray = item._source.productList;
-          // console.log(itemProductArray);
-          let dailPriceArray = [];
-          itemProductArray.forEach(goodItem => {
-            let priceList = goodItem.productDailyList;
-            priceList.forEach((priceDaliyItem) => {
-              dailPriceArray.push(priceDaliyItem.price)
+        if (collectionRecodes.length > 0) {
+          //资质商品列表 计算 最小价格
+          collectionRecodes.forEach(item => {
+            console.log(item, 'item')
+            let itemProductArray = item._source.productList;
+            // console.log(itemProductArray);
+            let dailPriceArray = [];
+            itemProductArray.forEach(goodItem => {
+              let priceList = goodItem.productDailyList;
+              priceList.forEach((priceDaliyItem) => {
+                dailPriceArray.push(priceDaliyItem.price)
+              })
+              // console.log(dailPriceArray)
+              item['minPrice'] = Math.min.apply(null, dailPriceArray);
             })
-            // console.log(dailPriceArray)
-            item['minPrice'] = Math.min.apply(null, dailPriceArray);
+            item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
+          });
+          // that.data.goodShowArray.concat(
+          that.setData({
+            goodShowArray: collectionRecodes,
+            loading: false
           })
-          item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
-        });
-        // that.data.goodShowArray.concat(
-        that.setData({
-          goodShowArray: collectionRecodes
-        })
-        console.log(that.data.goodShowArray,'goodShowArray')
+        } else {
+          wx.redirectTo({
+            url: '/pages/noRecodes_userCenter/index',
+          })
+        }
+
+        console.log(that.data.goodShowArray, 'goodShowArray')
       }
     })
   },
@@ -104,16 +117,28 @@ Page({
     console.log('拼命加载中')
   },
   //跳转到商品详情页
-  ViewDetails(e){
-    console.log(e,'navgite')
+  ViewDetails(e) {
+    console.log(e, 'navgite')
     wx.navigateTo({
-      url: '/pages/DetailsPage/index?id='+e.target.dataset.id,
+      url: '/pages/DetailsPage/index?id=' + e.target.dataset.id,
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+      }
+    });
     // Dialog.alert({
     //   title: '标题',
     //   message: '弹窗内容'
@@ -126,49 +151,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

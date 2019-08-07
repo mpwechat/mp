@@ -44,6 +44,7 @@ Page({
           case 401:
             wx.showToast({
               title: '暂未登录，即将跳转至登录页',
+              images:'asset/images/warm1.png'
             })
             setTimeout(function () {
               wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存

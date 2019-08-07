@@ -1,4 +1,10 @@
 <view class='container'>
+<!-- 加载动画 -->
+<view class="loade-animate" hidden="{{!loading}}">
+<image class="animate" src="../../asset/images/loading.gif"></image>
+</view>
+<!-- 加载完内容 -->
+<view class="container-content" hidden="{{loading}}">
   <view class='flex_center'>
     <view wx:for="{{manList}}" wx:key='{{index}}'>
       <view class='mainInfo'>
@@ -36,5 +42,5 @@
     <button bindtap="addNewContanct">+新增联系人</button>
   </view>
     <van-toast id="van-toast" />
-
+</view>
 </view>

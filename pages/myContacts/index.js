@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    manList: ''//联系人列表
+    manList: '',//联系人列表,
+    loading: true
   },
   onClose(event) {
     console.log(event)
@@ -23,7 +24,7 @@ Page({
         break;
     }
   },
-  deleteMan(id){
+  deleteMan(id) {
     const that = this
     wx.request({
       url: 'https://www.supconit.net/customer/contacts/' + id,
@@ -47,12 +48,12 @@ Page({
     })
   },
   editInfo(e) {
-    console.log(e,'wwww')
+    console.log(e, 'wwww')
     wx.redirectTo({
       url: '/pages/addNewMan/index?id=' + e.target.dataset.id,
     })
   },
-  addNewContanct(){
+  addNewContanct() {
     wx.redirectTo({
       url: '/pages/addNewMan/index',
     })
@@ -73,9 +74,17 @@ Page({
         switch (res.statusCode) {
           case 200:
             // that.manList = res.data.obj
-            that.setData({
-              manList: res.data.obj //联系人列表赋值
-            })
+            if (res.data.obj.length > 0) {
+              that.setData({
+                manList: res.data.obj,
+                loading: false //联系人列表赋值
+              })
+            } else {
+              wx.redirectTo({
+                url: '/pages/noRecods/index',
+              })
+            }
+
             break;
           case 401:
             wx.showToast({
@@ -93,6 +102,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     // Dialog.alert({
     //   title: '标题',
     //   message: '弹窗内容'

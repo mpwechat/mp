@@ -5,12 +5,13 @@ page{
 .container {
   background: #F3F3F3;
   height: auto;
-  display: flex;
-  justify-content: center;
+  min-height: 100%;
+ 
 }
 .flex_center{
   width: 690rpx;
   height: 100%;
+  margin: 0 auto;
 }
 .mainInfo{
   width: 100%;

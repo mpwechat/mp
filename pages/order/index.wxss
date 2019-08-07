@@ -1,6 +1,6 @@
 .container{
   text-align: left;
-  height: auto;
+  /* height: auto; */
 }
 .van-tabs{
   width: 100%;

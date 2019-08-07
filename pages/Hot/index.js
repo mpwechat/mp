@@ -66,10 +66,10 @@ Page({
     moreaniStyle: true,
     currentValue: 30,
     hotelStar: [{
-      text: '不限',
-      index: 0,
-      check:0
-    },
+        text: '不限',
+        index: 0,
+        check: 0
+      },
       {
         text: '二星级/经济',
         index: 1,
@@ -91,8 +91,7 @@ Page({
         check: 0
       },
     ],
-    scenicStar:[
-      {
+    scenicStar: [{
         text: '不限',
         index: 0,
         check: 0
@@ -109,20 +108,59 @@ Page({
       },
       {
         text: 'AAAAA级',
-        index:3,
+        index: 3,
         check: 0
       }
     ],
     // 商品列表
-    goodShowArray:[
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img:'http://image.supconit.net/food3.png'},
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food3.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/food4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hot4.png' },
-      { goodName: '海南三亚五日四晚跟团游', gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019', goodprice: '489.22', img: 'http://image.supconit.net/hotel_list1.png' }
+    goodShowArray: [{
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/food3.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/food4.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/hot4.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/hotel_list1.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/food3.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/food4.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/hot4.png'
+      },
+      {
+        goodName: '海南三亚五日四晚跟团游',
+        gooddiscribe: '2019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐20192019年特推旅游套餐2019年特推旅游套餐2019年特推旅游套餐2019',
+        goodprice: '489.22',
+        img: 'http://image.supconit.net/hotel_list1.png'
+      }
     ]
   },
 
@@ -135,13 +173,24 @@ Page({
       success: function(res) {
         var sreenHeight = res.windowHeight;
         that.setData({
-          height: res.windowHeight - 94 + 'px',
-
-
+          height: res.windowHeight - 94 + 'px'
         })
       }
 
     })
+    wx.getNetworkType({
+      success: function(res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
 
   },
   /**
@@ -156,7 +205,19 @@ Page({
       that.setData({
         comprehensiveConditionsShow: true,
         aniStyle: true,
-        comprehensiveArrow: true
+        comprehensiveArrow: true,
+
+        //设置其他多选sildeUp
+        salesConditionsShow : false,
+        salesaniStyle: false,
+        salesArrow: false,
+        evaluationaniStyle:false,
+        moreaniStyle: false,
+        　　　　　 //设置动画效果为slidedown
+        evaluationConditionsShow:false,
+        evaluationArrow:false,
+        moreConditionsShow:false,
+        moreArrow:false
       })
     } else {
       this.setData({
@@ -211,7 +272,18 @@ Page({
       that.setData({
         salesConditionsShow: true,
         salesaniStyle: true,
-        salesArrow: true
+        salesArrow: true,
+        //设置其他多选sildeUp
+        comprehensiveConditionsShow:false,
+        aniStyle:false,
+        comprehensiveArrow: false,
+        evaluationaniStyle:false,
+        moreaniStyle: false,
+        　　　　　 //设置动画效果为slidedown
+        evaluationConditionsShow:false,
+        evaluationArrow:false,
+        moreConditionsShow: false,
+        moreArrow: false
       })
     } else {
       this.setData({
@@ -263,7 +335,19 @@ Page({
       that.setData({
         evaluationConditionsShow: true,
         evaluationaniStyle: true,
-        evaluationArrow: true
+        evaluationArrow: true,
+        //设置其他多选sildeUp
+        comprehensiveConditionsShow:false,
+        aniStyle:false,
+        comprehensiveArrow:false,
+        //设置其他多选sildeUp
+        salesConditionsShow:false,
+        salesaniStyle:false,
+        salesArrow: false,
+        moreaniStyle:false,
+        　　　　　 //设置动画效果为slidedown
+        moreConditionsShow:false,
+        moreArrow:false
       })
     } else {
       this.setData({
@@ -314,7 +398,18 @@ Page({
       that.setData({
         moreConditionsShow: true,
         moreaniStyle: true,
-        moreArrow: true
+        moreArrow: true,
+        comprehensiveConditionsShow:false,
+        aniStyle:false,
+        comprehensiveArrow:true,
+        //设置其他多选sildeUp
+        salesConditionsShow:false,
+        salesaniStyle:false,
+        salesArrow:false,
+        evaluationaniStyle:false,
+        evaluationConditionsShow:false,
+        evaluationArrow:false,
+
       })
     } else {
       this.setData({
@@ -347,18 +442,18 @@ Page({
     });
   },
   // 酒店等级选择
-  hotelStarSelect(e){
-var index=e.target.dataset.index;
-console.log(index);
+  hotelStarSelect(e) {
+    var index = e.target.dataset.index;
+    console.log(index);
     var hotelStarArray = this.data.hotelStar;
-    for (var i = 0; i < hotelStarArray.length;i++){
-      if(i==index){
-        if (hotelStarArray[i].check==0){
+    for (var i = 0; i < hotelStarArray.length; i++) {
+      if (i == index) {
+        if (hotelStarArray[i].check == 0) {
           hotelStarArray[i].check = 1;
-        }else{
+        } else {
           hotelStarArray[i].check = 0;
         }
-       
+
       }
     }
     this.setData({
@@ -366,7 +461,7 @@ console.log(index);
     })
   },
   // 景区等级选择
-  scenicStarSelect(e){
+  scenicStarSelect(e) {
     var index = e.target.dataset.index;
     console.log(index);
     var scenicStarArray = this.data.scenicStar;
@@ -387,12 +482,12 @@ console.log(index);
   /**
    * 取消筛选
    */
-  resetMoreConditin(){
+  resetMoreConditin() {
     var that = this;
     this.setData({
       moreaniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         moreConditionsShow: false,
         moreArrow: false
@@ -402,12 +497,12 @@ console.log(index);
   /**
    * 确定更多筛选条件
    */
-  sureMoreConditin(){
+  sureMoreConditin() {
     var that = this;
     this.setData({
       moreaniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         moreConditionsShow: false,
         moreArrow: false
@@ -417,8 +512,8 @@ console.log(index);
   /**
    * 懒加载更多商品
    */
-  loadingMoreGood(){
-console.log('拼命加载中')
+  loadingMoreGood() {
+    console.log('拼命加载中')
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

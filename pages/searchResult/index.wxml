@@ -39,7 +39,15 @@
     </view>
   </view>
   <!-- 商品列表 -->
-   <view class='good-content-list' >
+  <!-- 商品列表 -->
+   <view class='good-content-list' style='height:{{height}}' >
+ 
+   <!-- 加载动画 -->
+<view class="loade-animate" hidden="{{!loading}}">
+<image class="animate" src="../../asset/images/loading.gif"></image>
+</view>
+    <!-- style='height:{{height}}'  -->
+    <view class='good-content-wrap' hidden="{{loading}}" >
     <!-- style='height:{{height}}'  -->
     <scroll-view scroll-y bindscrolltolower="loadingMoreGood"  lower-threshold='100' style='height:{{height}}'>
     <!-- 单个商品 -->
@@ -60,7 +68,7 @@
     </view>
 
   </scroll-view>
-
+</view>
    </view>
 
 

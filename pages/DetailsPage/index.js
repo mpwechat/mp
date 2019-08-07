@@ -384,6 +384,19 @@ Page({
       optionsId: id,
     })
     console.log(this.data.type, 'type')
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     this.getInfo(id)
     this.getCurrentUserInfo()
 

@@ -207,6 +207,19 @@ Page({
   //   })
   // },
   onLoad: function () {
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType){
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+          break
+        }
+       
+      }
+    });
     this.getBanner();
     this.getActivityOptimization();
     this.getHotSpot();

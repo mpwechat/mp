@@ -39,7 +39,23 @@ this.setData({
  * 搜索
  */
   onSearch(){
+    wx.getNetworkType({
+      success: function (res) {
+        console.log(res);
+        switch (res.networkType) {
+          case 'none':
+            wx.reLaunch({
+              url: '/pages/noNetWork/index',
+            })
+            break
+        }
+
+      }
+    });
     console.log(this.data.inputValue);
+    wx.navigateTo({
+      url: '/pages/searchResult/index',
+    })
   },
 /**
  * 展开

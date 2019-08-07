@@ -39,7 +39,7 @@ background:rgba(0,0,0,0.4);
   position: relative;
 }
 .good-content-list{
-  height: calc(100% -188rpx );
+  height: calc(100% -188rpx);
   background: #f3f3f3;
   width: 100%;
   
