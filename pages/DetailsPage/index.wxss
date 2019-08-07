@@ -204,7 +204,7 @@ page {
   background-color: #409eff;
 }
 
-.Reserve button {
+.Reserve a {
   width: 100%;
   height: 100%;
   background-color: #409eff;
@@ -214,6 +214,8 @@ page {
   line-height: 98rpx;
   color: #fff;
   font-size: 32rpx;
+  display: flex;
+  justify-content: center;
 }
 
 .left {

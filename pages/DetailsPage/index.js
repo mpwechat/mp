@@ -207,7 +207,6 @@ Page({
   },
   Collection() {
     let that = this;
-    debugger
     if (that.data.login) {
       if (that.data.Collection) {
         wx.request({
@@ -713,6 +712,10 @@ Page({
   SureBuy() {
     console.log(this.data.show, 'show')
     console.log(this.data.show == true, 'show')
+    wx.pageScrollTo({
+      selector: '#GoodLists',
+      duration: 300
+    })
     if (this.data.show == true) {
       console.log(this.data.show, 'show')
 

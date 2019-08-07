@@ -8,7 +8,7 @@ var DATE_DAY = new Date().getDate();
 
 Component({
   lifetimes: {
-    attached: function() {
+    attached: function () {
       console.log('组件aaa加载！', this.properties)
 
       let that = this
@@ -27,8 +27,8 @@ Component({
         month: month
       })
       wx.getSystemInfo({
-        success: function(res) {
-          console.log(res,'system')
+        success: function (res) {
+          console.log(res, 'system')
           _this.setData({
             systemInfo: res,
           });
@@ -36,15 +36,15 @@ Component({
       })
     },
 
-    detached: function() {
+    detached: function () {
       // 在组件实例被从页面节点树移除时执行
     },
   },
   // 以下是旧式的定义方式，可以保持对 <2.2.3 版本基础库的兼容
-  attached: function() {
+  attached: function () {
     // 在组件实例进入页面节点树时执行
   },
-  detached: function() {
+  detached: function () {
     // 在组件实例被从页面节点树移除时执行
   },
   properties: {
@@ -53,7 +53,7 @@ Component({
     productDailyList: Array,
     type: String
   },
-  ready: function() {
+  ready: function () {
     this.setData({
       optionsId: this.properties.optionsId,
       type: this.properties.type
@@ -84,12 +84,7 @@ Component({
         optionsId: that.properties.optionsId,
         productList: that.properties.productDailyList
       })
-      // that.data.PriceCalendarList = that.data.productList
-      //   for (var i = 0; i < that.data.PriceCalendarList.length; i++) {
-      //     that.data.PriceCalendarList[i].dailyDate = that.Conversiontime(parseInt(that.data.PriceCalendarList[i].dailyDate))
-      //   }
       this.createDateListData(year, month)
-
     },
     // 不用每次装时间格式的方法
     onedate(year, month) {
@@ -121,7 +116,7 @@ Component({
     },
     // 这里是一个自定义方法
     /**创建日历数据 */
-    createDateListData: function(setYear, setMonth) {
+    createDateListData: function (setYear, setMonth) {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let dateArr = []; //需要遍历的日历数组数据
       let arrLen = 0; //dateArr的数组长度
@@ -130,7 +125,8 @@ Component({
       let nextYear = 0;
       let month = setMonth || now.getMonth();
       //没有+1方便后面计算当月总天数
-      let nextMonth = (month + 1) > 10 ? 1 : (month + 1);
+      // let nextMonth = (month + 1) > 10 ? month : (month + 1);
+      let nextMonth = (month + 1);
       console.log("当前选中月nextMonth：" + nextMonth);
       //目标月1号对应的星期
       let startWeek = this.getWeek(year, nextMonth, 1); //new Date(year + ',' + (month + 1) + ',' + 1).getDay(); 
@@ -193,12 +189,87 @@ Component({
       this.setData({
         days: dateArr
       })
+      this.morenactive(this.data.days)
     },
+    //默认选择
+    morenactive(dateArr) {
+      console.log(dateArr,'dateArr')
+      let month = DATE_MONTH
+      let day = DATE_DAY
+      if (DATE_DAY < 10) {
+        day = '0' + DATE_DAY
+      }
+      if (DATE_MONTH < 10) {
+        month = "0" + (DATE_MONTH)
+      } else {
+        month = (DATE_MONTH + 1)
+      }
+      if (this.data.type == '1') {
+        let that = this
 
+        for (let i = 0; i < dateArr.length; i++) {
+
+          console.log(DATE_YEAR.toString() + '-' + month + '-' + day + ' 00:00:00')
+          console.log(dateArr[i].dailyDay)
+
+          if (dateArr[i].dailyDay == DATE_YEAR.toString() + '-' + month + '-' + day +
+            ' 00:00:00') {
+            console.log(i, 'iii')
+            dateArr[i].class = ' active active'
+            dateArr[(i + 1)].class = ' active'
+            
+            that.setData({
+              days : dateArr,
+              checkDate :[{
+                amount: dateArr[i].amount,
+                day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+                index: i
+              }, {
+                amount: dateArr[(i + 1)].amount,
+                day: dateArr[(i + 1)].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+                index: (i + 1)
+              }]
+            })
+            // that.data.checkDate = [{
+            //   amount: dateArr[i].amount,
+            //   day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+            //   index: i
+            // }, {
+            //   amount: dateArr[(i + 1)].amount,
+            //   day: dateArr[(i + 1)].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+            //   index: (i + 1)
+            // }]
+          }
+        }
+      } else if (this.data.type == '2') {
+        let that = this
+
+        for (let i = 0; i < dateArr.length; i++) {
+
+          if (dateArr[i].dailyDay == DATE_YEAR.toString() + '-' + month + '-' + day +
+            ' 00:00:00') {
+            dateArr[i].class = ' active'
+            that.setData({
+              days: dateArr,
+              checkDate : [{
+                amount: dateArr[i].amount,
+                day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+                index: i
+              }]
+            })
+            // that.data.checkDate = [{
+            //   amount: dateArr[i].amount,
+            //   day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
+            //   index: i
+            // }]
+          }
+        }
+      }
+    },
     /**
      * 上个月
      */
-    lastMonthEvent: function() {
+    lastMonthEvent: function () {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month - 2 < 0 ? this.data.year - 1 : this.data.year;
       let month = this.data.month - 2 < 0 ? 11 : this.data.month - 2;
@@ -211,7 +282,7 @@ Component({
     /**
      * 下个月
      */
-    nextMonthEvent: function() {
+    nextMonthEvent: function () {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month > 11 ? this.data.year + 1 : this.data.year;
       let month = this.data.month > 11 ? 0 : this.data.month;
@@ -225,7 +296,7 @@ Component({
     /*
      * 获取月的总天数
      */
-    getTotalDayByMonth: function(year, month) {
+    getTotalDayByMonth: function (year, month) {
       month = parseInt(month, 10);
       var d = new Date(year, month, 0);
       return d.getDate();
@@ -233,14 +304,14 @@ Component({
     /*
      * 获取月的第一天是星期几
      */
-    getWeek: function(year, month, day) {
+    getWeek: function (year, month, day) {
       var d = new Date(year, month - 1, day);
       return d.getDay();
     },
     /**
      * 点击日期事件
      */
-    onPressDateEvent: function(e) {
+    onPressDateEvent: function (e) {
       console.log(e, 'e')
       var {
         year,
@@ -257,7 +328,7 @@ Component({
       this.renderPressStyle(year, month, day, amount, index);
     },
 
-    renderPressStyle: function(year, month, day, amount, choseIndex) {
+    renderPressStyle: function (year, month, day, amount, choseIndex) {
       var days = this.data.days;
       //渲染点击样式
       for (var j = 0; j < days.length; j++) {
@@ -342,7 +413,7 @@ Component({
       console.log(this.data.days, 'days')
     },
     /**检查数组中是否存在该元素 */
-    checkItemExist: function(arr, value) {
+    checkItemExist: function (arr, value) {
       for (var i = 0; i < arr.length; i++) {
         if (value === arr[i].day) {
           return i;

@@ -276,17 +276,17 @@ text-indent: 30rpx;
 }
 .contact-choose-item{
   width:208rpx;
-height:68rpx;
-border-radius:34rpx;
-display: inline-block;
-line-height: 68rpx;
-text-align: center;
-color:rgba(51,51,51,1);
-font-size:26rpx;
-background:rgba(243,243,243,1);
-margin:0 15rpx;
-margin-bottom: 20rpx;
-box-sizing: border-box;
+  height:68rpx;
+  border-radius:34rpx;
+  display: inline-block;
+  line-height: 68rpx;
+  text-align: center;
+  color:rgba(51,51,51,1);
+  font-size:26rpx;
+  background:rgba(243,243,243,1);
+  margin:0 15rpx;
+  margin-bottom: 20rpx;
+  box-sizing: border-box;
 }
 .contact-choose-item:nth-child(3),.contact-choose-item:nth-child(6),.contact-choose-item:nth-child(9){
   margin-right: 0;

@@ -68,7 +68,7 @@
     <view class='reset' bindtap='reset'>重置</view>
   </view>
 
-  <view class='GoodLists'>
+  <view class='GoodLists' id="GoodLists">
     <scroll-view class='GoodListsCenterScroll' scroll-y>
       <view class='GoodListsCenter' wx:for="{{productList}}" wx:key="{{item.index}}">
         <view class='GoodName'>
@@ -180,7 +180,7 @@
       <view style='display:inline-block'>收藏</view>
     </view>
     <view class='Reserve'>
-      <button bindtap='SureBuy'>{{show?'立即预订':'预定'}}</button>
+      <a bindtap='SureBuy'>{{show?'立即预订':'预定'}}</a>
     </view>
   </view>
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
