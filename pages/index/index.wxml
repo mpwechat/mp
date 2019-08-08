@@ -59,50 +59,22 @@
     <!-- tab完 -->
     <view class='tabs-content-wrap'>
       <!-- 今日必抢 -->
-      <view class='tabs-content' hidden='{{activeTabIndex !==0}}'>
+      <view class='tabs-content' hidden='{{activeTabIndex !==index}}' wx:for="{{activityOptimization}}" wx:key='index'  wx:for-item='ActiveItem'>
         <scroll-view scroll-x='true'>
-          <view class='figure' wx:for="{{rob}}" wx:key='index'>
+          <view class='figure' wx:for="{{ActiveItem.productList}}" wx:key='index' wx:for-index="index" wx:for-item='productItem'>
             <view class='img-wrap'>
-              <image src='{{item.img}}'></image>
+              <image src='{{productItem.cover}}'></image>
             </view>
             <view class='figcaption'>
-              <text class='good-name'>{{item.goodName}}</text>
-              <view class='good-discribe'>{{item.goodDiscribe}}</view>
-              <text class='price'>￥{{item.price}}起</text>
+              <text class='good-name'>{{productItem.name}}</text>
+              <view class='good-discribe'>{{productItem.introduction}}</view>
+               <text class='price' wx:if="{{productItem.minPrice==undefined}}"></text>
+              <text class='price'>￥{{productItem.minPrice}}起</text>
             </view>
           </view>
         </scroll-view>
       </view>
-      <!-- 品质优选 -->
-      <view class='tabs-content' hidden='{{activeTabIndex !==1}}'>
-        <scroll-view scroll-x='true'>
-          <view class='figure' wx:for="{{optimization}}" wx:key='index'>
-            <view class='img-wrap'>
-              <image src='{{item.img}}'></image>
-            </view>
-            <view class='figcaption'>
-              <text class='good-name'>{{item.goodName}}</text>
-              <view class='good-discribe'>{{item.goodDiscribe}}</view>
-              <text class='price'>￥{{item.price}}起</text>
-            </view>
-          </view>
-        </scroll-view>
-      </view>
-      <!-- 餐饮 -->
-      <view class='tabs-content' hidden='{{activeTabIndex !==2}}'>
-        <scroll-view scroll-x='true'>
-          <view class='figure' wx:for="{{foods}}" wx:key='index'>
-            <view class='img-wrap'>
-              <image src='{{item.img}}'></image>
-            </view>
-            <view class='figcaption'>
-              <text class='good-name'>{{item.goodName}}</text>
-              <view class='good-discribe'>{{item.goodDiscribe}}</view>
-              <text class='price'>￥{{item.price}}起</text>
-            </view>
-          </view>
-        </scroll-view>
-      </view>
+      
     </view>
   </view>
   <!-- 热门景区 -->
@@ -116,8 +88,8 @@
         <view class='figcaption'>
           <text class='good-name'>{{item.name}}</text>
           <view class='good-discribe'>{{item.description}}</view>
-         <!-- <text class='price' wx:if="{{item.minPrice==undefined}}"></text> -->
-          <text class='price' >￥{{item.minPrice}}起</text>
+         <text class='price' wx:if="{{item.minPrice==undefined}}"></text>
+          <text class='price' wx:else>￥{{item.minPrice}}起</text>
         </view>
       </view>
     </scroll-view>
@@ -133,8 +105,8 @@
         <view class='figcaption'>
           <text class='good-name'>{{item.name}}</text>
           <view class='good-discribe' style='white-space:pre-line;'>{{item.description}}</view>
-          <!-- <text class='price' wx:if="{{item.minPrice==undefined}}"></text> -->
-          <text class='price' >￥{{item.minPrice}}起</text>
+          <text class='price' wx:if="{{item.minPrice==undefined}}"></text>
+          <text class='price' wx:else>￥{{item.minPrice}}起</text>
         </view>
       </view>
     </scroll-view>

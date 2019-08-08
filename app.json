@@ -33,11 +33,9 @@
     "pages/noNetWork/index",
     "pages/qualificationPictures/index",
     "pages/paymentH5/index",
-<<<<<<< Updated upstream
-    "pages/map/index"
-=======
+    "pages/map/index",
     "pages/goodPackageDetail/index"
->>>>>>> Stashed changes
+
   ],
   "window": {
     "backgroundTextStyle": "light",

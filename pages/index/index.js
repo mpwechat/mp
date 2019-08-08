@@ -209,7 +209,7 @@ Page({
   onLoad: function () {
     wx.getNetworkType({
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         switch (res.networkType){
           case 'none':
             wx.reLaunch({
@@ -364,15 +364,38 @@ this.setData({
             data: '',
             header: {},
             method: 'GET',
-            success: function (res) {
-              console.log(res)
+            success: function (responce) {
+              // console.log(responce)
+              let ActivityItem = {};
+              ActivityItem['name'] = item.name;
+              ActivityItem['productList'] = responce.data.obj;
+              if (responce.data.obj.length > 0) {
+                responce.data.obj.forEach(function(item){
+                  let dailPriceArray = []
+                  let priceList = item.productDailyList;
+                  priceList.forEach(function (priceDaliyItem,
+                    index) {
+                    dailPriceArray.push(priceDaliyItem
+                      .price)
+                  })
+                  item['cover'] = that.data.qiNiu + '/' + item.cover.split(',')[0];
+                  if (dailPriceArray.length > 0) {
+                    item['minPrice'] = Math.min.apply(null,
+                      dailPriceArray);
+                  }
+
+                })
+              }
+              activityContactArray.push(ActivityItem)
+              console.log(activityContactArray)
+              that.setData({
+                activityOptimization: activityContactArray
+              })
             }
           })
         })
-        console.log(activeties)
-        that.setData({
-          activityOptimization: activeties
-        })
+     
+       
       },
     })
   },
@@ -407,10 +430,10 @@ this.setData({
             item['minPrice'] = Math.min.apply(null, dailPriceArray);
 
           })
-          console.log(item['minPrice'])
+          // console.log(item['minPrice'])
           item['cover'] = that.data.qiNiu + '/' + item.cover.split(',')[0];
         })
-        console.log(HotViewArray)
+        // console.log(HotViewArray)
 
         that.setData({
           hotSpot: HotViewArray
@@ -434,7 +457,8 @@ this.setData({
       responseType: 'text',
       success: function (res) {
         // console.log(res.obj)
-        let HotHotelArray = res.data.obj;
+        let HotHotelArray = res.data.obj.content;
+     
         //资质商品列表 计算 最小价格
         // for (var i = 0; i < HotViewArray)
         HotHotelArray.forEach(function (item, index) {
@@ -450,7 +474,7 @@ this.setData({
           })
           item['cover'] = that.data.qiNiu + '/' + item.cover.split(',')[0];
         })
-        console.log(HotHotelArray)
+        // console.log(HotHotelArray)
 
         that.setData({
           hotHotel: HotHotelArray

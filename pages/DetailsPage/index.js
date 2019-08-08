@@ -4,6 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    loading:true,
     login: '', //登陆
     bgImage: '',
     name: '', //名字
@@ -331,7 +332,8 @@ Page({
         that.setData({
           qualificationObj: qualificationObj,
           productList: qualificationObj['productList'],
-          mapObj: currentMapObject
+          mapObj: currentMapObject,
+          loading:false
         })
         console.log(qualificationObj, 'qualificationObj')
         console.log(that.data.productList, 'that.data.productList')
@@ -383,7 +385,16 @@ Page({
     this.setData({
       optionsId: id,
     })
-    console.log(this.data.type, 'type')
+    console.log(this.data.type, 'type');
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        var sreenHeight = res.windowHeight;
+        that.setData({
+          height: res.windowHeight  + 'px',
+        })
+      }
+    })
     wx.getNetworkType({
       success: function (res) {
         console.log(res);

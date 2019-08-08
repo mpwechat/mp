@@ -1,5 +1,12 @@
 <!--pages/DetailsPage/index.wxml-->
 <view class='container'>
+<view class="detail-content loading-wrap" hidden='{{!loading}}' >
+<view class="loading-aninmate">
+<image src="../../asset/images/loading.gif"></image>
+</view>
+
+</view>
+<view class="detail-content" hidden='{{loading}}'>
   <view class='MerPictures'>
     <image src='{{bgImage}}'></image>
     <view class='PicturesNumber' bindtap="getpicture" data-id='{{optionsId}}'>{{qualificationObj.cover.length}} 张</view>
@@ -26,6 +33,7 @@
       <view class='targetAddressWord'>{{qualificationObj.address}}</view>
     </view>
   </view>
+  <view class="screnn-wrap" wx:if='{{productList.length>0}}'>
   <view class='choseWhichBuy'>
     <view style='display:inline-block;'>
       <view class='choseWhichBuy_left'>
@@ -67,8 +75,8 @@
     </view>
     <view class='reset' bindtap='reset'>重置</view>
   </view>
-
-  <view class='GoodLists' id="GoodLists">
+</view>
+  <view class='GoodLists' id="GoodLists" wx:if='{{productList.length>0}}'>
     <scroll-view class='GoodListsCenterScroll' scroll-y>
       <view class='GoodListsCenter' wx:for="{{productList}}" wx:key="{{item.index}}">
         <view class='GoodName'>
@@ -114,6 +122,7 @@
       <view class='list_center'>
         <view id="list_1">
           <view class="list_1_title">
+          <image src="../../asset/images/taocan.png"></image>
             <text wx:if='{{type=="1"}}'>酒店介绍</text>
             <text wx:if='{{type=="2"}}'>景区介绍</text>
           </view>
@@ -131,7 +140,7 @@
         </view>
 
         <view id="list_2">
-          <view class="list_1_title">预定须知</view>
+          <view class="list_1_title">  <image src="../../asset/images/shuoming.png"></image>预定须知</view>
           <view class='list_small_title'>费用包含：</view>
           <view class='list_small_title'>【酒店】</view>
           <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
@@ -152,7 +161,7 @@
           </view>
         </view> -->
         <view id="list_4">
-          <view class="list_1_title">点评</view>
+          <view class="list_1_title"> <image src="../../asset/images/pinglun .png"></image>点评</view>
           <view class="comments-wrap">
             <view class="comments-item" wx:for="{{commentArray}}" wx:key="{{index}}">
               <view class="comment-grade">
@@ -186,4 +195,5 @@
   <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
     <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" type='{{type}}' optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
   </van-popup>
+  </view>
 </view>

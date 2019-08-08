@@ -89,6 +89,8 @@ left: 0;
   color: rgba(203, 0, 0, 1);
   position: relative;
   top: -16rpx;
+  display: inline-block;
+  height: 28rpx;
 }
 
 ::-webkit-scrollbar {
@@ -609,4 +611,36 @@ height: 100%;
   top:0;
   left: 0;
 
+}
+.loading-wrap{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top:0;
+  left: 0;
+  z-index: 666;
+
+}
+.loading-aninmate{
+  width: 212rpx;
+  height: 130rpx;
+  margin: auto;
+  top:0;
+  left: 0;
+  bottom:0;
+  right:0;
+  position: absolute;
+}
+.loading-aninmate image{
+width: 100%;
+height: 100%;
+}
+.list_1_title image{
+  width: 34rpx;
+  height: 34rpx;
+  float: left;
+  display: inline-block;
+ position: relative;
+ top:30rpx;
+ margin-right: 10rpx;
 }
