@@ -1,5 +1,5 @@
 {
-  "component":true,
+  "component": true,
   "usingComponents": {
     "data-price-picker": "../DateAndPricePicker/index"
   }

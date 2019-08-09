@@ -22,13 +22,8 @@
 		}
 	},
 	"compileType": "miniprogram",
-<<<<<<< Updated upstream
-	"libVersion": "2.7.4",
-	"appid": "wxe96642010f3c448a",
-=======
 	"libVersion": "2.4.2",
 	"appid": "wx7ed0955cce3e8d15",
->>>>>>> Stashed changes
 	"projectname": "mp_WeChat",
 	"debugOptions": {
 		"hidedInDevtools": []

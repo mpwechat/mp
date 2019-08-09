@@ -502,5 +502,21 @@ this.setData({
       url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type,
     })
   },
+  getGoodPackageDetail(e){
+    console.log(e,'e')
+    var qualificationId = e.currentTarget.dataset.qualificationid;
+    let type ;
+  switch(e.currentTarget.dataset.type) {
+      case 1:
+  type='hotel'
+      break
+      case 2:
+  type = 'scenic'
+      break;
+}
+    wx.navigateTo({
+      url: '/pages/goodPackageDetail/index?id=' + qualificationId + '&type=' + type,
+  })
+  }
 
 })

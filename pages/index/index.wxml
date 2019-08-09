@@ -61,7 +61,7 @@
       <!-- 今日必抢 -->
       <view class='tabs-content' hidden='{{activeTabIndex !==index}}' wx:for="{{activityOptimization}}" wx:key='index'  wx:for-item='ActiveItem'>
         <scroll-view scroll-x='true'>
-          <view class='figure' wx:for="{{ActiveItem.productList}}" wx:key='index' wx:for-index="index" wx:for-item='productItem'>
+          <view class='figure' wx:for="{{ActiveItem.productList}}" wx:key='index' wx:for-index="index" wx:for-item='productItem' data-type="{{productItem.type}}"  data-qualificationId="{{productItem.id}}"  bindtap="getGoodPackageDetail">
             <view class='img-wrap'>
               <image src='{{productItem.cover}}'></image>
             </view>

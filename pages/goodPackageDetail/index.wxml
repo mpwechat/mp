@@ -1,164 +1,203 @@
 <!--pages/DetailsPage/index.wxml-->
 <view class='container'>
-  <view class='MerPictures'>
-    <image src='{{bgImage}}'></image>
-    <view class='PicturesNumber' bindtap="getpicture" data-id='{{optionsId}}'>108张</view>
-  </view>
-  <view class='MerContent'>
-    <view class='ContentTitle'>{{qualificationObj.name}}</view>
-    <view class='ContentInfo'>
-      <view class="ContentInfo_neirongTitle">套票内容：</view>
-      <view class='ContentInfo_neirong'>
-        <view>千岛湖中心湖区门票（2张）</view>
-        <view>千岛湖度假村酒店 大床房（1间）</view>
-        <view>森林氧吧(2人）</view>
-      </view>
+  <view class="detail-content loading-wrap" hidden='{{!loading}}'>
+    <view class="loading-aninmate">
+      <image src="../../asset/images/loading.gif"></image>
     </view>
-    <view class='ContentDay'>
-      <view>行程天数：</view>
-      <view>2天1晚</view>
-    </view>
-  </view>
-  <view class="targetAddress">
-    <view>
-      <text class='iconfont icon-didian Mail'></text>
-      <view class='targetAddressWord'>千岛湖度假村中心湖景区</view>
-    </view>
-  </view>
-  <view class='choseWhichBuy'>
-    <view style='display:inline-block;'>
-      <view class='choseWhichBuy_left'>
-        <view class="{{KindListState==index?'choseThis':'choseBuy'}}" wx:for="{{BuyScienceKindList}}" wx:key="list" data-key='{{index}}' bindtap='choseWhichBuyClick' data-value="{{item.value}}">{{item.name}}</view>
-        <!-- <view class='choseBuy'>儿童票</view>
-        <view class='choseBuy'>学生票</view>
-        <view class='choseBuy'>家庭套票</view> -->
-      </view>
-    </view>
-    <view class='chose' bindtap='screen'>
-      <view style='display:inline-block;line-height:90rpx'>筛选</view>
-      <text style='line-height:90rpx;text-align:center;' class='iconfont icon-xiajiantou'></text>
-    </view>
-  </view>
 
-  <view class='choseScreen' wx:if='{{screenShow}}'>
-    <view style='display:inline-block;'>
-      <view class='choseScreenWhich'>
-        <view class="{{ScreenListState==index?'choseThis':'choseBuy'}}" wx:for="{{ScreenList}}" wx:key="list" data-key='{{index}}' bindtap='choseScreenClick' data-value="{{item.value}}">{{item.name}}</view>
-        <!-- <view class='choseBuy'>100-200</view>
-        <view class='choseBuy'>200以上</view> -->
+  </view>
+  <view class="detail-content" hidden='{{loading}}'>
+    <view class='MerPictures'>
+      <image src='{{bgImage}}'></image>
+      <view class='PicturesNumber' bindtap="getpicture" data-id='{{optionsId}}'>{{qualificationObj.cover.length}} 张</view>
+    </view>
+    <view class='MerContent'>
+      <view class='ContentTitle'>{{qualificationObj.name}}</view>
+      <view class='ContentInfo'>
+        <view class="ContentInfo_neirongTitle" wx:if='{{type=="1"}}'>酒店介绍：</view>
+        <view class="ContentInfo_neirongTitle" wx:if='{{type=="2"}}'>景区介绍：</view>
+        <view class='ContentInfo_neirong'>
+          <view>{{qualificationObj.introduce}}
+            <text class="lookMoreIntrdouction">....</text>
+          </view>
+        </view>
+      </view>
+      <view class='ContentDay'>
+        <view>联系电话：</view>
+        <view>{{qualificationObj.phone}}</view>
       </view>
     </view>
-  </view>
+    <view class="targetAddress" data-item="{{qualificationObj}}" bindtap='goMap'>
+      <view>
+        <text class='iconfont icon-didian Mail'></text>
+        <view class='targetAddressWord'>{{qualificationObj.address}}</view>
+      </view>
+    </view>
+    <!-- <view class="screnn-wrap" wx:if='{{productList.length>0}}'>
+      <view class='choseWhichBuy'>
+        <view style='display:inline-block;'>
+          <view class='choseWhichBuy_left'>
+            <view wx:for="{{BuyScienceKindList}}" wx:if="{{type == '2'}}" wx:key="index" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">
+              <view class="choseBuy {{item.check?'choseThis':''}}">
+                <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text> {{item.name}}
+              </view>
+            </view>
 
-  <view class='GoodLists'>
-    <scroll-view class='GoodListsCenterScroll' scroll-y>
-      <view class='GoodListsCenter' wx:for="{{qualificationObj.productList}}" wx:key="{{item.index}}">
-        <view class='GoodName'>
-          <view class='sale_logo' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
-            <view v-if="salesitem.type==0" style='display:inline-block'>
-              {{saleItem.ruleJson.discount}}折促销
+
+            <view wx:if="{{type == '1'}}" wx:for="{{BuyHotelKindList}}" wx:key="index" data-key='{{index}}' bindtap='choseWhichClick' data-item="{{item}}" data-value="{{item.value}}">
+              <view class="choseBuy {{item.check?'choseThis':''}}">
+                <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text> {{item.name}}
+              </view>
             </view>
           </view>
-          {{item.name}}
-          <view class='manjian' wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
-            <view class="manjianInside" v-if="salesitem.type==1">满减</view>
-          </view>
         </view>
-        <view wx:if="{{type == 'scenic'}}">
-          <view class='GoodKind' wx:if="{{item.type == 1}}">成人票</view>
-          <view class='GoodKind' wx:elif="{{item.type == 2}}">儿童票</view>
-          <view class='GoodKind' wx:elif="{{item.type == 3}}">学生票</view>
-          <view class='GoodKind' wx:else="{{item.type == 4}}">家庭套票</view>
-        </view>
-        <view wx:if="{{type == 'hotel'}}">
-          <view class='GoodKind' wx:if="{{item.type == 1}}">单人标间</view>
-          <view class='GoodKind' wx:elif="{{item.type == 2}}">大床房</view>
-          <view class='GoodKind' wx:elif="{{item.type == 3}}">家庭套房</view>
-          <view class='GoodKind' wx:else="{{item.type == 4}}">总统套房</view>
-        </view>
-        <view class='GoodPrice'>¥{{item.minPrice}}</view>
-        <view class='TakeGood'>
-          <view class='TakeGood_ding'>订</view>
-          <view class='TakeGood_daodianfu'>在线付</view>
+        <view class='chose' bindtap='screen'>
+          <view style='display:inline-block;line-height:90rpx'>筛选</view>
+          <text style='line-height:90rpx;text-align:center;' class='iconfont icon-xiajiantou'></text>
         </view>
       </view>
-    </scroll-view>
-  </view>
 
-  <view id='left' class=" {{menuFixed ? 'fixed': 'left'}}" id='affix'>
-    <scroll-view class='leftScroll' scroll-y>
-      <view class="{{state==index?'active-tag':''}}" wx:for="{{list}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
-    </scroll-view>
-  </view>
-  <view class='right'>
-    <scroll-view class='rightScroll' scroll-y scroll-into-view="{{toView}}" scroll-with-animation="true">
-      <view class='list_center'>
-        <view id="list_1">
-          <view class="list_1_title">套餐说明</view>
-          <view class='list_small_title'>费用包含：</view>
-          <view class='list_small_title'>【酒店】</view>
-          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
-          <view class='list_small_title'>【门票】</view>
-          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
-          <view class='list_small_title'>【其他】</view>
-          <view class='list_introduce'>森林氧吧（2人）</view>
-          <view class='list_small_title'>温馨提示：</view>
-          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
-          <view class='list_small_title'>费用不包含：</view>
-          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
-        </view>
+      <view class='choseScreen' wx:if='{{screenShow}}'>
+        <view style='display:inline-block;'>
+          <view class='choseScreenWhich' wx:if="{{type == '1'}}">
+            <view wx:for="{{HotelScreenList}}" wx:key="list" data-key='{{index}}' data-item="{{item}}" bindtap='choseScreenClick' data-value="{{item.value}}">
+              <view class="{{item.check?'choseThis':'choseBuy'}}">
+                <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text> {{item.name}}
+              </view>
+            </view>
+          </view>
 
-        <view id="list_2">
-          <view class="list_1_title">预定须知</view>
-          <view class='list_small_title'>费用包含：</view>
-          <view class='list_small_title'>【酒店】</view>
-          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
-          <view class='list_small_title'>【门票】</view>
-          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
-          <view class='list_small_title'>【其他】</view>
-          <view class='list_introduce'>森林氧吧（2人）</view>
-          <view class='list_small_title'>温馨提示：</view>
-          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
-          <view class='list_small_title'>费用不包含：</view>
-          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+          <view class='choseScreenWhich' wx:if="{{type == '2'}}">
+            <view wx:for="{{ScienceScreenList}}" wx:key="list" data-key='{{index}}' data-item="{{item}}" bindtap='choseScreenClick' data-value="{{item.value}}">
+              <view class="{{item.check?'choseThis':'choseBuy'}}">
+                <text class='iconfont icon-righTopduihao' wx:if="{{item.check}}"></text> {{item.name}}
+              </view>
+            </view>
+          </view>
         </view>
-        <view id="list_3">
+        <view class='reset' bindtap='reset'>重置</view>
+      </view>
+    </view> -->
+    <!-- <view class='GoodLists' id="GoodLists" wx:if='{{productList.length>0}}'>
+      <scroll-view class='GoodListsCenterScroll' scroll-y>
+        <view class='GoodListsCenter' wx:for="{{productList}}" wx:key="{{item.index}}">
+          <view class='GoodName'>
+            <view wx:for="{{item.saleList}}" wx:if="{{saleItem.type==0}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
+              <text class='sale_logo'>
+              {{saleItem.ruleJson.discount}}折\n促销
+            </text>
+            </view>
+            {{item.name}}
+            <view class='manjian' wx:if="{{saleItem.type==1}}" wx:for="{{item.saleList}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
+              <view class="manjianInside" style="line-height:13px;">满减</view>
+            </view>
+          </view>
+          <view wx:if="{{type == '2'}}">
+            <view class='GoodKind' wx:if="{{item.type == 1}}">成人票</view>
+            <view class='GoodKind' wx:elif="{{item.type == 2}}">儿童票</view>
+            <view class='GoodKind' wx:elif="{{item.type == 3}}">学生票</view>
+            <view class='GoodKind' wx:else="{{item.type == 4}}">家庭套票</view>
+          </view>
+          <view wx:if="{{type == '1'}}">
+            <view class='GoodKind' wx:if="{{item.type == 1}}">单人标间</view>
+            <view class='GoodKind' wx:elif="{{item.type == 2}}">大床房</view>
+            <view class='GoodKind' wx:elif="{{item.type == 3}}">家庭套房</view>
+            <view class='GoodKind' wx:else="{{item.type == 4}}">总统套房</view>
+          </view>
+          <view class='GoodPrice'>¥{{item.minPrice}}</view>
+          <view class='TakeGood' data-item="{{item}}" bindtap='Reserve'>
+            <view class='TakeGood_ding'>订</view>
+            <view class='TakeGood_daodianfu'>在线付</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view> -->
+
+    <view id='left' class=" {{menuFixed ? 'fixed': 'left'}}" id='affix'>
+      <scroll-view class='leftScroll' scroll-y>
+        <view wx:if='{{type=="1"}}' class="{{state==index?'active-tag':''}}" wx:for="{{Hotellist}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
+        <view wx:if='{{type=="2"}}' class="{{state==index?'active-tag':''}}" wx:for="{{Sciencelist}}" wx:key="list" data-key='{{index}}' bindtap='clickScroll' data-id="{{item.id}}">{{item.name}}</view>
+      </scroll-view>
+    </view>
+    <view class='right'>
+      <scroll-view class='rightScroll' scroll-y="true" scroll-into-view="{{toView}}" scroll-with-animation="true">
+        <view class='list_center'>
+          <view id="list_1">
+            <view class="list_1_title">
+              <image src="../../asset/images/taocan.png"></image>
+              <text wx:if='{{type=="1"}}'>酒店介绍</text>
+              <text wx:if='{{type=="2"}}'>景区介绍</text>
+            </view>
+            <view class='list_small_title'>费用包含：</view>
+            <view class='list_small_title'>【酒店】</view>
+            <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+            <view class='list_small_title'>【门票】</view>
+            <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+            <view class='list_small_title'>【其他】</view>
+            <view class='list_introduce'>森林氧吧（2人）</view>
+            <view class='list_small_title'>温馨提示：</view>
+            <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+            <view class='list_small_title'>费用不包含：</view>
+            <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+          </view>
+
+          <view id="list_2">
+            <view class="list_1_title">
+              <image src="../../asset/images/shuoming.png"></image>预定须知</view>
+            <view class='list_small_title'>费用包含：</view>
+            <view class='list_small_title'>【酒店】</view>
+            <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
+            <view class='list_small_title'>【门票】</view>
+            <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
+            <view class='list_small_title'>【其他】</view>
+            <view class='list_introduce'>森林氧吧（2人）</view>
+            <view class='list_small_title'>温馨提示：</view>
+            <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
+            <view class='list_small_title'>费用不包含：</view>
+            <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
+          </view>
+          <!-- <view id="list_3">
           <view class="list_1_title"> 地图交通</view>
-          <view class='ditu'>
+          <view class='ditu' style="z-index:0">
+            <map id="map" longitude="{{mapObj.lng}}" latitude="{{mapObj.lat}}" scale="{{mapObj.scale}}" bindcontroltap="controltap" markers="{{mapObj.markers}}" bindmarkertap="markertap" bindregionchange="regionchange" show-location style="width: 100%; height:312rpx;position:absolute;top:0;right:0"></map>
+
+          </view>
+        </view> -->
+          <view id="list_4">
+            <view class="list_1_title">
+              <image src="../../asset/images/pinglun .png"></image>点评</view>
+            <view class="comments-wrap">
+              <view class="comments-item" wx:for="{{commentArray}}" wx:key="{{index}}">
+                <view class="comment-grade">
+                  <view class="rate-wrap">{{item.score}}</view>
+                  <text class="conmmet-user">{{item.user}}</text>
+                  <view class="zan-option">
+                    <text class="iconfont icon-icon-thumbs-up {{item.zanActive?'active':''}}"></text> ({{item.zanNunber}})</view>
+                </view>
+                <!-- 用户信息 -->
+                <view class="comment-user-info"> {{item.user}} 对 “ {{qualificationObj.name}}” 发表评论 </view>
+                <view class="comment-content"> {{item.words}}</view>
+              </view>
+              <!-- 查看更多评论 -->
+              <view class="look-more-comment"> 查看更多评论 </view>
+            </view>
 
           </view>
         </view>
-        <view id="list_4">
-          <view class="list_1_title">点评</view>
-          <view class='list_small_title'>费用包含：</view>
-          <view class='list_small_title'>【酒店】</view>
-          <view class='list_introduce'>千岛湖度假村酒店 大床房（1间）</view>
-          <view class='list_small_title'>【门票】</view>
-          <view class='list_introduce'>千岛湖中心湖区门票（2张）</view>
-          <view class='list_small_title'>【其他】</view>
-          <view class='list_introduce'>森林氧吧（2人）</view>
-          <view class='list_small_title'>温馨提示：</view>
-          <view class='list_introduce'>这里是酒店、景区相关的温馨提示</view>
-          <view class='list_small_title'>费用不包含：</view>
-          <view class='list_introduce'>除费用包含外其他消费，敬请自理</view>
-        </view>
+      </scroll-view>
+    </view>
+
+    <view class='CollectionAndReserve'>
+      <view class='Collection' bindtap='Collection'>
+        <text class='iconfont  {{Collection ? "icon-collection":"icon-shoucang"}}'></text>
+        <view style='display:inline-block'>收藏</view>
       </view>
-
-
-    </scroll-view>
-  </view>
-
-
-  <view class='CollectionAndReserve'>
-    <view class='Collection' bindtap='Collection'>
-      <text class='iconfont  {{Collection ? "icon-collection":"icon-shoucang"}}'></text>
-      <view style='display:inline-block'>收藏</view>
+      <view class='Reserve'>
+        <a bindtap='SureBuy'>{{show?'立即预订':'预定'}}</a>
+      </view>
     </view>
-    <view class='Reserve' bindtap='Reserve'>
-      <button>{{show?'立即预订':'预定'}}</button>
-    </view>
+    <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
+      <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" type='{{type}}' optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
+    </van-popup>
   </view>
-  <van-popup show="{{ show }}" position="bottom" bind:close="onClose">
-     <data-price-picker inner-text="Some text" optionsId='{{optionsId}}'></data-price-picker>
-  </van-popup>
 </view>

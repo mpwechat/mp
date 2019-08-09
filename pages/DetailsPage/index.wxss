@@ -224,6 +224,8 @@ page {
   height: 80%;
   background-color: #fff;
   margin-top: 20rpx;
+  display: flex;
+  justify-content: center;
 }
 
 .fixed {
