@@ -317,7 +317,7 @@ this.setData({
    */
   goGlobalSearch() {
     wx.navigateTo({
-      url: '/pages/globalSearch/index?searchValue=' + this.data.inputValue
+      url: '/pages/globalSearch/index?searchValue=' + this.data.inputValue + '&area=' + this.data.areaValue
       //  url: '../logs/logs'
     })
   },

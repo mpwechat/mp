@@ -208,6 +208,7 @@ Page({
   },
   Collection() {
     let that = this;
+    debugger
     if (that.data.login) {
       if (that.data.Collection) {
         wx.request({

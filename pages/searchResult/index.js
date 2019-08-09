@@ -129,13 +129,21 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
+    console.log(options);
+    that.setData({
+      areaValue: options.area,
+      keyWord: options.keyWord
+    })
+    if (options.type){
+      that.setData({
+        type: options.type
+      })
+    }
     wx.getSystemInfo({
       success: function(res) {
         var sreenHeight = res.windowHeight;
         that.setData({
           height: res.windowHeight - 94 + 'px',
-
-
         })
       }
     })
@@ -170,6 +178,12 @@ Page({
     this.setData({
       areaChooseShow: false
     })
+  },
+  /**
+   * 关键词输入变化
+   */
+  keyWordsChange(e){
+    console.log(e)
   },
   /**
    * 综合筛选显示隐藏
@@ -455,6 +469,7 @@ console.log('拼命加载中')
    * 获取景区记录
    */
   getRecodes(){
+   
     let that=this;
     let page = that.data.recodePage+'';
     wx.request({

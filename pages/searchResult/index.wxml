@@ -1,4 +1,4 @@
-<!--pages/Hot/index.wxml-->
+   <!--pages/Hot/index.wxml-->
 <view class="container">
   <!-- 搜索 -->
   <view class='top-serach'>
@@ -16,7 +16,7 @@
 
       <view class='input-wrap'>
         <text class="iconfont icon-Magnifier"></text>
-        <input placeholder='请输入您要查找的景区名称'></input>
+        <input placeholder='请输入您要查找的景区名称' value='{{keyWord}}' bindinput='keyWordsChange'></input>
       </view>
     </view>
     <!-- 筛选条件 -->

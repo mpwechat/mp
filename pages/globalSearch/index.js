@@ -6,6 +6,7 @@ Page({
    */
   data: {
     inputValue:'',
+    areaValue:'',
     searckHistoryWords:[
       { 'text': '一日游' }, { 'text': '一日游' }, { 'text': '一日游' }, { 'text': '一日游' }
     ],
@@ -32,7 +33,8 @@ Page({
     console.log(options)
 this.setData({
   hotWordsShow:this.data.hotWords.slice(0,8),
-  inputValue: options.searchValue
+  inputValue: options.searchValue,
+  areaValue: options.area
 })
   },
 /**
@@ -54,7 +56,7 @@ this.setData({
     });
     console.log(this.data.inputValue);
     wx.navigateTo({
-      url: '/pages/searchResult/index',
+      url: '/pages/searchResult/index?keyWord=' + this.data.inputValue + '&area=' + this.data.areaValue,
     })
   },
 /**
