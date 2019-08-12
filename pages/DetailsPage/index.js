@@ -272,6 +272,7 @@ Page({
     this.setData({
       show: false
     });
+    console.log('closeeee')
     this.selectComponent('#dataPricePicker').reviewdate()
   },
 
