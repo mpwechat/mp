@@ -193,7 +193,7 @@ Component({
     },
     //默认选择
     morenactive(dateArr) {
-      console.log(dateArr,'dateArr')
+      console.log(dateArr, 'dateArr')
       let month = DATE_MONTH
       let day = DATE_DAY
       if (DATE_DAY < 10) {
@@ -215,10 +215,10 @@ Component({
             ' 00:00:00') {
             dateArr[i].class = ' active active'
             dateArr[(i + 1)].class = ' active'
-            
+
             that.setData({
-              days : dateArr,
-              checkDate :[{
+              days: dateArr,
+              checkDate: [{
                 amount: dateArr[i].amount,
                 day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
                 index: i
@@ -249,7 +249,7 @@ Component({
             dateArr[i].class = ' active'
             that.setData({
               days: dateArr,
-              checkDate : [{
+              checkDate: [{
                 amount: dateArr[i].amount,
                 day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
                 index: i
@@ -434,11 +434,15 @@ Component({
         year: year,
         month: month + 1
       })
-      console.log(this.data.checkDate,'morenactivecheckDate1')
-      for (let i = 0; i < this.data.checkDate.length;i++){
-        this.data.days[this.data.checkDate[i].index].class = ''
-      }
-      this.morenactive(this.data.days)
+      console.log(this.data.checkDate, 'morenactivecheckDate1')
+
+      setTimeout(function () {
+        for (let i = 0; i < this.data.checkDate.length; i++) {
+          this.data.days[this.data.checkDate[i].index].class = ''
+        }
+        this.morenactive(this.data.days)
+      }.bind(this), 500);
+
     },
     //子组件传给父组件所需要的值
     goFatherNeed() {
