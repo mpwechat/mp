@@ -21,32 +21,32 @@ Page({
     guideItemArray: [{
       text: 'HOT',
       img: '../../asset/images/recommend1.png',
-      path: '../../pages/Hot/index'
+      type: 6
     },
     {
       text: '景区',
       img: '../../asset/images/recommend2.png',
-      path: '../../pages/scenic/index'
+      type: 2
     },
     {
       text: '酒店',
       img: '../../asset/images/recommend3.png',
-      path: '../../pages/hotel/index'
+      type: 1
     },
     {
       text: '餐饮',
       img: '../../asset/images/recommend4.png',
-      path: '../../pages/food/index'
+      type: 3
     },
     {
       text: '自助游',
       img: '../../asset/images/recommend5.png',
-      path: '../../pages/travelSelf/index'
+      type: 4
     },
     {
       text: '旅游+',
       img: '../../asset/images/recommend6.png',
-      path: '../../pages/travelPlus/index'
+      type: 5
     },
     ],
     activeTabIndex: 0,
@@ -276,7 +276,7 @@ Page({
    * 确定地区训责
    */
   sureArea(e){
-console.log(e);
+// console.log(e);
     let area = e.detail.values[1].name; 
 this.setData({
   areaValue: area.slice(0, area.length - 1),

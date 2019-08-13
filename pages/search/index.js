@@ -31,7 +31,9 @@ Page({
 
       ticketFormDestination:'',
       ticketFormDate:new Date().getTime(),
-      ticketFormTravelNumber:'5'
+      ticketFormTravelNumber:'5',
+      // 1为酒店 2是景区
+    searchType:'2'
 
     
   },
@@ -128,16 +130,26 @@ this.setData({
   },
   // 事件处理
   showSearch(e){
-    console.log(e.currentTarget.dataset.id);
+    let tabIndex = e.currentTarget.dataset.id;
+    let showType='';
+    switch (tabIndex){
+      case 0:
+        showType='2'
+      break;
+      case 1:
+        showType = '1'
+      break
+    }
     var that=this;
     that.setData({
-      currentTab: e.currentTarget.dataset.id
+      currentTab: tabIndex,
+      searchType: showType
     })
   },
   autoFill(e){
-    var str ="ticketForm.destination";
+
     this.setData({
-      [str]: e.currentTarget.dataset.text
+      ticketFormDestination: e.currentTarget.dataset.text
     })
   },
   bindDateChange(e){
@@ -155,33 +167,11 @@ this.setData({
   formReset() {
     console.log('form发生了reset事件')
   },
-  // 搜索进入详情页
+  //进入搜索结果页
   goDetailPage(){
-    switch (this.data.currentTab){
-      case 0:
-      wx:wx.navigateTo({
-        url: '/pages/scenic/index',
-      })
-      break;
-      case 1:
         wx: wx.navigateTo({
-          url: '/pages/hotel/index',
+          url: '/pages/searchResult/index?type=' + this.data.searchType + '&keyWord=' + this.data.ticketFormDestination + '&date=' + this.data.ticketFormDate + '&travelNumber=' + this.data.ticketFormTravelNumber,
         })
-        break;
-      case 2:
-        wx: wx.navigateTo({
-          url: '/pages/food/index',
-        })
-        break;
-      case 3:
-        wx: wx.navigateTo({
-          url: '/pages/travelSelf/index',
-        })
-        break;
-        default:
-        wx: wx.navigateTo({
-          url: '/pages/travelPlus/index',
-        })
-    }
+   
   }
 })

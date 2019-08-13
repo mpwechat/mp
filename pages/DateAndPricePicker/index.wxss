@@ -13,8 +13,9 @@
 }
  
 .date-day.active {
-  background: #099fde;
+  background: #409EFF;
   color: #fff;
+  border-radius: 8rpx;
 }
  
 .date-day.unavailable {
@@ -29,7 +30,7 @@
 }
  
 .week {
-  color: #099fde;
+  color: #409EFF;
 }
  
 .row {
@@ -42,10 +43,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 35rpx;
+color: #333;
+  font-size: 28rpx;
 }
 .amount{
-  font-size: 30rpx;
+color: #333;
+  font-size: 28rpx;
 }
 .bgwhite {
   background-color: #fff;
@@ -71,4 +74,15 @@
   height: 90rpx;
   display: flex;
   justify-content: space-between;
+}
+.van-popup--bottom{
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+.step .van-stepper__minus, .step .van-stepper__plus{
+  color:#409EFF !important;
+}
+.wrapper{
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
 }

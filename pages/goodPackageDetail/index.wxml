@@ -9,15 +9,15 @@
   <view class="detail-content" hidden='{{loading}}'>
     <view class='MerPictures'>
       <image src='{{bgImage}}'></image>
-      <view class='PicturesNumber' bindtap="getpicture" data-id='{{optionsId}}'>{{qualificationObj.cover.length}} 张</view>
+      <view class='PicturesNumber' bindtap="getpicture" data-id='{{optionsId}}'>{{ goodObj.cover.length}} 张</view>
     </view>
     <view class='MerContent'>
-      <view class='ContentTitle'>{{qualificationObj.name}}</view>
+      <view class='ContentTitle'>{{goodObj.name}}</view>
       <view class='ContentInfo'>
         <view class="ContentInfo_neirongTitle" wx:if='{{type=="1"}}'>酒店介绍：</view>
         <view class="ContentInfo_neirongTitle" wx:if='{{type=="2"}}'>景区介绍：</view>
         <view class='ContentInfo_neirong'>
-          <view>{{qualificationObj.introduce}}
+          <view>{{goodObj.introduction}}
             <text class="lookMoreIntrdouction">....</text>
           </view>
         </view>
