@@ -8,27 +8,21 @@ var DATE_DAY = new Date().getDate();
 
 Component({
   lifetimes: {
-    attached: function () {
-      console.log('组件aaa加载！', this.properties)
-
+    attached: function() {
       let that = this
-      //获取价钱列表先行转环时间戳
-      // this.changeDate()
       // 在组件实例进入页面节点树时执行
       var _this = this;
       let now = new Date();
       let year = now.getFullYear();
       let month = now.getMonth() + 1;
       // 页面初始化 options为页面跳转所带来的参数
-      // this.createDateListData();
 
       this.setData({
         year: year,
         month: month
       })
       wx.getSystemInfo({
-        success: function (res) {
-          console.log(res, 'system')
+        success: function(res) {
           _this.setData({
             systemInfo: res,
           });
@@ -36,15 +30,15 @@ Component({
       })
     },
 
-    detached: function () {
+    detached: function() {
       // 在组件实例被从页面节点树移除时执行
     },
   },
   // 以下是旧式的定义方式，可以保持对 <2.2.3 版本基础库的兼容
-  attached: function () {
+  attached: function() {
     // 在组件实例进入页面节点树时执行
   },
-  detached: function () {
+  detached: function() {
     // 在组件实例被从页面节点树移除时执行
   },
   properties: {
@@ -53,7 +47,7 @@ Component({
     productDailyList: Array,
     type: String
   },
-  ready: function () {
+  ready: function() {
     this.setData({
       optionsId: this.properties.optionsId,
       type: this.properties.type
@@ -79,6 +73,7 @@ Component({
   methods: {
     //获取到的价格列表循环处理时间
     changeDate(year, month) {
+      console.log(year,month)
       let that = this
       that.setData({
         optionsId: that.properties.optionsId,
@@ -102,6 +97,8 @@ Component({
         newDateList.push(that.data.PriceCalendarList[i].dailyDate)
       }
       this.createDateListData(year, month)
+      this.morenactive(this.data.days)
+
     },
     // 时间戳转时间
     Conversiontime(timestamp) {
@@ -116,7 +113,7 @@ Component({
     },
     // 这里是一个自定义方法
     /**创建日历数据 */
-    createDateListData: function (setYear, setMonth) {
+    createDateListData: function(setYear, setMonth) {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let dateArr = []; //需要遍历的日历数组数据
       let arrLen = 0; //dateArr的数组长度
@@ -168,7 +165,7 @@ Component({
         var date = year + "-" + nextMonth + "-" + j;
         var index = this.checkItemExist(this.data.checkDate, date);
         if (index != -1) {
-          clazz = clazz + ' active';
+          clazz = clazz + ' active active';
         }
         dateArr.push({
           day: j,
@@ -176,9 +173,8 @@ Component({
           class: clazz,
           amount: '暂无'
         })
+        // console.log(dateArr)
       }
-      // console.log(dateArr, 'dateArr')
-      // console.log(this.properties.PriceCalendarList, 'PriceCalendarList')
       for (var a = 0; a < dateArr.length; a++) {
         for (var b = 0; b < this.data.PriceCalendarList.length; b++) {
           if (dateArr[a].dailyDay == this.data.PriceCalendarList[b].dailyDate) {
@@ -189,11 +185,9 @@ Component({
       this.setData({
         days: dateArr
       })
-      this.morenactive(this.data.days)
     },
     //默认选择
     morenactive(dateArr) {
-      console.log(dateArr,'dateArr')
       let month = DATE_MONTH
       let day = DATE_DAY
       if (DATE_DAY < 10) {
@@ -206,19 +200,14 @@ Component({
       }
       if (this.data.type == '1') {
         let that = this
-
         for (let i = 0; i < dateArr.length; i++) {
-
-          console.log(DATE_YEAR.toString() + '-' + month + '-' + day + ' 00:00:00')
-
           if (dateArr[i].dailyDay == DATE_YEAR.toString() + '-' + month + '-' + day +
             ' 00:00:00') {
             dateArr[i].class = ' active active'
             dateArr[(i + 1)].class = ' active'
-            
             that.setData({
-              days : dateArr,
-              checkDate :[{
+              days: dateArr,
+              checkDate: [{
                 amount: dateArr[i].amount,
                 day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
                 index: i
@@ -228,38 +217,22 @@ Component({
                 index: (i + 1)
               }]
             })
-            // that.data.checkDate = [{
-            //   amount: dateArr[i].amount,
-            //   day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
-            //   index: i
-            // }, {
-            //   amount: dateArr[(i + 1)].amount,
-            //   day: dateArr[(i + 1)].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
-            //   index: (i + 1)
-            // }]
           }
         }
       } else if (this.data.type == '2') {
         let that = this
-
         for (let i = 0; i < dateArr.length; i++) {
-
           if (dateArr[i].dailyDay == DATE_YEAR.toString() + '-' + month + '-' + day +
             ' 00:00:00') {
             dateArr[i].class = ' active'
             that.setData({
               days: dateArr,
-              checkDate : [{
+              checkDate: [{
                 amount: dateArr[i].amount,
                 day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
                 index: i
               }]
             })
-            // that.data.checkDate = [{
-            //   amount: dateArr[i].amount,
-            //   day: dateArr[i].dailyDay.substring(0, dateArr[i].dailyDay.length - 9),
-            //   index: i
-            // }]
           }
         }
       }
@@ -267,7 +240,7 @@ Component({
     /**
      * 上个月
      */
-    lastMonthEvent: function () {
+    lastMonthEvent: function() {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month - 2 < 0 ? this.data.year - 1 : this.data.year;
       let month = this.data.month - 2 < 0 ? 11 : this.data.month - 2;
@@ -280,7 +253,7 @@ Component({
     /**
      * 下个月
      */
-    nextMonthEvent: function () {
+    nextMonthEvent: function() {
       //全部时间的月份都是按0~11基准，显示月份才+1
       let year = this.data.month > 11 ? this.data.year + 1 : this.data.year;
       let month = this.data.month > 11 ? 0 : this.data.month;
@@ -289,12 +262,11 @@ Component({
         month: (month + 1)
       })
       this.changeDate(year, month)
-      // this.createDateListData(year, month);
     },
     /*
      * 获取月的总天数
      */
-    getTotalDayByMonth: function (year, month) {
+    getTotalDayByMonth: function(year, month) {
       month = parseInt(month, 10);
       var d = new Date(year, month, 0);
       return d.getDate();
@@ -302,15 +274,14 @@ Component({
     /*
      * 获取月的第一天是星期几
      */
-    getWeek: function (year, month, day) {
+    getWeek: function(year, month, day) {
       var d = new Date(year, month - 1, day);
       return d.getDay();
     },
     /**
      * 点击日期事件
      */
-    onPressDateEvent: function (e) {
-      console.log(e, 'e')
+    onPressDateEvent: function(e) {
       var {
         year,
         month,
@@ -326,7 +297,7 @@ Component({
       this.renderPressStyle(year, month, day, amount, index);
     },
 
-    renderPressStyle: function (year, month, day, amount, choseIndex) {
+    renderPressStyle: function(year, month, day, amount, choseIndex) {
       var days = this.data.days;
       //渲染点击样式
       for (var j = 0; j < days.length; j++) {
@@ -346,7 +317,6 @@ Component({
           };
           var checkDateJson = this.data.checkDate;
           var index = this.checkItemExist(checkDateJson, date);
-          console.log(index, 'index')
           if (index == -1) {
             checkDateJson.push(obj)
             if (this.data.type == '2') { //景区
@@ -355,65 +325,68 @@ Component({
                 days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
                 if (checkDateJson.length >= 1) {
                   for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
-                    console.log(checkDateJson[i]['index'], 'checkDateJson[i].index')
                     days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.replace(' active', '');
                     days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.trim()
-                    console.log(checkDateJson, '1111')
                     checkDateJson.splice(i, 1);
-                    console.log(checkDateJson, '222')
                   }
                 }
               }
             } else if (this.data.type == '1') { //酒店
+              let yearAndMonth = year + "-" + month
               let NewCheckDateJson = checkDateJson.slice(-2)
               for (let i = 0; i < NewCheckDateJson.length; i++) {
-                days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
-                if (days[NewCheckDateJson[i]['index']].class.split(' ').length >= 3) {
-                  days[NewCheckDateJson[i]['index']].class = ' active active'
-                }
-                if (checkDateJson.length >= 2) {
-                  for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
-                    console.log(checkDateJson[i]['index'], 'checkDateJson[i].index')
-                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.replace('active active', '');
-                    days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.trim()
-                    console.log(checkDateJson, '1111')
-                    checkDateJson.splice(i, 1);
-                    console.log(checkDateJson, '222')
+                console.log(NewCheckDateJson[i].day.substring(0, 7), 'NewCheckDateJson[i].day.substring(0, 7)')
+                console.log(yearAndMonth, 'yearAndMonth')
+                if (NewCheckDateJson[i].day.substring(0, 7) == yearAndMonth) {
+                  days[NewCheckDateJson[i]['index']].class = days[NewCheckDateJson[i]['index']].class + ' active';
+                  if (days[NewCheckDateJson[i]['index']].class.split(' ').length >= 3) {
+                    days[NewCheckDateJson[i]['index']].class = ' active active'
                   }
+                  if (checkDateJson.length >= 2) {
+                    for (let i = 0; i < checkDateJson.length - NewCheckDateJson.length; i++) {
+                      days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.replace('active active', '');
+                      days[checkDateJson[i]['index']].class = days[checkDateJson[i]['index']].class.trim()
+                      checkDateJson.splice(i, 1);
+                    }
+                  }
+
                 }
+
+
 
               }
             }
           } else {
-            console.log(checkDateJson, 'elseCheckDateJson111111')
             checkDateJson.splice(index, 1);
-            console.log(j, 'jjjjjjj')
             if (days[j].class == ' active active') {
               days[j].class = days[j].class.replace(' active active', ' ');
-              console.log(days[j].class.split(" "), 'split1111')
               days[j].class = days[j].class.trim()
             } else {
               days[j].class = days[j].class.replace(' active', ' ');
               days[j].class = days[j].class.trim()
             }
-            console.log(checkDateJson, 'elseCheckDateJson22222')
           }
           this.setData({
             checkDate: checkDateJson
           })
-          console.log(this.data.checkDate)
           break;
         }
       }
       this.setData({
         days: days
       });
-      console.log(this.data.days, 'days')
     },
     /**检查数组中是否存在该元素 */
-    checkItemExist: function (arr, value) {
+    checkItemExist: function(arr, value) {
       for (var i = 0; i < arr.length; i++) {
-        if (value === arr[i].day) {
+        let b = value.split('-')
+        if(b[2].length<2){
+          b[2] = '0'+b[2]
+        }
+        let c = b.join('-')
+        if (c === arr[i].day) {
+          console.log(arr, 'arr')
+          console.log(value,'value')
           return i;
         }
       }
@@ -434,15 +407,17 @@ Component({
         year: year,
         month: month + 1
       })
-      console.log(this.data.checkDate,'morenactivecheckDate1')
-      for (let i = 0; i < this.data.checkDate.length;i++){
-        this.data.days[this.data.checkDate[i].index].class = ''
-      }
-      this.morenactive(this.data.days)
+
+      setTimeout(function() {
+        for (let i = 0; i < this.data.checkDate.length; i++) {
+          this.data.days[this.data.checkDate[i].index].class = ''
+        }
+        this.morenactive(this.data.days)
+      }.bind(this), 500);
+
     },
     //子组件传给父组件所需要的值
     goFatherNeed() {
-      console.log(1111111)
       let myEventDetail = {
         choooseValenceList: this.data.checkDate,
         goodId: this.data.id,

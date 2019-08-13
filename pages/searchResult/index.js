@@ -611,7 +611,7 @@ Page({
     let queryNumber = that.data.travelNumber;
     let queryCondition = that.data.condition.join(',')
     let queryArea = that.data.areaValue;
-    // let queryArea ='';
+   
     let queryMinPrice = that.data.filterCurrentValue + ''
 
     wx.request({
