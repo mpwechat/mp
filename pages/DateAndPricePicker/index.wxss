@@ -13,13 +13,14 @@
 }
  
 .date-day.active {
-  background: #409EFF;
-  color: #fff;
+  background: #409EFF !important;
+  color: #fff !important;
   border-radius: 8rpx;
 }
  
 .date-day.unavailable {
-  color: #aaa;
+    color: #aaa;
+    display: inline-block;
 }
  
 .date-week {
@@ -30,7 +31,8 @@
 }
  
 .week {
-  color: #409EFF;
+  color: #409EFF !important;
+  font-size: 28rpx;
 }
  
 .row {
@@ -47,7 +49,7 @@ color: #333;
   font-size: 28rpx;
 }
 .amount{
-color: #333;
+color: #333 !important;
   font-size: 28rpx;
 }
 .bgwhite {
