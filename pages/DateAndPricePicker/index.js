@@ -210,11 +210,9 @@ Component({
         for (let i = 0; i < dateArr.length; i++) {
 
           console.log(DATE_YEAR.toString() + '-' + month + '-' + day + ' 00:00:00')
-          console.log(dateArr[i].dailyDay)
 
           if (dateArr[i].dailyDay == DATE_YEAR.toString() + '-' + month + '-' + day +
             ' 00:00:00') {
-            console.log(i, 'iii')
             dateArr[i].class = ' active active'
             dateArr[(i + 1)].class = ' active'
             
@@ -436,6 +434,11 @@ Component({
         year: year,
         month: month + 1
       })
+      console.log(this.data.checkDate,'morenactivecheckDate1')
+      for (let i = 0; i < this.data.checkDate.length;i++){
+        this.data.days[this.data.checkDate[i].index].class = ''
+      }
+      this.morenactive(this.data.days)
     },
     //子组件传给父组件所需要的值
     goFatherNeed() {
