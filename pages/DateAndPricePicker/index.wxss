@@ -1,11 +1,15 @@
 /* pages/DetailsPage/index.wxss */
 .date-day {
   display: flex;
-  padding: 5px;
+  margin: 2px;
+  padding: 3px;
   text-align: center;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  line-height: 40rpx;
 }
  
 .date-day.bgitem {
@@ -13,7 +17,7 @@
 }
  
 .date-day.active {
-  background: #099fde;
+  background: #409eff;
   color: #fff;
 }
  
@@ -29,7 +33,7 @@
 }
  
 .week {
-  color: #099fde;
+  color: #409eff;
 }
  
 .row {

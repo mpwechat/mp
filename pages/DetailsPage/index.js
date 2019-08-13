@@ -291,9 +291,9 @@ Page({
       success: function(res) {
         console.log(res, 'info')
         that.setData({
-          bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0]
+          bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0].cover.split(',')[0]
         })
-        let qualificationObj = res.data.obj.hits[0]._source;
+        let qualificationObj = res.data.obj.hits[0];
         qualificationObj.introduce = qualificationObj.description.substr(0, 100)
         qualificationObj['cover'] = qualificationObj.cover.split(',')
         //资质商品列表 计算商品最小价格
