@@ -4,6 +4,7 @@
   font-size: 28rpx;
   color: rgba(51, 51, 51, 1);
   font-weight: bold;
+  display: block;
 }
 
 .container {
@@ -336,9 +337,7 @@ text-decoration: line-through;
 font-size: 26rpx;
 
 }
-.discount text{
-  color: #ff8547;
-}
+
 .priceOrder{
   font-size: 26rpx;
 }
@@ -347,7 +346,8 @@ font-size: 26rpx;
 font-size: 32rpx;
 }
 .cost-detail-wrap{
-  line-height: 50rpx;
+  line-height: 55rpx;
+  color:#333;
 }
 .daily-price{
   font-size: 28rpx;
@@ -363,4 +363,11 @@ color: #333;
 }
 .start-date{
   margin: 10rpx 0 0 0;
+}
+.ticketInfo{
+  font-size: 28rpx;
+}
+.van-popup--bottom{
+border-top-left-radius: 16rpx;
+border-top-right-radius: 16rpx;
 }

@@ -5,10 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    recodePage: 0,
+    recodePage: 1,
     height: 0,
     goodShowArray: [],
-    loading: true
+    loading: true,
+    height:0,
+    total:0,
   },
   onClose(event) {
     console.log(event, 'event')
@@ -62,10 +64,10 @@ Page({
   // 获取商品收藏页列表
   getGoodList() {
     let that = this;
-    let current = that.data.recodePage + '';
+    let current = that.data.recodePage ;
     wx.request({
       url: 'https://www.supconit.net/customer/store/page?size=5&current=' + current,
-      data: '',
+      data: {},
       header: {
         'cookie': wx.getStorageSync("sessionid") //读取cookie
       },
@@ -76,7 +78,7 @@ Page({
         console.log(res, 'resList');
 
         // let recodesArray = res.data.obj;
-        let collectionRecodes = res.data.obj;
+        let collectionRecodes = res.data.obj.hits;
         if (collectionRecodes.length > 0) {
           //资质商品列表 计算 最小价格
           collectionRecodes.forEach(item => {
@@ -96,7 +98,8 @@ Page({
           });
           // that.data.goodShowArray.concat(
           that.setData({
-            goodShowArray: collectionRecodes,
+            goodShowArray: that.data.goodShowArray.concat(collectionRecodes),
+            total: res.data.obj.total,
             loading: false
           })
         } else {
@@ -114,7 +117,16 @@ Page({
    */
   loadingMoreGood() {
     let currentPage = this.data.recodePage;
-    console.log('拼命加载中')
+    console.log('拼命加载中');
+    this.setData({
+      recodePage : currentPage+1
+    })
+    if(this.data.goodShowArray.length<this.data.total){
+      this.getGoodList()
+    }else{
+      console.log('到底啦')
+    }
+    
   },
   //跳转到商品详情页
   ViewDetails(e) {
@@ -127,6 +139,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        var sreenHeight = res.windowHeight;
+        that.setData({
+          // - 45
+          height: res.windowHeight + 'px',
+        })
+      }
+    })
+    
     wx.getNetworkType({
       success: function (res) {
         console.log(res);

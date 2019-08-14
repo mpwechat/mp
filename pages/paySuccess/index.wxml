@@ -3,12 +3,12 @@
   <view class='order-detail-wrap'>
     <view class='order-detail-content'>
       <view class='payment-security-tips'>
-        <image src='../../asset/images/orderIcon.png'></image>恭喜您支付成功！</view>
+        <image src='../../asset/images/paySuccess.png'></image>恭喜您支付成功！</view>
       <view class='order-content'>
         <view class='middle-wrap ' >
-          <text class='order-good-name'>乐园（2成人票）+烂苹果乐园（2成人票）+湘湖大酒店（大床房/一晚）</text>
+          <text class='order-good-name'>{{feeDetail.goodName}}</text>
           <view class='order-finished-number'>订单编号：
-            <text class='order-finished-number-text'>12345678087</text>
+            <text class='order-finished-number-text'>{{orderId}}</text>
           </view>
           
           
@@ -17,31 +17,111 @@
     </view>
   </view>
   <!-- 价格 -->
-  <view class='order-need-price-wrap'>金额 <text class='order-price'>￥608</text>  <text class='review-price-detail' bindtap='reviewPriceDetail'>费用明细 </text> </view>
+  <view class='order-need-price-wrap'>金额 <text class='order-price'>￥{{feeDetail.priceOrder}}</text>  <text class='review-price-detail' bindtap='reviewPriceDetail'>费用明细 </text> </view>
 <!-- 价格弹窗 -->
 <van-popup show="{{ reviewPriceDetail }}"  position="bottom"
   overlay="{{ true }}" bind:close="onClose">
-  <view class='review-price-detail-wrap'>
-  <text class='review-price-detail-title'>费用明细</text>
-  </view>
+    <view class='review-price-detail-wrap'>
+      <view class="cost-detail-wrap" wx:if="{{feeDetail.goodType==1}}">
+        <text class="good-type-title" style="margin-bottom:0.57rem;">费用明细</text>
+        <view wx:for="{{ feeDetail.hotelchooseValenceArray}}" class="daily-price" wx:key="*">
+          <text class="date">{{item.date}}</text>
+          <text class="daily">¥{{item.price}}</text>
+        </view>
+        <view class="ticket-number">
+          房间数量:
+          <text>{{feeDetail.roomNumber}}</text> 间
+        </view>
+        <view wx:if="{{ feeDetail.payablePrice !== feeDetail.priceOrder}}" class="payablePrice">
+          活动前价格：
+          <text>¥{{ feeDetail.payablePrice}}</text>
+        </view>
+        <view wx:if="{{feeDetail.matchSalesList.length>0}}">
+          <view wx:for="{{ feeDetail.matchSalesList}}" wx:key="*">
+            <view class="sales-item-type discount" wx:if="{{item.type=='0'}}">
+              促销活动：折扣 （
+              <text>{{item.ruleJson.discount}}%</text>）
+            </view>
+            <view class="sales-item-type discount" v-else>
+              促销活动：满减 （
+              <text class="ruleItem" wx:for="{{ item.ruleJson}}" wx:key="*" style="display:inline !important;">
+                  <text style="margin-right: 0.1rem;">单日满：{{item.full}} 减{{item.reduction}}</text>
+              </text>）
+            </view>
+          </view>
+        </view>
+        <view class="priceOrder">价格：¥ {{feeDetail.priceOrder}}</view>
+      </view>
+      <!-- 门票价格明细 -->
+      <view class="cost-detail-wrap" wx:if="{{feeDetail.goodType==2}}">
+        <text class="good-type-title" style="margin-bottom:20rpx;">费用明细</text>
+
+        <view class="ticket-number">
+          门票信息: {{feeDetail.goodName}}
+         
+        </view>
+         <text class="ticketInfo"  style="margin-right: 0.15rem;">{{filter.timestampToTime(feeDetail.ticketOrderDate)}}</text>
+          <text class="ticketInfo" style="color:#409EFF;">{{feeDetail.ticketNumber}}张</text>
+
+        <view wx:if="feeDetail.payablePrice !== feeDetail.priceOrder" class="payablePrice">
+          活动前价格：
+          <text>¥{{ feeDetail.payablePrice}}</text>
+        </view>
+        <view wx:if="{{feeDetail.matchSalesList.length>0}}">
+          <view wx:for="{{ feeDetail.matchSalesList}}" wx:key="index">
+            <view class="sales-item-type discount" wx:if="item.type=='0'">
+              促销活动: 折扣（
+              <text>{{item.ruleJson.discount}}%</text>)
+            </view>
+            <view class="sales-item-type discount" wx:else>
+              促销活动: 满减 (
+              <text class="ruleItem" wx:for="{{item.ruleJson}}" wx:key="*" style="display: inline !important;">
+                  <text style="margin-right: 0.1rem;">单日满：{{item.full}} 减 {{item.reduction}}</text>
+              </text>)
+            </view>
+          </view>
+        </view>
+
+        <view class="priceOrder">
+          价格：
+          <text>¥{{feeDetail.priceOrder}}</text>
+        </view>
+      </view>
+    </view>
   </van-popup>
   <!-- 为您推荐 -->
   <view class='recommended-wrap'>
   <text class='part-title'>为您推荐</text>
    <!-- 单个商品 -->
-    <view class='hot-good-item' wx:for="{{goodShowArray}}" wx:key='{{index}}' >
+    <view class='hot-good-item' wx:for="{{goodShowArray}}" wx:key='{{index}}'>
     <view class='img-wrap'>
-    <image src='{{item.img}}'></image>
+      <!--pages/Hot/index.wxml-->
+      <image src='{{item.cover}}'></image>
     </view>
     <!-- 商品介绍 -->
     <view class='hot-good-figure'>
-    <text class='hot-good-name'>{{item.goodName}}</text>
-    <view class='hot-good-discribe'> {{item.gooddiscribe}}</view>
-    <view class='price-option-wrap'>
-    <text class='hot-good-price'>¥{{item.goodprice}}</text>
-    <button type='warn' class='hot-good-option'>查看详情</button>
-    </view>
-    </view>
+      <text class='hot-good-name'>{{item.name}}</text>
+      <view class='hot-good-discribe'> {{item.description}}</view>
+      <view class='price-option-wrap'>
+        <text class='hot-good-price' wx-if="{{item.minPrice !==undefined}}">¥{{item.minPrice}}  <text style='font-size:24rpx;color:#959595;'>起</text></text>
+        <button type='warn' class='hot-good-option' data-qualificationid='{{item.id}}' data-type='{{item.type}}'  bindtap="getDetail">查看详情</button>
+      </view>
     </view>
   </view>
+  </view>
+   <wxs module="filter">
+            var timestampToTime = function(timestamp) {
+              console.log(timestamp)
+              var date = getDate(timestamp);
+              var Y = date.getFullYear() + '-';
+              var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+              var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+              var h = date.getHours() + ':';
+              var m = date.getMinutes() + ':';
+              var s = date.getSeconds();
+              return Y + M + D;
+            }
+
+            module.exports.timestampToTime = timestampToTime
+          </wxs>
 </view>

@@ -8,7 +8,7 @@
 <view class="container-content" hidden="{{loading}}">
   <view class='flex_center'>
     <view class='mainInfo'>
-      <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100'>
+      <scroll-view scroll-y bindscrolltolower="loadingMoreGood" lower-threshold='100' style='height:{{height}};' >
         <view wx:for="{{goodShowArray}}" wx:key='{{index}}'>
           <van-swipe-cell right-width="{{ 65 }}" data-id="{{item._source.id}}" async-close bind:close="onClose">
             <view class='hot-good-item'>

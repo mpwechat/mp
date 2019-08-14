@@ -1,15 +1,27 @@
 // pages/Hot/index.js
 //index.js
 import addressJson from '../../utils/address.js'
+import moment from '../../utils/moment.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    loading:true,
+    loading: true,
     overlay: true,
+    // 地区
     areaValue: '杭州',
+    // 类型
+    searchType: '',
+    // 出行人数
+    travelNumber: '',
+    // 关键词
+    keyWord: '',
+    // 出行日期
+    travelDateBegin: '',
+    // 更多查询条件
+    condition: [],
     areaList: addressJson,
     height: 0,
     recodePage:0,
@@ -17,138 +29,124 @@ Page({
     aniStyle: true,
     comprehensiveArrow: false,
     comprehensiveCondition: [{
-        'text': '综合',
-        check: true,
-        index: 0
-      },
-      {
-        'text': '上新',
-        check: false,
-        index: 1
-      },
-      {
-        'text': '价格降序',
-        check: false,
-        index: 2
-      },
-      {
-        'text': '价格升序',
-        check: false,
-        index: 3
-      }
+      'text': '综合',
+      check: true,
+      index: 0
+    },
+    {
+      'text': '上新',
+      check: false,
+      index: 1
+    },
+    {
+      'text': '价格降序',
+      check: false,
+      index: 2
+    },
+    {
+      'text': '价格升序',
+      check: false,
+      index: 3
+    }
     ],
     // 销量筛选
     salesArrow: false,
     salesConditionsShow: false,
     salesaniStyle: true,
     salesCondition: [{
-        'text': '销量降序',
-        check: true,
-        index: 0
-      },
-      {
-        'text': '销量降序',
-        check: false,
-        index: 1
-      },
+      'text': '销量降序',
+      check: true,
+      index: 0
+    },
+    {
+      'text': '销量降序',
+      check: false,
+      index: 1
+    },
     ],
     // 好评筛选
     evaluationArrow: false,
     evaluationConditionsShow: false,
     evaluationaniStyle: true,
     evaluationCondition: [{
-        'text': '好评率降序',
-        check: true,
-        index: 0
-      },
-      {
-        'text': '好评率降序',
-        check: false,
-        index: 1
-      },
+      'text': '好评率降序',
+      check: true,
+      index: 0
+    },
+    {
+      'text': '好评率降序',
+      check: false,
+      index: 1
+    },
     ],
     // 更多筛选
     moreArrow: false,
     moreConditionsShow: false,
     moreaniStyle: true,
-    currentValue: 30,
-    hotelStar: [{
-      text: '不限',
-      index: 0,
-      check:0
-    },
-      {
-        text: '二星级/经济',
-        index: 1,
-        check: 0
-      },
-      {
-        text: '三星级/舒适',
-        index: 2,
-        check: 0
-      },
-      {
-        text: '四星级/高档',
-        index: 3,
-        check: 0
-      },
-      {
-        text: '五星级/豪华',
-        index: 4,
-        check: 0
-      },
+    currentValue: 0,
+    filterCurrentValue: 0,
+    qualificationsTypes: [
+      { text: '酒店', check: false, type: 1 },
+      { text: '景区', check: false, type: 2 },
+      { text: '餐饮', check: false, type: 3 },
+      { text: 'Hot', check: false, type: 4 },
+      { text: '自助游', check: false, type: 5 },
+      { text: '旅游+', check: false, type: 6 },
     ],
-    scenicStar:[
-      {
-        text: '不限',
-        index: 0,
-        check: 0
-      },
-      {
-        text: 'AAA级',
-        index: 1,
-        check: 0
-      },
-      {
-        text: 'AAAA级',
-        index: 2,
-        check: 0
-      },
-      {
-        text: 'AAAAA级',
-        index:3,
-        check: 0
-      }
-    ],
+    optionsArray: [],
+    oldType: '',
     // 商品列表
-    goodShowArray:[]
+    goodShowArray: [],
+    finished: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     var that = this;
-    console.log(options);
-    that.setData({
-      areaValue: options.area,
-      keyWord: options.keyWord
-    })
-    if (options.type){
+    // console.log(options);
+    if (options.area) {
       that.setData({
-        type: options.type
+        areaValue: options.area,
+      })
+    }
+    if (options.keyWord) {
+      that.setData({
+        keyWord: options.keyWord
+      })
+    }
+    if (options.type) {
+      let currentTypeArray = that.data.qualificationsTypes;
+      for (var i = 0; i < currentTypeArray.length; i++) {
+
+        if (currentTypeArray[i].type + '' == options.type) {
+          currentTypeArray[i].check = true
+        }
+      }
+      // currentTypeArray.forEach(function(item){
+      //   debugger
+      //   if (item.text = mactchItem.text){
+      //     item.check=true
+      //   }
+      // })
+
+      that.setData({
+        searchType: options.type,
+        oldType: options.type,
+        qualificationsTypes: currentTypeArray
       })
     }
     wx.getSystemInfo({
-      success: function(res) {
+      success: function (res) {
         var sreenHeight = res.windowHeight;
         that.setData({
           height: res.windowHeight - 94 + 'px',
         })
       }
     })
-    this.getRecodes()
-
+    that.getRecodes()
+    that.getCodition()
   },
   /**
    * 地区选择弹窗关闭
@@ -167,7 +165,7 @@ Page({
    * 确定地区训责
    */
   sureArea(e) {
-    console.log(e);
+    // console.log(e);
     let area = e.detail.values[1].name;
     this.setData({
       areaValue: area.slice(0, area.length - 1),
@@ -182,8 +180,8 @@ Page({
   /**
    * 关键词输入变化
    */
-  keyWordsChange(e){
-    console.log(e)
+  keyWordsChange(e) {
+    // console.log(e)
   },
   /**
    * 综合筛选显示隐藏
@@ -197,13 +195,23 @@ Page({
       that.setData({
         comprehensiveConditionsShow: true,
         aniStyle: true,
-        comprehensiveArrow: true
+        comprehensiveArrow: true,
+        salesConditionsShow: false,
+        salesaniStyle: false,
+        salesArrow: false,
+        evaluationaniStyle: false,
+        moreaniStyle: false,
+        //设置动画效果为slidedown
+        evaluationConditionsShow: false,
+        evaluationArrow: false,
+        moreConditionsShow: false,
+        moreArrow: false
       })
     } else {
       this.setData({
         aniStyle: false　　　　　　 //设置动画效果为slidedown
       })
-      setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+      setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
         that.setData({
           comprehensiveConditionsShow: false,
           comprehensiveArrow: false
@@ -211,12 +219,12 @@ Page({
       }, 500)
     }
   },
-  comprehensiveConditionsHide: function(e) { //这是list-fix的点击事件，给它绑定事件，是为了实现点击其它地方隐藏蒙层的效果
+  comprehensiveConditionsHide: function (e) { //这是list-fix的点击事件，给它绑定事件，是为了实现点击其它地方隐藏蒙层的效果
     var that = this;
     this.setData({
       aniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         comprehensiveConditionsShow: false,
         comprehensiveArrow: false
@@ -224,12 +232,12 @@ Page({
       })
     }, 500)
   },
-  inbtn: function(e) { //这个事件必须有，就算不做什么事情也要写上去，因为这个事件是为了防止事件冒泡，导致点击in-list这里面的元素时，点击事件冒泡到list-fix触发它的slidedown事件。
+  inbtn: function (e) { //这个事件必须有，就算不做什么事情也要写上去，因为这个事件是为了防止事件冒泡，导致点击in-list这里面的元素时，点击事件冒泡到list-fix触发它的slidedown事件。
     console.log("in")
   },
   comprehensiveConditionsChoose(e) {
     let index = e.target.dataset.index;
-    console.log(index);
+    // console.log(index);
     let currentCondition = this.data.comprehensiveCondition;
     for (var i = 0; i < currentCondition.length; i++) {
       if (i == index) {
@@ -252,13 +260,24 @@ Page({
       that.setData({
         salesConditionsShow: true,
         salesaniStyle: true,
-        salesArrow: true
+        salesArrow: true,
+        //设置其他多选sildeUp
+        aniStyle: false,
+        evaluationaniStyle: false,
+        moreaniStyle: false,
+        //设置动画效果为slidedown
+        comprehensiveConditionsShow: false,
+        comprehensiveArrow: false,
+        evaluationConditionsShow: false,
+        evaluationArrow: false,
+        moreConditionsShow: false,
+        moreArrow: false
       })
     } else {
       this.setData({
         salesaniStyle: false　　　　　　 //设置动画效果为slidedown
       })
-      setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+      setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
         that.setData({
           salesConditionsShow: false,
           salesArrow: false
@@ -271,7 +290,7 @@ Page({
     this.setData({
       salesaniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         salesConditionsShow: false,
         salesArrow: false
@@ -280,7 +299,7 @@ Page({
   },
   salesConditionsConditionsChoose(e) {
     let index = e.target.dataset.index;
-    console.log(index);
+    // console.log(index);
     let currentCondition = this.data.salesCondition;
     for (var i = 0; i < currentCondition.length; i++) {
       if (i == index) {
@@ -304,13 +323,23 @@ Page({
       that.setData({
         evaluationConditionsShow: true,
         evaluationaniStyle: true,
-        evaluationArrow: true
+        evaluationArrow: true,
+        //设置其他多选sildeUp
+        aniStyle: false,
+        comprehensiveConditionsShow: false,
+        comprehensiveArrow: false,
+        salesaniStyle: false,
+        salesConditionsShow: false,
+        salesArrow: false,
+        moreaniStyle: false,
+        moreConditionsShow: false,
+        moreArrow: false
       })
     } else {
       this.setData({
         evaluationaniStyle: false　　　　　　 //设置动画效果为slidedown
       })
-      setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+      setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
         that.setData({
           evaluationConditionsShow: false,
           evaluationArrow: false
@@ -323,7 +352,7 @@ Page({
     this.setData({
       evaluationaniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         evaluationConditionsShow: false,
         evaluationArrow: false
@@ -332,7 +361,7 @@ Page({
   },
   evaluationConditionsConditionsChoose(e) {
     let index = e.target.dataset.index;
-    console.log(index);
+    // console.log(index);
     let currentCondition = this.data.evaluationCondition;
     for (var i = 0; i < currentCondition.length; i++) {
       if (i == index) {
@@ -355,13 +384,24 @@ Page({
       that.setData({
         moreConditionsShow: true,
         moreaniStyle: true,
-        moreArrow: true
+        moreArrow: true,
+        //设置其他多选sildeUp
+        aniStyle: false,
+        salesaniStyle: false,
+        evaluationaniStyle: false,
+        //设置动画效果为slidedown
+        comprehensiveConditionsShow: false,
+        comprehensiveArrow: false,
+        salesConditionsShow: false,
+        salesArrow: false,
+        evaluationConditionsShow: false,
+        evaluationArrow: false
       })
     } else {
       this.setData({
         moreaniStyle: false　　　　　　 //设置动画效果为slidedown
       })
-      setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+      setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
         that.setData({
           moreConditionsShow: false,
           moreArrow: false
@@ -374,7 +414,7 @@ Page({
     this.setData({
       moreaniStyle: false　　　　　　 //设置动画效果为slidedown
     })
-    setTimeout(function() { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
+    setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         moreConditionsShow: false,
         moreArrow: false
@@ -383,67 +423,117 @@ Page({
   },
   // 价格范围拖动
   onDrag(event) {
-    this.setData({
-      currentValue: event.detail.value
+    // console.log(event)
+    let that = this;
+    that.setData({
+      currentValue: event.detail,
+      filterCurrentValue: event.detail * 10
     });
   },
   // 酒店等级选择
-  hotelStarSelect(e){
-var index=e.target.dataset.index;
-console.log(index);
-    var hotelStarArray = this.data.hotelStar;
-    for (var i = 0; i < hotelStarArray.length;i++){
-      if(i==index){
-        if (hotelStarArray[i].check==0){
-          hotelStarArray[i].check = 1;
-        }else{
-          hotelStarArray[i].check = 0;
-        }
-       
-      }
+  qualificationsSelect(e) {
+    let oldType = this.data.searchType
+    var type = e.target.dataset.type;
+    // 类型切换从首页开始加载
+    if (oldType !== type) {
+      this.setData({
+        recodePage: 0
+      })
+
     }
-    this.setData({
-      hotelStar: hotelStarArray
-    })
-  },
-  // 景区等级选择
-  scenicStarSelect(e){
-    var index = e.target.dataset.index;
-    console.log(index);
-    var scenicStarArray = this.data.scenicStar;
-    for (var i = 0; i < scenicStarArray.length; i++) {
+    let index = e.target.dataset.index;
+    // console.log(index);
+    var hotelStarArray = this.data.qualificationsTypes;
+    for (var i = 0; i < hotelStarArray.length; i++) {
       if (i == index) {
-        if (scenicStarArray[i].check == 0) {
-          scenicStarArray[i].check = 1;
+        if (hotelStarArray[i].check == false) {
+          hotelStarArray[i].check = true;
         } else {
-          scenicStarArray[i].check = 0;
+          hotelStarArray[i].check = false;
         }
 
+      } else {
+        hotelStarArray[i].check = false;
       }
     }
     this.setData({
-      scenicStar: scenicStarArray
+      qualificationsTypes: hotelStarArray,
+      searchType: type
     })
+
+  },
+  // 景区等级选择
+  scenicStarSelect(e) {
+    // console.log(e.target.dataset)
+    var index = e.target.dataset.index;
+    var category = e.target.dataset.category;
+    let currentConditionArray = this.data.condition;
+    let currentOptionsArray = this.data.optionsArray;
+    currentOptionsArray.forEach(function (categoryItem, categoryIndex) {
+      categoryItem.options.forEach(function (optionItem, optionIndex) {
+        if (category == categoryIndex && optionIndex == index) {
+          // console.log(optionItem)
+          if (optionItem.check == true) {
+            optionItem.check = false;
+            var indexInCurrentCondition = currentConditionArray.indexOf(optionItem.value);
+            if (indexInCurrentCondition > -1) {
+              currentConditionArray.splice(indexInCurrentCondition, 1);
+            }
+
+          } else {
+            optionItem.check = true;
+            currentConditionArray.push(optionItem.value)
+
+          }
+
+        }
+      })
+    })
+    this.setData({
+      optionsArray: currentOptionsArray,
+      condition: currentConditionArray
+    })
+
   },
   /**
    * 取消筛选
    */
-  resetMoreConditin(){
+  resetMoreConditin() {
     var that = this;
+    /**
+     * 清空选择
+     */
+    let currentTypeArray = that.data.qualificationsTypes;
+    for (var i = 0; i < currentTypeArray.length; i++) {
+      currentTypeArray[i].check = false
+    }
+
+
+    let currentOptionsArray = this.data.optionsArray;
+    currentOptionsArray.forEach(function (categoryItem, categoryIndex) {
+      categoryItem.options.forEach(function (optionItem, optionIndex) {
+        optionItem.check = false
+      })
+    })
     this.setData({
-      moreaniStyle: false　　　　　　 //设置动画效果为slidedown
+      moreaniStyle: false　,　　　　　 //设置动画效果为slidedown
+      optionsArray: currentOptionsArray,
+      condition: [],
+      qualificationsTypes: currentTypeArray,
+      searchType: ''
     })
     setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
         moreConditionsShow: false,
         moreArrow: false
       })
-    }, 500)
+    }, 500);
+    that.getRecodes()
   },
   /**
    * 确定更多筛选条件
    */
-  sureMoreConditin(){
+  sureMoreConditin() {
     var that = this;
     this.setData({
       moreaniStyle: false　　　　　　 //设置动画效果为slidedown
@@ -454,38 +544,89 @@ console.log(index);
         moreArrow: false
       })
     }, 500)
+    that.getRecodes()
   },
 
 
   /**
    * 懒加载更多商品
    */
-  loadingMoreGood(){
+  loadingMoreGood() {
     let currentPage = this.data.recodePage;
-console.log('拼命加载中')
-  },
+    this.setData({
+      recodePage: currentPage + 1
+    })
+    console.log('拼命加载中')
+    if (this.data.finished ) {
+     
+    }else{
+      this.getRecodes()
+    }
 
+  },
   /**
-   * 获取景区记录
+   * 获取搜索条件
    */
-  getRecodes(){
-   
-    let that=this;
-    let page = that.data.recodePage+'';
+  getCodition() {
+    let that = this;
     wx.request({
-      url: 'https://www.supconit.net/search/aptitude?type=2&size=8&page='+page,
+      url: 'https://www.supconit.net/maintenance/search-select',
       data: '',
       header: {},
       method: 'GET',
       dataType: 'json',
       responseType: 'text',
-      success: function (res) { 
+      success: function (res) {
+        // console.log(res.data.obj)
+        res.data.obj.forEach(function (item) {
+          item.options.forEach(function (optionItem) {
+            // if (optionItem.label == optionType && optionType !== '') {
+            //   optionItem.check = true;
+            //   this.conditions.push(optionItem.value)
+            // } else {
+            optionItem.check = false
+            // }
+
+          })
+
+        })
+        that.setData({
+          optionsArray: res.data.obj
+        })
+
+      }
+    })
+  },
+
+  /**
+   * 获取搜索记录
+   */
+  getRecodes() {
+    // 重定义查询参数
+    let that = this;
+    let page = that.data.recodePage;
+    let queryKetWord = that.data.keyWord;
+    let queryType = that.data.searchType;
+    let queryStartDate = moment(parseInt(that.data.travelDateBegin)).format('YYYY-MM-DD');
+    let queryNumber = that.data.travelNumber;
+    let queryCondition = that.data.condition.join(',')
+    let queryArea = that.data.areaValue;
+   
+    let queryMinPrice = that.data.filterCurrentValue + ''
+
+    wx.request({
+      url: 'https://www.supconit.net/search/aptitude?type=' + queryType + '&size=8&page=' + page + '&beginData=' + queryStartDate + '&keyword=' + queryKetWord + '&num=' + queryNumber + '&area=' + queryArea + '&beginPrice=' + queryMinPrice,
+      data: '',
+      header: {},
+      method: 'GET',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
         let recodesArray = res.data.obj.hits;
-     
         console.log(recodesArray)
-        if (recodesArray.length>0){
+        if (recodesArray.length > 0) {
           recodesArray.forEach(function (item, index) {
-            let itemProductArray = item._source.productList;
+            let itemProductArray = item.productList;
             // console.log(itemProductArray);
             let dailPriceArray = [];
             itemProductArray.forEach(goodItem => {
@@ -497,68 +638,97 @@ console.log('拼命加载中')
               item['minPrice'] = Math.min.apply(null, dailPriceArray);
 
             })
-            item['cover'] = 'http://image.supconit.net' + '/' + item._source.cover.split(',')[0]
+            item['cover'] = 'http://image.supconit.net' + '/' + item.cover.split(',')[0]
           });
-          that.setData({
-            goodShowArray:that.data.goodShowArray.concat(recodesArray),
-            loading:false
-          })
-        }else{
-          that.setData({
-            loading: true
-          })
+          debugger
+          console.log(that.data.oldType);
+          console.log(queryType);
+          if (that.data.oldType == queryType) {
+            that.setData({
+              goodShowArray: that.data.goodShowArray.concat(recodesArray),
+              loading: false
+            })
+          } else {
+            that.setData({
+              goodShowArray: recodesArray,
+              loading: false
+            })
+          }
+
+          if (that.data.goodShowArray.length == res.data.obj.total) {
+            that.setData({
+              finished: true
+            })
+          }
         }
-       
       }
-      })
+    })
   },
+/**
+ * 跳转至资质详情页
+ */
+getDetail(e){
+  var qualificationId = e.currentTarget.dataset.qualificationid;
+  let type;
+  switch (e.currentTarget.dataset.type) {
+    case 1:
+      type = 'hotel'
+      break
+    case 2:
+      type = 'scenic'
+      break;
+  }
+  wx.navigateTo({
+    url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type,
+  })
+},
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

@@ -194,7 +194,8 @@ Page({
       zanActive: true,
       words: '干净舒适，服务态度特别好，指导我们出行计划，交通特别便利，门口公交车很多，可以很方便到达景区，就是二楼的自助餐厅还有待提高，早餐太无味了，厨师技术有待提高，其他方面都是不错的，下次来了还会住这家。'
     }
-    ]
+    ],
+    goodObj:{}
   },
 
   regionchange(e) {
@@ -292,7 +293,7 @@ Page({
       success: function (res) {
         console.log(res, 'info')
         that.setData({
-          bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.cover.split(',')[0],
+          bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0]._source.productList[0].cover.split(',')[0],
           type: res.data.obj.hits[0]._source.type,
           datePickerProductDailyList: res.data.obj.hits[0]._source.productList[0].productDailyList
         })
@@ -300,7 +301,8 @@ Page({
         let qualificationObj = res.data.obj.hits[0]._source;
         qualificationObj.introduce = qualificationObj.description.substr(0, 100)
         qualificationObj['cover'] = qualificationObj.cover.split(',')
-        
+        let goodObj = qualificationObj.productList[0];
+        goodObj['cover'] = goodObj.cover.split(',')
         //资质商品列表 计算商品最小价格
         //资质最小价格
         // let qualificationGoodsPrice = [];
@@ -340,7 +342,8 @@ Page({
           qualificationObj: qualificationObj,
           productList: qualificationObj['productList'],
           mapObj: currentMapObject,
-          loading: false
+          loading: false,
+          goodObj: goodObj
         })
         console.log(qualificationObj, 'qualificationObj')
         console.log(that.data.productList, 'that.data.productList')
@@ -766,7 +769,7 @@ Page({
   getpicture() {
     let id = this.data.optionsId;
     wx.navigateTo({
-      url: '/pages/qualificationPictures/index?id=' + id,
+      url: '/pages/qualificationPictures/index?id=' + id + '&type=good',
       success: function (res) {
         console.log(res)
       }
@@ -910,7 +913,7 @@ Page({
         title: '暂未登录，即将跳转至登录页',
       })
       setTimeout(function () {
-        wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
+        wx.setStorageSync('router', '/pages/goodPackageDetail/index'); //将userIdEnc存入本地缓存
         wx.redirectTo({
           url: '/pages/bindPhone/index',
         })

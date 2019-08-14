@@ -24,7 +24,8 @@ Page({
       success: function(res) {
         var sreenHeight = res.windowHeight;
         that.setData({
-          height: res.windowHeight - 45 + 'px',
+          // - 45
+          height: res.windowHeight  + 'px',
         })
       }
     })
@@ -76,11 +77,10 @@ console.log(e)
  */
 getAllorders(){
   let parmas={};
-  parmas['size']=5;
-  parmas['current']=this.data.allOrderPages
+ 
   var that = this;
   wx.request({
-    url: 'https://www.supconit.net/order/info/page',
+    url: 'https://www.supconit.net/order/info/page?size=6&current=' + this.data.allOrderPages,
     data: parmas,
     header: {
       'cookie': wx.getStorageSync("sessionid") //读取cookie

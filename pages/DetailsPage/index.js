@@ -337,7 +337,10 @@ Page({
       success: function(res) {
         console.log(res, 'info')
         that.setData({
+
+ 
           bgImage: 'http://image.supconit.net' + '/' + res.data.obj.hits[0].cover.split(',')[0]
+
         })
         let qualificationObj = res.data.obj.hits[0];
         qualificationObj.introduce = qualificationObj.description.substr(0, 100)
@@ -815,7 +818,7 @@ Page({
   getpicture() {
     let id = this.data.optionsId;
     wx.navigateTo({
-      url: '/pages/qualificationPictures/index?id=' + id,
+      url: '/pages/qualificationPictures/index?id=' + id +'&type=qualification',
       success: function(res) {
         console.log(res)
       }
@@ -956,7 +959,7 @@ Page({
         title: '暂未登录，即将跳转至登录页',
       })
       setTimeout(function() {
-        wx.setStorageSync('router', '/pages/userCenter/index'); //将userIdEnc存入本地缓存
+        wx.setStorageSync('router', 'pages/DetailsPage/index'); //将userIdEnc存入本地缓存
         wx.redirectTo({
           url: '/pages/bindPhone/index',
         })

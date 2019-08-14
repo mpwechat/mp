@@ -283,7 +283,8 @@ page {
 
 .GoodListsCenterScroll {
   width: 90%;
-  height: 584rpx;
+  height: auto;
+  max-height:  584rpx;
   margin-left: 5%;
   border-top: 1px solid #f3f3f3;
 }
@@ -320,7 +321,7 @@ page {
   font-size: 16rpx;
   color: #fff;
   text-align: center;
-  line-height: 16rpx;
+  line-height: 20rpx;
 }
 
 .manjian {
@@ -569,4 +570,14 @@ page {
   border-radius:4rpx;
   padding:15rpx 20rpx;
   margin-top:20rpx;
+}
+.Collection text {
+  margin-right: 8rpx;
+  font-size: 32rpx;
+}
+.Collection{
+color:#409EFF;
+}
+.Collection .icon-shoucang{
+font-size: 40rpx;
 }

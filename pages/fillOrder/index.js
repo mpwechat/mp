@@ -38,7 +38,7 @@ Page({
     // 房间数
     roomNumber: 1,
 
-    
+
     // 费用明细
     costDetailShow: true,
     // 门票数量
@@ -60,7 +60,8 @@ Page({
     idCardTypePopShow: false,
     currentPlayer: 0,
     chooseContact: false,
-    chooseContactList: []
+    chooseContactList: [],
+    feeDetial: {}
   },
   /**
    * 生命周期函数--监听页面加载
@@ -68,7 +69,7 @@ Page({
   onLoad: function(options) {
     console.log(options)
     wx.getNetworkType({
-      success: function (res) {
+      success: function(res) {
         console.log(res);
         switch (res.networkType) {
           case 'none':
@@ -242,65 +243,70 @@ Page({
         let matchdaily = ValenceArray.filter(function(item) {
           return moment(parseInt(item.dailyDate)).format("YYYY-MM-DD") == ValenceDate
         });
+
         if (matchdaily.length > 0) {
-          let matcSaleshArray = that.data.salesList;
-          let contactSales = matcSaleshArray.filter(function(item) {
-            return parseInt(item.beginDate) <= ValenceDateTimeStamp && ValenceDateTimeStamp <= parseInt(item.endDate);
-          });
-
-         that.setData({
-           matchSalesList: contactSales,
-         })
           let matchdailyPrice = matchdaily[0].price;
-          // 折前价格
-          let discountPrice = matchdailyPrice * that.data.ticketNumber
-          if (contactSales.length > 0) {
-            switch (contactSales[0].type) {
-              case 0:
-                let percentage = parseInt(contactSales[0].ruleJson.discount);
-                let floatPercent = percentage / 100.00;
-                realTimePriceArray.push((matchdailyPrice * that.data.ticketNumber) * floatPercent.toFixed(2));
-                //  折后价格
-                let disCountedPrice = discountPrice * floatPercent
-                that.setData({
-                
-                  payablePrice: discountPrice.toFixed(2),
-                  priceOrder: disCountedPrice.toFixed(2),
-                  realTimePriceList: realTimePriceArray
-                })
 
-                break;
-              case 1:
-                let ticketNuber = that.data.ticketNumber;
+          if (that.data.salesList !== '' && that.data.salesList.length > 0) {
+            let matcSaleshArray = that.data.salesList;
+            let contactSales = matcSaleshArray.filter(function(item) {
+              return parseInt(item.beginDate) <= ValenceDateTimeStamp && ValenceDateTimeStamp <= parseInt(item.endDate);
+            });
 
-                let matchRuleJson = contactSales[0].ruleJson
-                let contactFullReduction = matchRuleJson.filter(function(item) {
-                  return (matchdailyPrice * ticketNuber) >= item.full
-                });
-                if (contactFullReduction.length > 0) {
-                  console.log(contactFullReduction);
-                  //寻找满足要求最大的一条满减规则,通过排序获得，取出第一条
-                  contactFullReduction.sort(function(a, b) {
-                    return b.full - a.full
+            that.setData({
+              matchSalesList: contactSales,
+            })
+
+            // 折前价格
+            let discountPrice = matchdailyPrice * that.data.ticketNumber
+            if (contactSales.length > 0) {
+              switch (contactSales[0].type) {
+                case 0:
+                  let percentage = parseInt(contactSales[0].ruleJson.discount);
+                  let floatPercent = percentage / 100.00;
+                  realTimePriceArray.push((matchdailyPrice * that.data.ticketNumber) * floatPercent.toFixed(2));
+                  //  折后价格
+                  let disCountedPrice = discountPrice * floatPercent
+                  that.setData({
+
+                    payablePrice: discountPrice.toFixed(2),
+                    priceOrder: disCountedPrice.toFixed(2),
+                    realTimePriceList: realTimePriceArray
+                  })
+
+                  break;
+                case 1:
+                  let ticketNuber = that.data.ticketNumber;
+
+                  let matchRuleJson = contactSales[0].ruleJson
+                  let contactFullReduction = matchRuleJson.filter(function(item) {
+                    return (matchdailyPrice * ticketNuber) >= item.full
                   });
-                  that.setData({
-                    payablePrice: discountPrice.toFixed(2),
-                    priceOrder: (discountPrice.toFixed(2)) - contactFullReduction[0].reduction,
-                    realTimePriceList: realTimePriceArray
-                  })
+                  if (contactFullReduction.length > 0) {
+                    console.log(contactFullReduction);
+                    //寻找满足要求最大的一条满减规则,通过排序获得，取出第一条
+                    contactFullReduction.sort(function(a, b) {
+                      return b.full - a.full
+                    });
+                    that.setData({
+                      payablePrice: discountPrice.toFixed(2),
+                      priceOrder: (discountPrice.toFixed(2)) - contactFullReduction[0].reduction,
+                      realTimePriceList: realTimePriceArray
+                    })
 
-                } else {
-                  realTimePriceArray.push(discountPrice).toFixed(2);
-                  that.setData({
-                    payablePrice: discountPrice.toFixed(2),
-                    priceOrder: discountPrice.toFixed(2),
-                    realTimePriceList: realTimePriceArray
-                  })
+                  } else {
+                    realTimePriceArray.push(discountPrice).toFixed(2);
+                    that.setData({
+                      payablePrice: discountPrice.toFixed(2),
+                      priceOrder: discountPrice.toFixed(2),
+                      realTimePriceList: realTimePriceArray
+                    })
 
 
-                }
-                break;
+                  }
+                  break;
 
+              }
             }
           } else {
             realTimePriceArray.push((matchdailyPrice * that.data.ticketNumber).toFixed(2));
@@ -316,6 +322,20 @@ Page({
         }
         break;
     }
+    let feeDetail = {};
+    feeDetail['goodType'] = that.data.goodType;
+    feeDetail['goodName'] = that.data.goodObject.name;
+    feeDetail['hotelchooseValenceArray'] = that.data.chooseValenceArray;
+    feeDetail['roomNumber'] = that.data.roomNumber;
+    feeDetail['payablePrice'] = that.data.payablePrice;
+    feeDetail['priceOrder'] = that.data.priceOrder;
+    feeDetail['matchSalesList'] = that.data.matchSalesList;
+    feeDetail['ticketOrderDate'] = that.data.ticketOrderDate;
+    feeDetail['ticketNumber'] = that.data.ticketNumber;
+    console.log('feeDetail', feeDetail)
+    that.setData({
+      feeDetial: feeDetail
+    })
     console.log(that.data.matchSalesList)
   },
 
@@ -444,7 +464,7 @@ Page({
       checkInStartDatePopupShow: false
     })
 
- 
+
     that.count();
     that.getBatchValence();
     that.calculatePrice();
@@ -521,7 +541,7 @@ Page({
       contactArray: currentContactArray
     })
   },
-  
+
   // 选择联系人
   chooseContacts(e) {
     let palyerIndex = e.currentTarget.dataset.index;
@@ -541,11 +561,10 @@ Page({
     console.log(e.currentTarget.dataset);
     let ind = e.currentTarget.dataset.index;
     let currentContactList = that.data.chooseContactList;
-    debugger
-    for (var ContactI = 0; ContactI < currentContactList.length; ContactI++){
-      if (ind == ContactI){
-        currentContactList[ContactI].select=true
-      }else{
+    for (var ContactI = 0; ContactI < currentContactList.length; ContactI++) {
+      if (ind == ContactI) {
+        currentContactList[ContactI].select = true
+      } else {
         currentContactList[ContactI].select = false
       }
     }
@@ -814,22 +833,22 @@ Page({
     console.log(e);
     var that = this;
     var dataSet = e.currentTarget.dataset;
-    let validation ;
-    switch(that.data.goodType){
+    let validation;
+    switch (that.data.goodType) {
       case 1:
-        validation = dataSet.name == '' || dataSet.phone == '' 
-      break
-case 2:
+        validation = dataSet.name == '' || dataSet.phone == ''
+        break
+      case 2:
         validation = dataSet.name == '' || dataSet.phone == '' || dataSet.idenCard == ""
-break
+        break
     }
 
-  //  debugger
- 
-    if (validation){
-wx.showToast({
-  title: '联系人信息不能为空',
-})
+    //  debugger
+
+    if (validation) {
+      wx.showToast({
+        title: '联系人信息不能为空',
+      })
 
     } else {
       let params = {};
@@ -865,7 +884,6 @@ wx.showToast({
    */
   payNow() {
     let parmas = {};
-    debugger
     if (this.data.playerArray[0].name !== '' || this.data.playerArray[0].phone !== '' || this.data.playerArray[0].idcard == !'') {
       console.log(this.data.playerArray);
       //拼接联系人
@@ -894,7 +912,7 @@ wx.showToast({
           parmas['quantity'] = this.data.roomNumber * this.data.chooseValenceArray.length;
           break
         case 2:
-        debugger
+
           console.log(this.data.realTimePriceList)
           let productItem = {};
           productItem['buyDate'] = moment(new Date()).format('YYYY-MM-DD');
@@ -906,6 +924,7 @@ wx.showToast({
           parmas['quantity'] = this.data.ticketNumber;
           break
       };
+      let that = this;
       wx.request({
         url: 'https://www.supconit.net/order/info/finishOrder',
         data: parmas,
@@ -915,15 +934,14 @@ wx.showToast({
         method: 'POST',
         dataType: 'json',
         responseType: 'text',
-        success: function (res) {
-          if (res.data.msg =='操作成功'){
-wx.navigateTo({
-  // url: '/pages/payment/index?orderId=' + res.data.obj,
-  
-  url: '/pages/paymentH5/index?orderId=' + res.data.obj + '&cookie=' + wx.getStorageSync("sessionid"),
-})
+        success: function(res) {
+          if (res.data.msg == '操作成功') {
+            wx.navigateTo({
+              url: '/pages/payment/index?orderInfo=' + JSON.stringify(res.data.obj) + '&feeDtail=' + JSON.stringify(that.data.feeDetial),
+
+            })
           }
-       
+
 
         }
       })

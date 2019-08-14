@@ -183,32 +183,37 @@
   <!-- 费用明细 -->
   <van-popup show="{{ costDetailShow }}" position="bottom" overlay="{{overlay}}" bind:close="costDetailOnClose">
     <view class='cost-detail-wrap' wx-if="{{goodType==1}}">
-      <text class='good-type-title' style='margin-bottom:40rpx;'>费用明细</text>
+      <text class='good-type-title' style='margin-bottom:20rpx;'>费用明细</text>
       <view wx:for="{{chooseValenceArray}}" class="daily-price" wx:key="{{index}}">
-         <text class="date"> {{item.date}} </text>    <text class="daily"> ¥{{item.price}}</text>  
+         <text class="date"> {{item.date}} </text>   
+          <text class="daily"> ¥{{item.price}}</text>  
       </view>
-      <view class="ticket-number">房间数量: <text>{{roomNumber}}</text> 间</view>
+      <view class="ticket-number">房间数量: <text>{{roomNumber}}间</text> </view>
       <view wx-if='{{ payablePrice !== priceOrder}}' class="payablePrice">原价： <text>{{ payablePrice}}</text> </view>
       <view wx:if="{{matchSalesList.length>0}}" wx:for="{{matchSalesList}}" wx:key="index">
-        <view class="sales-item-type" wx:if="item.type==0" class="discount">促销活动：折扣 <text>  {{item.ruleJson.discount}}%</text></view>
-        <view class="sales-item-type" wx:else class="discount">促销活动：满减
+        <view class="sales-item-type discount" wx:if="item.type==0" class="discount">促销活动：折扣 <text>  {{item.ruleJson.discount}}%</text></view>
+        <view class="sales-item-type discount" wx:else class="discount">促销活动：满减
           <view wx:for-item="ruleJsonitem" v-for="{{item.ruleJson}}"> <text> 满：{{ruleJsonitem.full}} 减{{ruleJsonitem.reduction}}</text></view>
         </view>
       </view>
-      <view>价格：¥ {{priceOrder}}</view>
+      <view class="priceOrder">价格： <text>¥ {{priceOrder}}</text></view>
     </view>
     <!-- 门票价格明细 -->
     <view class='cost-detail-wrap' wx-if="{{goodType==2}}">
-      <text class='good-type-title' style='margin-bottom:60rpx;'>费用明细</text>
+      <text class='good-type-title' style='margin-bottom:20rpx;'>费用明细</text>
     
-      <view class="ticket-number">门票信息:  {{goodObject.name}}<text> {{filter.timestampToTime(ticketOrderDate)}} </text>门票<text> {{ticketNumber}}</text>一张</view>
+      <view class="ticket-number">门票信息:  {{goodObject.name}} </view>
+      <text style="margin-right: 0.15rem;" class="ticketInfo"> {{filter.timestampToTime(ticketOrderDate)}}</text>
+      <text style="color:#409EFF;" class="ticketInfo"> {{ticketNumber}}张</text>
 
-      <view wx-if='{{ payablePrice !== priceOrder}}'class="payablePrice" >原价：  <text>{{ payablePrice}}</text></view>
+      <view wx:if='{{ payablePrice !== priceOrder}}'class="payablePrice" >原价： 
+       <text>{{ payablePrice}}</text>
+       </view>
       <view wx:if="{{matchSalesList.length>0}}" wx:for="{{matchSalesList}}" wx:key="index">
         <view class="sales-item-type" wx:if="{{item.type=='0'}}" class="discount">促销活动:  
-            折扣<text>{{item.ruleJson.discount}}%</text> </view>
+            折扣 ( <text>{{item.ruleJson.discount}}%</text>  )</view>
         <view class="sales-item-type" wx:if="{{item.type=='1'}}" class="discount"> 促销活动:  满减
-          <view wx:for-item="ruleJsonitem" wx:for="{{item.ruleJson}}"><text>满：{{ruleJsonitem.full}} 减  {{ruleJsonitem.reduction}} </text></view>
+          （<view wx:for-item="ruleJsonitem" wx:for="{{item.ruleJson}}" style="margin-right:15rpx;"><text>满：{{ruleJsonitem.full}} 减  {{ruleJsonitem.reduction}} </text></view>）
         </view>
       </view>
       <view class="priceOrder">价格： <text>¥{{priceOrder}}</text>  </view>

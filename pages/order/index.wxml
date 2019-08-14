@@ -1,7 +1,7 @@
 <view class='container'>
   <van-tabs animated>
     <van-tab title="全部">
-      <view class='order-content-wrap' style='height:{{height}};'>
+      <view class='order-content-wrap' >
         <scroll-view scroll-y class='scroll-view allOrderScroll' style='height:{{height}};' lower-threshold='100'  bindscrolltolower='loadMoreAllOrder'>
           <view class='order-item-wrap' wx:for="{{allOrderRecods}}" wx:key='*' bindtap='getDetail'>
             <view class='order-info-wrap'>

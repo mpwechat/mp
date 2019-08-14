@@ -17,12 +17,14 @@
 }
  
 .date-day.active {
+
   background: #409eff;
   color: #fff;
 }
  
 .date-day.unavailable {
-  color: #aaa;
+    color: #aaa;
+    display: inline-block;
 }
  
 .date-week {
@@ -33,7 +35,9 @@
 }
  
 .week {
-  color: #409eff;
+
+  color: #409EFF ;
+  font-size: 28rpx;
 }
  
 .row {
@@ -46,10 +50,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 35rpx;
+color: #333;
+  font-size: 28rpx;
 }
 .amount{
-  font-size: 30rpx;
+color: #333 ;
+  font-size: 28rpx;
 }
 .bgwhite {
   background-color: #fff;
@@ -75,4 +81,15 @@
   height: 90rpx;
   display: flex;
   justify-content: space-between;
+}
+.van-popup--bottom{
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
+}
+.step .van-stepper__minus, .step .van-stepper__plus{
+  color:#409EFF !important;
+}
+.wrapper{
+  border-top-left-radius: 16rpx;
+  border-top-right-radius: 16rpx;
 }

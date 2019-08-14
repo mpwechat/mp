@@ -82,7 +82,7 @@
         <view class='GoodName'>
           <view wx:for="{{item.saleList}}" wx:if="{{saleItem.type==0}}" wx:for-item="saleItem" wx:key="{{saleItem.index}}">
             <text class='sale_logo'>
-              {{saleItem.ruleJson.discount}}折\n促销
+              {{saleItem.ruleJson.discount}}折
             </text>
           </view>
           {{item.name}}

@@ -13,34 +13,58 @@ Page({
         text: '支付宝',
         img: '../../asset/images/payment_ali.png',
         check: false,
-        index: 0
+        index: 0,
+        channel:'1',
       },
       {
         text: '微信支付',
         img: '../../asset/images/payment_wechat.png',
         check: false,
-        index: 1
+        index: 1,
+        channel: '2',
       },
       {
         text: '银联支付',
         img: '../../asset/images/payment_card.png',
         check: false,
-        index: 2
+        index: 2,
+        channel: '3'
       },
     ],
     prciePay: 0.1,
-    orderSnapshot:{}
-
-
+    orderSnapshot:{},
+    timer: '',
+    lastPayTime:'15分:00秒',
+creatOrderTimeStamp:0,
+goodName:'',
+orderId:'',
+    channel:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-/**
+    /**
  * 解析路有参数
  */
+    console.log(options);
+    let orderSnap = JSON.parse(options.orderInfo);
+    orderSnap['productSnapshot'] = JSON.parse(orderSnap.productSnapshot)
+    debugger;
+    console.log(orderSnap.productSnapshot)
+    this.setData({
+      orderSnapshot: orderSnap,
+      goodName: orderSnap.productSnapshot.name,
+      creatOrderTimeStamp: parseInt(orderSnap.createTime),
+      orderId: orderSnap.id,
+      feeDetail: JSON.parse(options.feeDtail)
+    })
+    /**
+     * 执行倒计时函数
+     */
+    this.computedLastPayTime();
+
 // console.log(JSON.parse(options));
 // 获取订单快照
     // 获取openID
@@ -69,7 +93,7 @@ Page({
         })
       }
     })
-    this.pay();
+    // this.pay();
 
   },
   reviewPriceDetail() {
@@ -97,21 +121,48 @@ Page({
       }
     }
     this.setData({
-      paymentType: this.data.paymentType
+      paymentType: this.data.paymentType,
+      channel: e.currentTarget.dataset.channel
     })
   },
   /**
    * 支付
    */
-  pay() {
-    var res_paydata = 'wx050928208477094aa9865aa51950540700';
+
+
+  gopay() {
+    var that=this;
+    let order = that.data.orderId ;
+    let channel = that.data.channel;
+    let openId=that.data.openid;
+    wx.request({
+      url: 'https://www.supconit.net/order/info/beginCharge_min/' + order + ' /' + channel + '/' + openId,
+      data: {},
+      header: {
+        'cookie': wx.getStorageSync("sessionid") //读取cookie
+      },
+      method: 'POST',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+       that.pay(res.data.obj)
+      }
+      })
+
+
+    
+  },
+
+  pay(paydata){
+    var res_paydata = paydata;
     console.log(Date.parse(new Date()))
     var timeStamp = this.timeStamp();
     var randomString = this.randomString();
     var Mixedicymd5 = this.MixedencryMD5(res_paydata, randomString, timeStamp)
     var paySign = CryptoJS.HmacSHA256(Mixedicymd5, "123456789012345678901234567890SP").toString().toUpperCase()
+    let that=this;
     // var paySign = md5.hexMD5(Mixedicymd5).toUpperCase()
-    debugger
     wx.requestPayment({
       'timeStamp': timeStamp,
       'nonceStr': randomString,
@@ -120,7 +171,9 @@ Page({
       'paySign': paySign,
       'success':function(res) {
         console.log(res)
-        debugger
+      wx.redirectTo({
+        url: '/pages/paySuccess/index?feeDetail=' + JSON.stringify(that.data.feeDetail)+ '&orderId=' + that.data.orderId,
+      })
       },
       'fail': function(res) {
         console.log(res)
@@ -129,6 +182,7 @@ Page({
         console.log(res)
       }
     })
+
   },
   // 调起支付签名
   MixedencryMD5(res_paydata, randomString, timeStamp) {
@@ -151,7 +205,45 @@ Page({
   getOpenIdTap() {
 
   },
-  
+  /**
+      * 支付倒计时函数
+      */
+  computedLastPayTime() {
+    let self = this;
+    let interval = setInterval(function () {
+      let orderCreatTime = parseInt(self.data.creatOrderTimeStamp);
+      let createTime = parseInt(orderCreatTime / 1000);
+      let endTime = createTime + 900;
+      // 900
+      let clientTime = Date.parse(new Date()) / 1000;
+      let lastTime = endTime - clientTime;
+      let int_minute;
+      if (lastTime > 0) {
+        int_minute = Math.floor(lastTime / 60);
+        lastTime -= int_minute * 60;
+        if (lastTime < 10) {
+          lastTime = '0' + lastTime
+        }
+
+        self.setData({
+          lastPayTime: int_minute + '分' + lastTime + '秒'
+        })
+
+      } else {
+        wx.showToast({
+          title: '订单超时未支付',
+        })
+        clearInterval(self.data.timer);
+        wx.redirectTo({
+          url: '/pages/index/index',
+        })
+      }
+      console.log(1)
+    }, 1000);
+    self.setData({
+      timer: interval
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
