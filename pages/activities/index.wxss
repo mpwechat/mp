@@ -1,0 +1,38 @@
+.container{
+  width: 100%;
+  height: 100%;
+
+}
+.header{
+  width: 100%;
+  height: 400rpx;
+  background: red;
+}
+.activity-wrap{
+width: 100%;
+height: auto;
+
+}
+.hot-activity {
+width: 100%;
+padding:55rpx 0 0 30rpx;
+box-sizing: border-box;
+height: 550rpx;
+box-sizing: border-box;
+/* margin-top: 60rpx; */
+
+}
+.hot-activity scroll-view {
+height: 420rpx;
+padding: 10rpx 0;
+width: 100%;
+white-space: nowrap;
+display: flex;
+
+}
+.item-title{
+  font-size:32rpx;
+color:rgba(51,51,51,1);
+display: block;
+margin-bottom: 40rpx;
+}

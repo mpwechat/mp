@@ -520,7 +520,9 @@ Page({
       optionsArray: currentOptionsArray,
       condition: [],
       qualificationsTypes: currentTypeArray,
-      searchType: ''
+      searchType: '',
+      currentValue: 0,
+      filterCurrentValue: 0,
     })
     setTimeout(function () { //延时设置蒙层的隐藏，这个定时器的时间，就是slidedown在css动画里设置的时间，这样就能实现slidedown动画完成后，蒙层才消失的效果。不设置定时器会导致动画效果看不见
       that.setData({
@@ -615,7 +617,7 @@ Page({
     let queryMinPrice = that.data.filterCurrentValue + ''
 
     wx.request({
-      url: 'https://www.supconit.net/search/aptitude?type=' + queryType + '&size=8&page=' + page + '&beginData=' + queryStartDate + '&keyword=' + queryKetWord + '&num=' + queryNumber + '&area=' + queryArea + '&beginPrice=' + queryMinPrice,
+      url: 'https://www.supconit.net/search/aptitude?type=' + queryType + '&size=8&page=' + page + '&beginData=' + queryStartDate + '&keyword=' + queryKetWord + '&num=' + queryNumber + '&area=' + queryArea + '&beginPrice=' + queryMinPrice + '&conditin=' + queryCondition ,
       data: '',
       header: {},
       method: 'GET',
@@ -640,7 +642,7 @@ Page({
             })
             item['cover'] = 'http://image.supconit.net' + '/' + item.cover.split(',')[0]
           });
-          debugger
+          // debugger
           console.log(that.data.oldType);
           console.log(queryType);
           if (that.data.oldType == queryType) {

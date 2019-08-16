@@ -13,7 +13,7 @@
       <!-- 过滤器 -->
       <wxs module="filter">
         var completion = function(val) {
-          return 'http://image.supconit.net' + '/' + val
+          return 'https://image.supconit.net' + '/' + val
         }
         module.exports.completion = completion;
       </wxs>
@@ -40,7 +40,7 @@
   <view class='guide-wrap'>
 
 
-    <view class='guide-item' wx:for='{{guideItemArray}}' wx:key='index' data-url="{{item.path}}" bindtap='routerChange'>
+    <view class='guide-item' wx:for='{{guideItemArray}}' wx:key='index' data-type="{{item.type}}" bindtap='routerChange'>
       <image src='{{item.img}}'></image>
       {{item.text}}
 

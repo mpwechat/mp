@@ -1,9 +1,9 @@
 {
   "pages": [
-      
+   "pages/activities/index",
     "pages/index/index",
     "pages/evaluation/index",
-  "pages/searchResult/index",
+    "pages/searchResult/index",
     "pages/scenic/index",
     "pages/integral/index",
     "pages/myAddress/index",
@@ -18,7 +18,7 @@
     "pages/bindPhone/index",
     "pages/userInfo/index",
     "pages/bindEmail/index",
-   "pages/search/index",
+    "pages/search/index",
     "pages/logs/logs",
     "pages/Hot/index",
     "pages/userCenter/index",
@@ -36,7 +36,8 @@
     "pages/paymentH5/index",
     "pages/map/index",
     "pages/goodPackageDetail/index"
-
+    
+   
   ],
   "window": {
     "backgroundTextStyle": "light",

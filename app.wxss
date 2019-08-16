@@ -60,11 +60,15 @@ left: 0;
 }
 
 .good-name {
-  height: 26px;
+  height:40rpx;
   font-size: 26rpx;
   font-weight: bold;
   color: rgba(51, 51, 51, 1);
-  margin-bottom: 10rpx;
+display: block;
+  overflow: hidden;
+ 
+text-overflow:ellipsis;
+white-space: nowrap;
 }
 
 .good-discribe {
@@ -654,3 +658,4 @@ margin-right: 10rpx;
 .daily-price .daily{
   color: #409EFF;
 }
+

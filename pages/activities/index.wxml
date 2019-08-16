@@ -1,0 +1,25 @@
+<!--pages/activities/index.wxml-->
+<view class="container">
+<view class="header">
+</view>
+<!-- 头部结束 -->
+<view class="activity-wrap">
+  <!-- 活动 -->
+  <view class='hot-activity ' wx:for="{{activityOptimization}}" wx:for-item='item' wx:key="*">
+    <text class='item-title'>{{item.name}}</text>
+    <scroll-view scroll-x='true'>
+      <view class='figure' wx:for="{{item.productList}}"   wx:for-item='productItem' wx:key='index'    data-goodid="{{productItem.id}}"  bindtap="getGoodDetail">
+        <view class='img-wrap'>
+          <image src='{{productItem.cover}}'></image>
+        </view>
+        <view class='figcaption'>
+          <text class='good-name'>{{productItem.name}}</text>
+          <view class='good-discribe'>{{productItem.introduction}}</view>
+         <text class='price' wx:if="{{productItem.minPrice==undefined}}"></text>
+          <text class='price' wx:else>￥{{productItem.minPrice}}起</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+</view>

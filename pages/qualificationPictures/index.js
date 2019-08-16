@@ -17,7 +17,7 @@ Page({
       id: options.id ,
       type: options.type
       });
-   
+    console.log('https://www.supconit.net/h5/Inpression.html?type='+options.type+'&id='+options.id)
   },
 
 
