@@ -19,6 +19,9 @@ Page({
     menuTop: '',
     optionsId: '',
     type: '',
+    List_1Height: '',
+    List_2Height: '',
+    List_4Height: '',
     BuyScienceKindList: [{
       value: '1',
       check: false,
@@ -494,7 +497,41 @@ Page({
     })
   },
 
-
+  scroll: function (e) {
+    const that = this
+    wx.createSelectorQuery().select('#list_1')
+      .boundingClientRect(function (rect) {
+        that.setData({
+          List_1Height: rect.height
+        })
+      }).exec()
+    wx.createSelectorQuery().select('#list_2')
+      .boundingClientRect(function (rect) {
+        that.setData({
+          List_2Height: rect.height
+        })
+      }).exec()
+    wx.createSelectorQuery().select('#list_4')
+      .boundingClientRect(function (rect) {
+        that.setData({
+          List_4Height: rect.height
+        })
+      }).exec()
+    if (0 < e.detail.scrollTop && e.detail.scrollTop < that.data.List_1Height) {
+      that.setData({
+        state: 0,
+      })
+    } else if (that.data.List_1Height <= e.detail.scrollTop && e.detail.scrollTop < (that.data.List_2Height + that.data.List_1Height)) {
+      console.log('list2')
+      that.setData({
+        state: 1,
+      })
+    } else if ((that.data.List_2Height + that.data.List_1Height) <= e.detail.scrollTop && e.detail.scrollTop < (that.data.List_2Height + that.data.List_1Height + that.data.List_4Height)) {
+      that.setData({
+        state: 2,
+      })
+    }
+  },
   clickScroll: function (e) {
     var id = e.currentTarget.dataset.id
     this.setData({

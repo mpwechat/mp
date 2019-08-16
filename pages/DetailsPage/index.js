@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loading:true,
+    loading: true,
     login: '', //登陆
     bgImage: '',
     name: '', //名字
@@ -19,6 +19,9 @@ Page({
     menuTop: '',
     optionsId: '',
     type: '',
+    List_1Height: '',
+    List_2Height: '',
+    List_4Height: '',
     BuyScienceKindList: [{
         value: '1',
         check: false,
@@ -147,7 +150,6 @@ Page({
         name: '点评'
       }
     ],
-    toView: '',
     fixTop: '',
     state: '',
     KindListState: '',
@@ -205,6 +207,50 @@ Page({
 
     productDailyList: {} // datePicker组件使用数据
 
+  },
+  scroll: function(e) {
+    const that = this
+    wx.createSelectorQuery().select('#list_1')
+      .boundingClientRect(function(rect) {
+        that.setData({
+          List_1Height: rect.height
+        })
+      }).exec()
+    wx.createSelectorQuery().select('#list_2')
+      .boundingClientRect(function(rect) {
+        that.setData({
+          List_2Height: rect.height
+        })
+      }).exec()
+    wx.createSelectorQuery().select('#list_4')
+      .boundingClientRect(function(rect) {
+        that.setData({
+          List_4Height: rect.height
+        })
+      }).exec()
+    if (0 < e.detail.scrollTop && e.detail.scrollTop < that.data.List_1Height) {
+      that.setData({
+        state: 0,
+      })
+    } else if (that.data.List_1Height <= e.detail.scrollTop && e.detail.scrollTop < (that.data.List_2Height + that.data.List_1Height)) {
+      console.log('list2')
+      that.setData({
+        state: 1,
+      })
+    } else if ((that.data.List_2Height + that.data.List_1Height) <= e.detail.scrollTop && e.detail.scrollTop < (that.data.List_2Height + that.data.List_1Height +that.data.List_4Height)) {
+      that.setData({
+        state: 2,
+      })
+    }
+  },
+  clickScroll: function(e) {
+    console.log(e, 'click')
+    var id = e.currentTarget.dataset.id
+    this.setData({
+      toView: id,
+      state: e.currentTarget.dataset.key,
+    })
+    console.log(e.currentTarget);
   },
   Collection() {
     let that = this;
@@ -338,7 +384,7 @@ Page({
           qualificationObj: qualificationObj,
           productList: qualificationObj['productList'],
           mapObj: currentMapObject,
-          loading:false
+          loading: false
         })
         console.log(qualificationObj, 'qualificationObj')
         console.log(that.data.productList, 'that.data.productList')
@@ -393,15 +439,15 @@ Page({
     console.log(this.data.type, 'type');
     var that = this;
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var sreenHeight = res.windowHeight;
         that.setData({
-          height: res.windowHeight  + 'px',
+          height: res.windowHeight + 'px',
         })
       }
     })
     wx.getNetworkType({
-      success: function (res) {
+      success: function(res) {
         console.log(res);
         switch (res.networkType) {
           case 'none':
@@ -415,14 +461,64 @@ Page({
     });
     this.getInfo(id)
     this.getCurrentUserInfo()
-
   },
-
+  listHeight() {
+    setTimeout(() => {
+      const that = this
+      wx.createSelectorQuery().select('#list_1')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_1Height: rect.height
+          })
+        }).exec()
+      wx.createSelectorQuery().select('#list_2')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_2Height: rect.height
+          })
+        }).exec()
+      wx.createSelectorQuery().select('#list_4')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_4Height: rect.height
+          })
+        }).exec()
+      console.log(that.data.List_1Height, that.data.List_2Height, that.data.List_4Height, 'ssssssss')
+    }, 300)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
 
+    setTimeout(() => {
+      const that = this
+      wx.createSelectorQuery().select('#list_1')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_1Height: rect.height
+          })
+        }).exec()
+      wx.createSelectorQuery().select('#list_2')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_2Height: rect.height
+          })
+        }).exec()
+      wx.createSelectorQuery().select('#list_4')
+        .boundingClientRect(function(rect) {
+          console.log(rect)
+          that.setData({
+            List_4Height: rect.height
+          })
+        }).exec()
+      console.log(that.data.List_1Height, that.data.List_2Height, that.data.List_4Height, 'ssssssss')
+    }, 300)
   },
 
   /**
@@ -493,15 +589,6 @@ Page({
     })
   },
 
-
-  clickScroll: function(e) {
-    var id = e.currentTarget.dataset.id
-    this.setData({
-      toView: id,
-      state: e.currentTarget.dataset.key,
-    })
-    console.log(e.currentTarget);
-  },
 
   // 酒店 景区 选择票类
   choseWhichClick(e) {
@@ -806,8 +893,8 @@ Page({
             method: 'GET',
             dataType: 'json',
             responseType: 'text',
-            success: function (res) {
-              console.log(res,'resssaaa')
+            success: function(res) {
+              console.log(res, 'resssaaa')
               let collectionArray = [];
               let responseCollectionArray = res.data.obj;
               responseCollectionArray.forEach((item) => {
@@ -817,16 +904,16 @@ Page({
               if (that.userCollectionArray.length > 0) {
                 if (that.userCollectionArray.includes(that.data.optionsId)) {
                   that.setData({
-                    Collection:true
+                    Collection: true
                   })
                 } else {
                   that.setData({
-                    Collection:false
+                    Collection: false
                   })
                 }
               } else {
                 that.setData({
-                  Collection:false
+                  Collection: false
                 })
               }
             },
@@ -843,7 +930,7 @@ Page({
       fail: function() {
         that.setData({
           login: false,
-          Collection:false
+          Collection: false
         })
       }
 
@@ -880,8 +967,8 @@ Page({
     }
   },
   // 地图展示
-  goMap(e){
-    console.log(e,'eeeeee')
+  goMap(e) {
+    console.log(e, 'eeeeee')
     let a = JSON.stringify(e.currentTarget.dataset.item)
     wx.navigateTo({
       url: '/pages/map/index?a=' + a,
