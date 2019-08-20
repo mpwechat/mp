@@ -1,12 +1,21 @@
 // pages/activities/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showHome:true,
+    gradient:true,
+    navH: app.globalData.navHeight,
+    indicatorDots: false,
+    autoplay: true,
+    interval: 2000,
+    duration: 1000,
     qiNiu: 'https://image.supconit.net',
     activityOptimization:[],
+    imgUrls: [{ url: 'hotBanner.png' }, { url: 'hotBanner.png' }, { url: 'hotBanner.png' }]
   },
 
   /**
@@ -83,7 +92,6 @@ Page({
   getGoodDetail(e){
     console.log(e, 'e')
     var goodId = e.currentTarget.dataset.goodid;
-    debugger
     wx.navigateTo({
       url: '/pages/goodPackageDetail/index?id=' + goodId ,
     })

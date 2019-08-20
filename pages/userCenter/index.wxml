@@ -1,5 +1,7 @@
 <!--pages/userCenter/index.wxml-->
 <view class="container">
+<navbar page-name="用户中心" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+  <view class="main-content-wrap" style='height:calc(100% - {{navH}}px)'>
   <view class='user-info-wrap'>
     <view class='user-info-content'>
       <text class='username'>{{userInfo.nickName}}</text>
@@ -52,6 +54,7 @@
 
     </van-collapse>
   </view>
+    </view>
 
 
 

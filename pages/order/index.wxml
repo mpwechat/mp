@@ -1,4 +1,6 @@
 <view class='container'>
+<navbar page-name="我的订单" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
   <van-tabs animated>
     <van-tab title="全部">
       <view class='order-content-wrap' >
@@ -103,4 +105,5 @@ var judgeSate=function(state){
     module.exports.judgeSate = judgeSate;
 
 </wxs>
+</view>
 </view>

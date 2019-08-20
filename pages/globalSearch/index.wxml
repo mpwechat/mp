@@ -1,4 +1,5 @@
 <view class='container'>
+<navbar page-name="搜索" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
   <view class='gobal-serach-content'>
     <van-search value="{{inputValue}}" placeholder="请输入搜索关键词" use-action-slot bind:search="onSearch" placeholder-style='color:font-size:26rpx;color:rgba(218,218,218,1);'>
       <view slot="action" bind:tap="onSearch" class='search-trrigger'>搜索</view>

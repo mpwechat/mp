@@ -1,4 +1,6 @@
 <view class='container'>
+<navbar page-name="我的地址" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+   <view class="main-content-wrap" style='height:calc(100% - {{navH}}px)'>
 <!-- 加载动画 -->
 <view class="loade-animate" hidden="{{!loading}}">
 <image class="animate" src="../../asset/images/loading.gif"></image>
@@ -42,5 +44,6 @@
     <button bindtap="addNewContanct">+新增联系人</button>
   </view>
     <van-toast id="van-toast" />
+</view>
 </view>
 </view>

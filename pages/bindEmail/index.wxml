@@ -1,5 +1,6 @@
 <!--pages/bindEmail/index.wxml-->
 <view class='container'>
+ <navbar page-name="绑定邮箱" show-home='{{showHome}}'  gradient="{{gradient}}"></navbar>
   <view class='bind-wrap'>
     <view class='bind-item'>邮箱
       <view class='input-wrap'>

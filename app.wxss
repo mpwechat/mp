@@ -659,3 +659,6 @@ margin-right: 10rpx;
   color: #409EFF;
 }
 
+.main-content-wrap{
+overflow-y: auto;
+}

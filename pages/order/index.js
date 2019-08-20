@@ -1,10 +1,14 @@
  // pages/order/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showHome: false,
+    gradient:false,
+    navH: app.globalData.navHeight,
     height: 0,
     allOrderPages:0,
     currntPageRecods:[],

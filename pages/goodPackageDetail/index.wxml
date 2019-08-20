@@ -1,5 +1,7 @@
 <!--pages/DetailsPage/index.wxml-->
 <view class='container'>
+ <navbar page-name="{{pageName}}" show-home='{{showHome}}' gradient="{{gradient}}" ></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
   <view class="detail-content loading-wrap" hidden='{{!loading}}'>
     <view class="loading-aninmate">
       <image src="../../asset/images/loading.gif"></image>
@@ -200,4 +202,5 @@
       <data-price-picker bind:myevent="compontpass" id="dataPricePicker" inner-text="Some text" type='{{type}}' optionsId='{{optionsId}}' productDailyList="{{datePickerProductDailyList}}"></data-price-picker>
     </van-popup>
   </view>
+</view>
 </view>

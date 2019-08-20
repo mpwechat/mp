@@ -1,12 +1,16 @@
 // pages/parkwechatmap/parkwechatmap.js
 //获取应用实例
 // var amapFile = require('../../libs/amap-wx.js');
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    gradient:false,
+    showHome: true,
+    navH: app.globalData.navHeight,
     markers: '',
     latitude: '',
     longitude: '',

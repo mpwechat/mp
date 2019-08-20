@@ -1,10 +1,14 @@
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog.js'
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast.js';
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    showHome: true,
+    gradient:false,
+    navH: app.globalData.navHeight,
     manList: '',//联系人列表,
     loading: true
   },

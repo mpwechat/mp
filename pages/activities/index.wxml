@@ -1,6 +1,26 @@
 <!--pages/activities/index.wxml-->
 <view class="container">
+ <navbar page-name="热门活动" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
+
 <view class="header">
+<view class="header-swiper-container">
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key='index'>
+          <swiper-item>
+            <image src="{{filter.completion(item.url)}}" class="slide-image" />
+          </swiper-item>
+           </block>
+          </swiper>
+           <!-- 过滤器 -->
+      <wxs module="filter">
+        var completion = function(val) {
+          return 'https://image.supconit.net' + '/' + val
+        }
+        module.exports.completion = completion;
+      </wxs>
+</view>
+
 </view>
 <!-- 头部结束 -->
 <view class="activity-wrap">
@@ -21,5 +41,6 @@
       </view>
     </scroll-view>
   </view>
+</view>
 </view>
 </view>

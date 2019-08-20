@@ -1,16 +1,15 @@
 {
   "pages": [
-   "pages/activities/index",
     "pages/index/index",
+    "pages/activities/index",
+    "pages/search/index",
     "pages/evaluation/index",
     "pages/searchResult/index",
-    "pages/scenic/index",
     "pages/integral/index",
     "pages/myAddress/index",
     "pages/MyCollection/index",
     "pages/order/index",
     "pages/paySuccess/index",
-    "pages/hotel/index",
     "pages/fillOrder/index",
     "pages/DetailsPage/index",
     "pages/payment/index",
@@ -18,13 +17,8 @@
     "pages/bindPhone/index",
     "pages/userInfo/index",
     "pages/bindEmail/index",
-    "pages/search/index",
     "pages/logs/logs",
-    "pages/Hot/index",
     "pages/userCenter/index",
-    "pages/food/index",
-    "pages/travelSelf/index",
-    "pages/travelPlus/index",
     "pages/globalSearch/index",
     "pages/addNewMan/index",
     "pages/addNewAddress/index",
@@ -33,17 +27,12 @@
     "pages/noRecods/index",
     "pages/noNetWork/index",
     "pages/qualificationPictures/index",
-    "pages/paymentH5/index",
     "pages/map/index",
     "pages/goodPackageDetail/index"
-    
-   
+  
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#409eff",
-    "navigationBarTitleText": "营销平台",
-    "navigationBarTextStyle": "white",
+    "navigationStyle": "custom",
     "enablePullDownRefresh": true
   },
   "tabBar": {
@@ -97,6 +86,9 @@
     "van-stepper": "/miniprogram_npm/vant-weapp/stepper/index",
     "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
     "van-toast": "/miniprogram_npm/vant-weapp/toast/index",
-    "van-search": "/miniprogram_npm/vant-weapp/search/index"
+    "van-search": "/miniprogram_npm/vant-weapp/search/index",
+    "van-checkbox": "/miniprogram_npm/vant-weapp/checkbox/index",
+    "van-checkbox-group": "/miniprogram_npm/vant-weapp/checkbox-group/index",
+    "navbar": "/pages/navBar/index"
   }
 }

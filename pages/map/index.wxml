@@ -1,5 +1,7 @@
 <!--pages/map/map.page.wxml-->
 <view class="containe">
+<navbar page-name="导航" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
   <!-- 遮罩 -->
   <!-- <view class='map-mask' wx:if="{{maskshow? true:false}}">
     <view class='tips'>
@@ -37,4 +39,5 @@
       </cover-view>
     </map>
   </view>
+</view>
 </view>

@@ -1,10 +1,13 @@
 // pages/qualificationPictures/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showHome: false,
+    navH: app.globalData.navHeight,
     id:'',
     type:''
   },

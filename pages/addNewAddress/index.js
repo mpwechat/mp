@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHome:true,
+    gradient:false,
     addressKindList:[
       {
         address:'家庭',

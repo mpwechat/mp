@@ -7,6 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    gradient:false,
+    showHome:true,
     aniStyle: true,
     reviewPriceDetail: false,
     paymentType: [{

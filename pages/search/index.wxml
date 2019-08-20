@@ -1,4 +1,5 @@
 <view class='container'>
+<navbar page-name="搜索" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
   <view class='search-wrap'>
     <view class='search-content'>
       <view class='search-tab-wrap'>
@@ -9,8 +10,17 @@
       </view>
       <!-- tab完 -->
       <view class='tabs-content'>
+        <!-- 全局 -->
+        <view class='ticket-order-wrap gobal-search-form' hidden='{{currentTab !=0}}'>
+          <van-search value="{{gobalKeyWord }}" placeholder="请输入搜索关键词" bind:search="onSearch" bind:change="onChange" placeholder-style="color:##DCDFE6;" />
+          <view class="gobal-hot-words-wrap">
+            <text class="hot-title">热门关键词</text>
+            <view class="hot-word-item {{index==activeGobalWordIndex?'active':''}}" wx:for="{{gobalHotWords}}" wx:for-index='index' data-index='{{index}}' data-word='{{item}}' wx:key="index" bindtap="gobalHotWordActive">{{item}}</view>
+
+          </view>
+        </view>
         <!-- 门票 -->
-        <view class='ticket-order-wrap' hidden='{{currentTab !=0}}'>
+        <view class='ticket-order-wrap' hidden='{{currentTab !=1}}'>
           <view class='form'>
             <form bindsubmit="formSubmit" bindreset="formReset">
               <view class='form-item '>
@@ -19,47 +29,35 @@
                   <input value='{{ticketFormDestination}}' placeholder='请输入目的地'></input>
                 </view>
                 <view class='recommended-list'>
-                  <text class='recommended-item' wx:for="{{recommendedList}}" wx:key='index'  bindtap='autoFill' data-text='{{item}}'>{{item}}</text>
+                  <text class='recommended-item' wx:for="{{recommendedList}}" wx:key='index' bindtap='autoFill' data-text='{{item}}'>{{item}}</text>
                 </view>
               </view>
               <!-- 目的地 -->
               <view class='form-item '>
                 <text class='form-label'>预计出行日期</text>
-                <view class='form-it-content' >
-              
-  
-                    <view class="picker" bindtap='openTravelTimePopup'>
-                      当前选择: {{filter.format(ticketFormDate)}}
-                    </view>
-                    <wxs module="filter">
-            function format(ts) {
-              var d = getDate(ts)
-              return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
-            }
-            module.exports.format = format
-          </wxs>
-                                 <van-popup
-  show="{{ travelTimePopupShow}}"
-  position="bottom"
-  overlay="{{overlay }}"
-  bind:close="travelTimePopupShowonClose"
->
- <van-datetime-picker
-  type="date"
-  value="{{ ticketForm.date }}"
-  min-date="{{ minDate }}"
-  formatter="{{ formatter }}"
- bind:cancel="travelTimeonInputCancel"
- bind:confirm="travelTimeonInputConfirm"
-/>
-</van-popup>
+                <view class='form-it-content'>
+
+
+                  <view class="picker" bindtap='openTravelTimePopup'>
+                    当前选择: {{filter.format(ticketFormDate)}}
+                  </view>
+                  <wxs module="filter">
+                    function format(ts) {
+                      var d = getDate(ts)
+                      return [d.getFullYear(), d.getMonth() + 1, d.getDate()].join('-')
+                    }
+                    module.exports.format = format
+                  </wxs>
+                  <van-popup show="{{ travelTimePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="travelTimePopupShowonClose">
+                    <van-datetime-picker type="date" value="{{ ticketFormDate}}" min-date="{{ minDate }}" formatter="{{ formatter }}" bind:cancel="travelTimeonInputCancel" bind:confirm="travelTimeonInputConfirm" />
+                  </van-popup>
                 </view>
               </view>
               <!-- 出行人数 -->
               <view class='form-item '>
                 <text class='form-label'>出行人数</text>
                 <view class='form-it-content' style='font-size:28rpx;'>
-                  <input type='number' value='{{ticketFormTravelNumber}}' style='width:100rpx;display:inline-block;position:relative;top:8rpx;text-align:center;'></input>
+                  <input type='number' value='{{ticketFormTravelNumber}}' style='width:100rpx;display:inline-block;position:relative;top:8rpx;text-align:center;' bindinput='ticketFormTravelNumberChange'></input>
                   人
                 </view>
               </view>
@@ -67,19 +65,125 @@
           </view>
         </view>
         <!-- 酒店 -->
-         <view class='ticket-order-wrap' hidden='{{currentTab !=1}}'>酒店</view>
-         <!-- 餐饮 -->
- <view class='ticket-order-wrap' hidden='{{currentTab !=2}}'>餐饮</view>
- <!-- 自助游 -->
-  <view class='ticket-order-wrap' hidden='{{currentTab !=3}}'>自助游</view>
-  <!-- 旅游+ -->
-   <view class='ticket-order-wrap' hidden='{{currentTab !=4}}'>旅游+</view>
+        <view class='ticket-order-wrap' hidden='{{currentTab !=2}}'>
+          <view class='form-item '>
+            <text class='form-label'>星级</text>
+            <view class='form-it-content'>
+              <input value='{{hotelFormGend}}' placeholder='请输入酒店星级（选填）' bindinput='hotelFormGendChange'></input>
+            </view>
+            <view class="star-list-wrap">
+              <view class="star-item  {{item.active==true?'active':''}}" wx:for='{{hotelGendList}}' wx:key='index' bindtap="starActive" wx:for-index='index' data-index='{{index}}' data-word='{{item.text}}'>{{item.text}}</view>
+            </view>
+          </view>
+
+          <view class='form-item '>
+            <text class='form-label'>预计入住时间</text>
+            <view class='form-it-content'>
+              <view class="picker" bindtap='openCheckInTimePopup'>
+                当前选择: {{filter.format(hotelFormDate)}}
+              </view>
+              <van-popup show="{{checkInTimePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="checkInTimePopupShowonClose">
+                <van-datetime-picker type="date" value="{{ hotelFormDate }}" min-date="{{ minDate }}" formatter="{{ formatter }}" bind:cancel="checkInTimeonInputCancel" bind:confirm="checkInTimeonInputConfirm" />
+              </van-popup>
+            </view>
+          </view>
+          <!-- 入住人数 -->
+          <view class='form-item '>
+            <text class='form-label'>出行人数</text>
+            <view class='form-it-content' style='font-size:28rpx;'>
+              <input type='number' value='{{hotelTravelNumber}}' style='width:100rpx;display:inline-block;position:relative;top:8rpx;text-align:center;' bindinput="hotelTravelNumberChange"></input>
+              人
+            </view>
+          </view>
+        </view>
+        <!-- 餐饮 -->
+        <view class='ticket-order-wrap  food-order-wrap ' hidden='{{currentTab !=3}}'>
+          <view class='form-item '>
+            <text class='form-label'>类型</text>
+            <view class='form-it-content'>
+              <input value='{{mealTypeValue}}' placeholder='请输入餐饮类型（选填）' bindinput='foodFormGendChange'></input>
+            </view>
+            <view class="star-list-wrap">
+              <view class="star-item  {{item.active==true?'active':''}}" wx:for='{{mealTypeList}}' wx:key='index' bindtap="mealTypeActive" wx:for-index='index' data-index='{{index}}' data-word='{{item.text}}'>{{item.text}}</view>
+            </view>
+          </view>
+
+          <view class='form-item '>
+            <text class='form-label'>预计用餐时间</text>
+            <view class='form-it-content'>
+              <view class="picker" bindtap='openEatingTimePopup'>
+                当前选择: {{filter.format(foodFormDate)}}
+              </view>
+              <van-popup show="{{eatingTimePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="eatingTimePopupShowonClose">
+                <van-datetime-picker type="date" value="{{foodFormDate}}" min-date="{{ minDate }}" formatter="{{ formatter }}" bind:cancel="eatingTimeonInputCancel" bind:confirm="eatingTimeonInputConfirm" />
+              </van-popup>
+            </view>
+          </view>
+          <!-- 用餐时间 -->
+          <view class='form-item '>
+            <text class='form-label'>用餐时间</text>
+            <view class="star-list-wrap">
+              <view class="star-item  {{item.active==true?'active':''}}" wx:for='{{mealTimeList}}' wx:key='index' bindtap="mealTimeActive" wx:for-index='index' data-index='{{index}}' data-word='{{item.text}}'>{{item.text}}</view>
+            </view>
+          </view>
+          <!-- 入住人数 -->
+          <view class='form-item '>
+            <text class='form-label'>出行人数</text>
+            <view class='form-it-content' style='font-size:28rpx;'>
+              <input type='number' value='{{foodFormEatNumber}}' style='width:100rpx;display:inline-block;position:relative;top:8rpx;text-align:center;' bindinput="foodFormEatNumberChange"></input>
+              人
+            </view>
+          </view>
+        </view>
+        <!-- 旅游+ -->
+        <view class='ticket-order-wrap' hidden='{{currentTab !=4}}'>
+          <view class='form-item '>
+            <text class='form-label'>目的地</text>
+            <view class='form-it-content'>
+              <input value='{{travelPlusdestination}}' placeholder='请输入目的地(选填)' bindinput='travelPlusFormGendChange'></input>
+            </view>
+              <view class="star-list-wrap">
+                <view class="star-item  {{item.active==true?'active':''}}" wx:for='{{mealTypeList}}' wx:key='index' bindtap="mealTypeActive" wx:for-index='index' data-index='{{index}}' data-word='{{item.text}}'>{{item.text}}</view>
+              </view>
+          </view>
+          <view class='form-item '>
+            <text class='form-label'>预计出行时间</text>
+            <view class='form-it-content'>
+              <view class="picker" bindtap='travelPlusTimePopup'>
+                当前选择: {{filter.format(travelPlusFormDate)}}
+              </view>
+              <van-popup show="{{eatingTimePopupShow}}" position="bottom" overlay="{{overlay }}" bind:close="eatingTimePopupShowonClose">
+                <van-datetime-picker type="date" value="{{travelPlusFormDate}}" min-date="{{ minDate }}" formatter="{{ formatter }}" bind:cancel="eatingTimeonInputCancel" bind:confirm="eatingTimeonInputConfirm" />
+              </van-popup>
+            </view>
+          </view>
+          <!-- 套餐包含 -->
+          <view class='form-item '>
+            <text class='form-label'>包含</text>
+            <view class="star-list-wrap">
+
+              <van-checkbox wx:for="{{travelPlusIncludelist }}" wx:key="index" name="{{item.text }}" use-icon-slot value="{{item.checked}}" bind:change="travelPlusCheckboxOnChange" data-index='{{index}}'>
+                <image slot="icon" src="{{ item.checked ? icon.active : icon.normal }}" /> {{ item.text }}
+              </van-checkbox>
+
+            </view>
+          </view>
+          <!-- 入住人数 -->
+          <view class='form-item '>
+            <text class='form-label'>出行人数</text>
+            <view class='form-it-content' style='font-size:28rpx;'>
+              <input type='number' value='{{travelPlusNumber}}' style='width:100rpx;display:inline-block;position:relative;top:8rpx;text-align:center;' bindinput="travelPlusNumberChange"></input>
+              人
+            </view>
+          </view>
+        </view>
+
       </view>
     </view>
   </view>
-<!-- 搜索按钮 -->
+  <!-- 搜索按钮 -->
 
-<button class='btn' bindtap='goDetailPage'>搜索</button>
+  <button class='btn' bindtap='goDetailPage'>搜索</button>
 
 
 </view>

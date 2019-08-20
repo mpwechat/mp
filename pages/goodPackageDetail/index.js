@@ -1,9 +1,14 @@
 // pages/goodPackageDetail/index.js
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    gradient:false,
+    showHome: true,
+    pageName:'',
+    navH: app.globalData.navHeight,
     loading: true,
     login: '', //登陆
     bgImage: '',
@@ -394,6 +399,7 @@ Page({
     // }
     this.setData({
       optionsId: id,
+      pageName: options.name
     })
     var that = this;
     wx.getSystemInfo({

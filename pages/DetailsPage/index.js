@@ -1,9 +1,14 @@
 // pages/DetailsPage/index.js
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    showHome: true,
+    gradient:false,
+    navH: app.globalData.navHeight,
+    pageName:'',
     loading: true,
     login: '', //登陆
     bgImage: '',
@@ -435,6 +440,7 @@ Page({
     }
     this.setData({
       optionsId: id,
+      pageName: options.name
     })
     console.log(this.data.type, 'type');
     var that = this;

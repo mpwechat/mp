@@ -1,5 +1,6 @@
 <!--pages/paySuccess/index.wxml-->
 <view class='container pay-container'>
+ <navbar page-name="支付成功" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
   <view class='order-detail-wrap'>
     <view class='order-detail-content'>
       <view class='payment-security-tips'>

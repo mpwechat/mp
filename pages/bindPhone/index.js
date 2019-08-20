@@ -5,7 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHome:true,
     countdownShow:true,
+    gradient:false,
     countdown:60,
     phoneNumber:'17326033529',
     verification:1

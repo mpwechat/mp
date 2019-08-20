@@ -1,5 +1,7 @@
 <!--pages/integral/index.wxml-->
 <view class='container'>
+<navbar page-name="用户积分" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
   <view class='integral-bg'>
     <text>当前积分</text>
     <view class='current-integral-rap'>
@@ -108,6 +110,6 @@
 
 
 
-
+</view>
 
 </view>

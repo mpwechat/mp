@@ -1,5 +1,7 @@
 <!--pages/userInfo/index.wxml-->
 <view class='container'>
+<navbar page-name="用户中心" show-home='{{showHome}}' gradient="{{gradient}}"></navbar>
+  <view class="main-content-wrap" style='height:calc(100% - {{navH}}px)'>
   <view class='info-item avtar-info'>
     <view class='cell-title cell-content'>我的头像</view>
     <view class='cell-content'>
@@ -138,6 +140,6 @@
 
 
 
-
+</view>
 
 </view>

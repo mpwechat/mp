@@ -5,6 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    showHome: true,
+    gradient: false,
     countdownShow: true,
     countdown: 60,
     email: '1542142885@qq.com'

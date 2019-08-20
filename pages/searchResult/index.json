@@ -1,7 +1,7 @@
 {
   "usingComponents": {},
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#409eff",
+    "navigationBarBackgroundColor": "white",
     "navigationBarTitleText": "营销平台",
     "navigationBarTextStyle": "white"
 }

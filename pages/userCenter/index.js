@@ -7,6 +7,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    gradient:false,
+    showHome:false,
+    navH: app.globalData.navHeight,
     avatar:'',
     userInfo: {},
     canIUse: wx.canIUse('button.open-type.getUserInfo'),

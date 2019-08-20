@@ -2,12 +2,16 @@
 //index.js
 import addressJson from '../../utils/address.js'
 import moment from '../../utils/moment.js'
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    gradient:false,
+    showHome:true,
+    navH: app.globalData.navHeight,
     loading: true,
     overlay: true,
     // 地区
@@ -22,6 +26,7 @@ Page({
     travelDateBegin: '',
     // 更多查询条件
     condition: [],
+    conditionKey:'',
     areaList: addressJson,
     height: 0,
     recodePage:0,
@@ -105,7 +110,7 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // console.log(options);
+    console.log(options);
     if (options.area) {
       that.setData({
         areaValue: options.area,
@@ -124,17 +129,17 @@ Page({
           currentTypeArray[i].check = true
         }
       }
-      // currentTypeArray.forEach(function(item){
-      //   debugger
-      //   if (item.text = mactchItem.text){
-      //     item.check=true
-      //   }
-      // })
+      if (options.conditionKeyWord){
+this.setData({
+  conditionKey: options.conditionKeyWord
+})
+     }
 
       that.setData({
         searchType: options.type,
         oldType: options.type,
-        qualificationsTypes: currentTypeArray
+        qualificationsTypes: currentTypeArray,
+
       })
     }
     wx.getSystemInfo({
@@ -145,8 +150,9 @@ Page({
         })
       }
     })
-    that.getRecodes()
-    that.getCodition()
+   
+    that.getCodition();
+  
   },
   /**
    * 地区选择弹窗关闭
@@ -582,12 +588,17 @@ Page({
         // console.log(res.data.obj)
         res.data.obj.forEach(function (item) {
           item.options.forEach(function (optionItem) {
-            // if (optionItem.label == optionType && optionType !== '') {
-            //   optionItem.check = true;
-            //   this.conditions.push(optionItem.value)
-            // } else {
-            optionItem.check = false
-            // }
+            if(that.data.conditionKey!==''){
+              if (optionItem.label == that.data.conditionKey){
+                optionItem.check=true,
+                that.setData({
+                  condition: [optionItem.value]
+                })
+              }
+            }else{
+              optionItem.check = false
+            }
+           
 
           })
 
@@ -595,6 +606,7 @@ Page({
         that.setData({
           optionsArray: res.data.obj
         })
+        that.getRecodes();
 
       }
     })
@@ -604,6 +616,7 @@ Page({
    * 获取搜索记录
    */
   getRecodes() {
+    debugger
     // 重定义查询参数
     let that = this;
     let page = that.data.recodePage;
@@ -617,7 +630,7 @@ Page({
     let queryMinPrice = that.data.filterCurrentValue + ''
 
     wx.request({
-      url: 'https://www.supconit.net/search/aptitude?type=' + queryType + '&size=8&page=' + page + '&beginData=' + queryStartDate + '&keyword=' + queryKetWord + '&num=' + queryNumber + '&area=' + queryArea + '&beginPrice=' + queryMinPrice + '&conditin=' + queryCondition ,
+      url: 'https://www.supconit.net/search/aptitude?type=' + queryType + '&size=8&page=' + page + '&beginData=' + queryStartDate + '&keyword=' + queryKetWord + '&num=' + queryNumber + '&area=' + queryArea + '&beginPrice=' + queryMinPrice + '&condition=' + queryCondition ,
       data: '',
       header: {},
       method: 'GET',

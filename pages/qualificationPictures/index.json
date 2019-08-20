@@ -1,3 +1,5 @@
 {
-  "usingComponents": {}
+  "usingComponents": {},
+  "navigationBarBackgroundColor": "#409EFF",
+  "navigationBarTitleText": "产品图片"
 }

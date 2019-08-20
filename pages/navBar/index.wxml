@@ -1,0 +1,12 @@
+<!--components/navbar/index.wxml-->
+<view  style='height:{{navH}}px;' class=" navbar {{gradient?'gradient':''}}">
+  <view class="navbar-action-wrap  {{showHome ? 'navbar-action-group' : ''}} row item-center" wx:if="{{showNav}}">
+    <block >
+    <view     wx:if="{{showHome}}" name="back" color="#333" size="15px" custom-class="navbar-action_item first" bindtap="navBack"><image   class="back-arrow"  src="../../asset/images/backArrow.png" ></image></view>
+    </block>
+   
+  </view>
+  <view class='navbar-title'>
+    {{pageName}}
+  </view>
+</view>

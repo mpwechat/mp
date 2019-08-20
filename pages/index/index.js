@@ -4,6 +4,9 @@ import addressJson from '../../utils/address.js'
 const app = getApp()
 Page({
   data: {
+    showHome:false,
+    gradient:false,
+    navH: app.globalData.navHeight,
     indicatorDots: false,
     autoplay: true,
     interval: 2000,
@@ -359,7 +362,7 @@ this.setData({
       break;
     }
     wx.navigateTo({
-      url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type,
+      url: '/pages/DetailsPage/index?id=' + qualificationId + '&type=' + type + '&name=' + e.currentTarget.dataset.name,
     })
   },
   getGoodPackageDetail(e){
@@ -375,7 +378,7 @@ this.setData({
       break;
 }
     wx.navigateTo({
-      url: '/pages/goodPackageDetail/index?id=' + qualificationId + '&type=' + type,
+      url: '/pages/goodPackageDetail/index?id=' + qualificationId + '&type=' + type + '&name='+e.currentTarget.dataset.name,
   })
   }
 

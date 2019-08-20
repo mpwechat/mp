@@ -1,10 +1,14 @@
 // pages/integral/index.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showHome: true,
+    navH: app.globalData.navHeight,
+    gradient:false,
     height: 0,
     recordPage: 0,
     scroeArray: [],

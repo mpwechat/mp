@@ -1,2 +1,7 @@
 <!--pages/qualificationPictures/index.wxml-->
+<view>
+ <!-- <navbar page-name="产品图片" show-home='{{showHome}}' ></navbar>
+ <view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'> -->
 <web-view src="https://www.supconit.net/h5/Inpression.html?type={{type}}&id={{id}}"></web-view>
+<!-- </view> -->
+</view>

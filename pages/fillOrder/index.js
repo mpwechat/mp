@@ -1,11 +1,15 @@
 // pages/fillOrder/index.js
 const moment = require('../../utils/moment.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showHome:true,
+    navH: app.globalData.navHeight,
+    gradient:false,
     goodType: 1,
     chooseValenceList: [],
     chooseDate: '',

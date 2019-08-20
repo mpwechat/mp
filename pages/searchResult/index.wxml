@@ -1,6 +1,8 @@
    <!--pages/Hot/index.wxml-->
 <view class="container">
   <!-- 搜索 -->
+ <navbar page-name="搜索" show-home='{{showHome}}' gradient="{{gradient}}" ></navbar>
+<view class="main-content-wrap"  style='height:calc(100% - {{navH}}px)'>
   <view class='top-serach'>
     <view class='search-content'>
       <text class='area-wrap' bindtap="openAreaChoosePopup">{{areaValue}}  <text class="iconfont icon-xiajiantou"></text></text>
@@ -73,7 +75,7 @@
 
 
   <!-- 单个筛选菜单 综合筛选 -->
-  <view class='screening-item-mun' style='height:{{height}}' wx:if="{{comprehensiveConditionsShow}}" bindtap='comprehensiveConditionsHide'>
+  <view class='screening-item-mun' style='height:{{height}} ;top:{{94+navH}}px' wx:if="{{comprehensiveConditionsShow}}" bindtap='comprehensiveConditionsHide'>
     <view class='screening-item-mun-content {{aniStyle?"slideup":"slidedown"}}' catchtap='inbtn'>
       <view class='screen-condition'>
         <view class='condition-item' wx:for="{{comprehensiveCondition}}" wx:key='index' data-index='{{item.index}}' bindtap='comprehensiveConditionsChoose'> {{item.text}}
@@ -82,7 +84,7 @@
     </view>
   </view>
   <!-- 销量菜单筛选 -->
-  <view class='screening-item-mun' style='height:{{height}}' wx:if="{{salesConditionsShow}}" bindtap='salesConditionsHide'>
+  <view class='screening-item-mun' style='height:{{height}};top:{{94+navH}}px;' wx:if="{{salesConditionsShow}}" bindtap='salesConditionsHide'>
     <view class='screening-item-mun-content {{salesaniStyle?"slideup":"slidedown"}}' catchtap='inbtn'>
       <view class='screen-condition sales-condition'>
         <view class='condition-item' wx:for="{{salesCondition}}" wx:key='index' data-index='{{item.index}}' bindtap='salesConditionsConditionsChoose'> {{item.text}}
@@ -92,7 +94,7 @@
   </view>
 
   <!-- 好评菜单筛选 -->
-  <view class='screening-item-mun' style='height:{{height}}' wx:if="{{evaluationConditionsShow}}" bindtap='evaluationConditionsHide'>
+  <view class='screening-item-mun' style='height:{{height}};top:{{94+navH}}px;' wx:if="{{evaluationConditionsShow}}" bindtap='evaluationConditionsHide'>
     <view class='screening-item-mun-content {{evaluationaniStyle?"slideup":"slidedown"}}' catchtap='inbtn'>
       <view class='screen-condition sales-condition'>
         <view class='condition-item' wx:for="{{evaluationCondition}}" wx:key='index' data-index='{{item.index}}' bindtap='evaluationConditionsConditionsChoose'> {{item.text}}
@@ -102,7 +104,7 @@
   </view>
   <!-- 更多筛选条件 -->
 
-  <view class='screening-item-mun' style='height:{{height}}' bindtap='moreConditionsHide' wx:if="{{moreConditionsShow}}">
+  <view class='screening-item-mun' style='height:{{height}};top:{{94+navH}}px;' bindtap='moreConditionsHide' wx:if="{{moreConditionsShow}}">
     <view class='screening-item-mun-content  {{moreaniStyle?"slideup":"slidedown"}}' catchtap='inbtn'>
       <view class='screen-condition more-condition ' >
         <view class='price-condition-slide'>
@@ -159,4 +161,4 @@
 
 
 
-</view>
+</view></view>

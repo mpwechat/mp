@@ -1,11 +1,15 @@
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog.js'
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast.js'
+const app = getApp()
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     recodePage: 1,
+    gradient:false,
+    showHome:true,
+    navH: app.globalData.navHeight,
     height: 0,
     goodShowArray: [],
     loading: true,
